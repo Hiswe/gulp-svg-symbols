@@ -13,7 +13,7 @@ The plugin produce 2 files:
 
 in your gulpfile.js
 
-```
+```js
 var gulp = require('gulp');
 var svgSymbols = require('gulp-svg-symbols');
 
@@ -27,7 +27,7 @@ gulp.task('sprites', function () {
 in your HTML, you first have to [reference the SVG](http://css-tricks.com/svg-sprites-use-better-icon-fonts/)  
 then:
 
-```
+```html
 <svg role="img" class="github"> 
   <use xlink:href="#github"></use> 
 </svg>
@@ -52,7 +52,7 @@ Some observations
 
 So put together, you will have something like that:
 
-```
+```js
 var gulp 		= require('gulp');
 var if 			= require('gulp-if');
 var rename 		= require('gulp-rename');
