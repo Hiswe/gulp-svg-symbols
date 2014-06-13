@@ -1,0 +1,39 @@
+{
+  "name": "gulp-svg-symbols",
+  "version": "0.0.1",
+  "description": "Convert SVG files to symbols with gulp",
+  "main": "index.js",
+  "scripts": {
+    "test": "gulp test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Hiswe/gulp-svg-symbols.git"
+  },
+  "keywords": [
+    "gulpplugin",
+    "svg",
+    "symbols"
+  ],
+  "author": {
+    "name": "Yannick Aïvayan",
+    "email": "yannick.aivayan@hiswe.net",
+    "url": "http://hiswe.net"
+  },
+  "license": "WTFPL",
+  "bugs": {
+    "url": "https://github.com/Hiswe/gulp-svg-symbols/issues"
+  },
+  "homepage": "https://github.com/Hiswe/gulp-svg-symbols",
+  "dependencies": {
+    "consolidate": "^0.10.0",
+    "lodash": "^2.4.1",
+    "through2": "^0.5.1",
+    "svgo": "^0.4.4",
+    "gulp-util": "^2.2.17"
+  },
+  "devDependencies": {
+    "gulp": "^3.8.0",
+    "gulp-jasmine": "^0.2.0"
+  }
+}
