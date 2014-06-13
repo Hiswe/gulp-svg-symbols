@@ -4,7 +4,7 @@ var _             = require('lodash');
 var gutil         = require('gulp-util');
 var through       = require('through2');
 
-var PLUGIN_NAME   = "gulp-svg-symbol";
+var PLUGIN_NAME   = "gulp-svg-symbols";
 
 var buffer        = [];
 var defaults      = require('./lib/default-config');
@@ -24,7 +24,7 @@ function transform(file, encoding, cb) {
     return cb();
   }
 
-  formatSvgData(file, options,function (result) {
+  formatSvgData(file, options, function (result) {
     buffer.push(result)
     return cb(null);
   });

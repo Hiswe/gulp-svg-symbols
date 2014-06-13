@@ -43,6 +43,9 @@ You can overload the default options by passing an object as an argument to ```s
 
 Some observations
 
+- The `fontSize` options let you define a base font.  
+  If it's superior to 0, then the sizes in your CSS file will be in **em**.  
+  Otherwise it sticks to **pixels** (default behavior).
 - If you want to change the file name use [gulp-rename](https://www.npmjs.org/package/gulp-rename)  
 - If you want to change the generated files name, again use [gulp-rename](https://www.npmjs.org/package/gulp-rename)
 - If you want different destination for the files, use [gulp-if](https://www.npmjs.org/package/gulp-if)
@@ -63,12 +66,18 @@ gulp.task('sprites', function () {
    	.pipe(rename(renameFunction))
     .pipe(svgSymbols({
       svgId:     'icon-%f',
-	  className: '.icon-%f'
+	  className: '.icon-%f',
+	  fontSize:   16
     }))
     .pipe(rename(outputFilesRenameFunction))
     .pipe(if( /[.]svg$/, gulp.dest('views/svg'), gulp.dest('public/css')))
 });
 ```
+
+## Release History
+
+- **0.0.2** — Css can be generated with *em* size
+- **0.0.1** — First release
 
 ## All credits goes to
 
