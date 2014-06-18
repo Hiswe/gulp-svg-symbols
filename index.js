@@ -2,6 +2,7 @@
 
 var _             = require('lodash');
 var gutil         = require('gulp-util');
+var GulpError     = gutil.PluginError;
 var through       = require('through2');
 var Promise       = require('bluebird');
 
@@ -21,12 +22,12 @@ function transform(file, encoding, cb) {
   }
 
   if (file.isStream()) {
-    this.emit('error', new gutil.PluginError(PLUGIN_NAME, 'Streaming not supported'));
+    this.emit('error', new GulpError(PLUGIN_NAME, 'Streaming not supported'));
     return cb();
   }
 
   formatSvgData(file, options, function (result) {
-    buffer.push(result)
+    buffer.push(result);
     return cb(null);
   });
 }

@@ -1,5 +1,10 @@
+'use strict';
+
 var gulp        = require('gulp');
+var jshint      = require('gulp-jshint');
+var stylish     = require('jshint-stylish');
 var jasmine     = require('gulp-jasmine');
+
 var svgSymbols  = require('./index');
 var svgGlob     = 'test/source/*.svg';
 
@@ -12,6 +17,12 @@ gulp.task('demo', function (){
   return gulp.src(svgGlob)
     .pipe(svgSymbols())
     .pipe(gulp.dest('tmp'));
+});
+
+gulp.task('hint', function () {
+  return gulp.src(['index.js', 'gulpfile.js', 'lib/*.js'])
+    .pipe(jshint())
+    .pipe(jshint.reporter('jshint-stylish'));
 });
 
 gulp.task('watch', function (){

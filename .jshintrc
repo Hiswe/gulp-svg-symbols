@@ -1,0 +1,11 @@
+{
+  "node": true,
+  "validthis": true,
+  "strict": true,
+  "quotmark": "single",
+  "maxlen": 80,
+  "latedef": true,
+  "camelcase": true,
+  "newcap": true,
+  "indent": 2
+}
