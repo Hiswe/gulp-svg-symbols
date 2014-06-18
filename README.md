@@ -1,5 +1,7 @@
 # gulp-svg-symbols
 
+[![Build Status](https://travis-ci.org/Hiswe/gulp-svg-symbols.svg?branch=master)](https://travis-ci.org/Hiswe/gulp-svg-symbols)
+
 *gulp-svg-symbols* is a minimal plugin for [gulp](http://gulpjs.com).  
 It converts a bunch of svg files to a single svg file containing each one as a symbol.  
 See [css-trick](http://css-tricks.com/svg-symbol-good-choice-icons/) for more details.
@@ -82,7 +84,8 @@ gulp.task('sprites', function () {
 
 ## Release History
 
-- **0.1.0** — publish to npm and fix [watch issue](https://github.com/Hiswe/gulp-svg-symbols/issues/2)
+- **0.1.1** — Add travis build
+- **0.1.0** — Publish to NPM and fix [watch issue](https://github.com/Hiswe/gulp-svg-symbols/issues/2)
 - **0.0.2** — Css can be generated with *em* size
 - **0.0.1** — First release
 
