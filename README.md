@@ -9,6 +9,12 @@ The plugin produce 2 files:
 - *svg-symbols.svg* containing all SVG symbols
 - *svg-symbols.css* containing all classes with the right svg sizes
 
+## install
+
+```
+npm install --save-dev gulp-svg-symbols
+```
+
 ## example
 
 in your gulpfile.js
@@ -76,6 +82,7 @@ gulp.task('sprites', function () {
 
 ## Release History
 
+- **0.1.0** — publish to npm and fix [watch issue](https://github.com/Hiswe/gulp-svg-symbols/issues/2)
 - **0.0.2** — Css can be generated with *em* size
 - **0.0.1** — First release
 

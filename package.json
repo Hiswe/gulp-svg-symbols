@@ -1,6 +1,6 @@
 {
   "name": "gulp-svg-symbols",
-  "version": "0.0.2",
+  "version": "0.1.0",
   "description": "Convert SVG files to symbols with gulp",
   "main": "index.js",
   "scripts": {
@@ -30,10 +30,12 @@
     "lodash": "^2.4.1",
     "through2": "^0.5.1",
     "svgo": "^0.4.4",
-    "gulp-util": "^2.2.17"
+    "gulp-util": "^2.2.17",
+    "bluebird": "^2.1.2"
   },
   "devDependencies": {
     "gulp": "^3.8.0",
-    "gulp-jasmine": "^0.2.0"
+    "gulp-jasmine": "^0.2.0",
+    "event-stream": "^3.1.5"
   }
 }
