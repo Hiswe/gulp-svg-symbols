@@ -36,7 +36,11 @@ function flush(cb) {
   var that  = this;
   var files = [];
   files.push(toSvgFile(buffer));
-  files.push(toCssFile(buffer));
+  // Optional CSS file
+  // https://github.com/Hiswe/gulp-svg-symbols/issues/3
+  if (options.css === true) {
+    files.push(toCssFile(buffer));
+  }
   Promise.all(files).then(function (files) {
     files.forEach(function (file) {
       that.push(file);

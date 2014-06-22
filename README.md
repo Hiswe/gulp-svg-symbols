@@ -1,6 +1,6 @@
 # gulp-svg-symbols
 
-[![Build Status](https://travis-ci.org/Hiswe/gulp-svg-symbols.svg?branch=master)](https://travis-ci.org/Hiswe/gulp-svg-symbols)
+[![NPM version](https://badge.fury.io/js/gulp-svg-symbols.svg)](http://badge.fury.io/js/gulp-svg-symbols) [![Build Status](https://travis-ci.org/Hiswe/gulp-svg-symbols.svg?branch=master)](https://travis-ci.org/Hiswe/gulp-svg-symbols)
 
 *gulp-svg-symbols* is a minimal plugin for [gulp](http://gulpjs.com).  
 It converts a bunch of svg files to a single svg file containing each one as a symbol.  
@@ -49,11 +49,14 @@ then:
 You can overload the default options by passing an object as an argument to ```svgSymbols()```  
 ```%f``` is the file name. 
 
+Default options can be find [here](https://github.com/Hiswe/gulp-svg-symbols/blob/master/lib/default-config.js)
+
 Some observations
 
-- The `fontSize` options let you define a base font.  
+- The `fontSize` options le you define a base font.  
   If it's superior to 0, then the sizes in your CSS file will be in **em**.  
   Otherwise it sticks to **pixels** (default behavior).
+- If `css` option is set to `false`, the plugin won't ouput the CSS file.   
 - If you want to change the file name use [gulp-rename](https://www.npmjs.org/package/gulp-rename)  
 - If you want to change the generated files name, again use [gulp-rename](https://www.npmjs.org/package/gulp-rename)
 - If you want different destination for the files, use [gulp-if](https://www.npmjs.org/package/gulp-if)
@@ -75,15 +78,17 @@ gulp.task('sprites', function () {
     .pipe(svgSymbols({
       svgId:     'icon-%f',
 	  className: '.icon-%f',
-	  fontSize:   16
+	  fontSize:   16,
+	  css: false
     }))
     .pipe(rename(outputFilesRenameFunction))
-    .pipe(if( /[.]svg$/, gulp.dest('views/svg'), gulp.dest('public/css')))
+    .pipe(gulp.dest('views/svg'));
 });
 ```
 
 ## Release History
 
+- **0.1.2** — Config for optional CSS output 
 - **0.1.1** — Add travis build
 - **0.1.0** — Publish to NPM and fix [watch issue](https://github.com/Hiswe/gulp-svg-symbols/issues/2)
 - **0.0.2** — Css can be generated with *em* size
