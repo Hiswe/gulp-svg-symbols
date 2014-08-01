@@ -18,7 +18,7 @@ describe('transform method without options', function () {
     });
     this.info = { width: 22,
       height: 24,
-      name: 'github',
+      title: 'github icon',
       id: 'github',
       className: '.github',
       cssWidth : '22px',

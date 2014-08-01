@@ -18,7 +18,7 @@ describe('transform method with options', function () {
     });
     this.info = { width: 24,
       height: 24,
-      name: 'codepen',
+      title: 'codepen icon',
       id: 'icon-codepen',
       className: '.icon-codepen',
       cssWidth : '1.5em',

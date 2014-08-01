@@ -36,8 +36,8 @@ in your HTML, you first have to [reference the SVG](http://css-tricks.com/svg-sp
 then:
 
 ```html
-<svg role="img" class="github"> 
-  <use xlink:href="#github"></use> 
+<svg role="img" class="github">
+  <use xlink:href="#github"></use>
 </svg>
 ```
 
@@ -46,49 +46,76 @@ then:
 
 ## options
 
-You can overload the default options by passing an object as an argument to ```svgSymbols()```  
-```%f``` is the file name. 
+You can overload the [default options](https://github.com/Hiswe/gulp-svg-symbols/blob/master/lib/default-config.js) by passing an object as an argument to `svgSymbols()`
 
-Default options can be find [here](https://github.com/Hiswe/gulp-svg-symbols/blob/master/lib/default-config.js)
+### svgId & className
 
-Some observations
+text templates for generating icon class & symbols id  
+`%f` is the file name placeholder.
 
-- The `fontSize` options le you define a base font.  
-  If it's superior to 0, then the sizes in your CSS file will be in **em**.  
-  Otherwise it sticks to **pixels** (default behavior).
-- If `css` option is set to `false`, the plugin won't ouput the CSS file.   
+### fontSize
+
+this option let you define a base font.  
+If it's superior to 0, then the sizes in your CSS file will be in **em**.
+
+### css
+
+`false` remove the CSS file output.
+
+### accessibility
+
+take `false` or a `function` as param.  
+With **false** the template won't output any `title` tag.  
+The **function** take the current name as param.  
+You should return an object like:
+```js
+return {
+  title: 'my title for the <title> tag',
+  description: 'my description for the <desc> tag'
+};
+```
+
+### other observations
+
 - If you want to change the file name use [gulp-rename](https://www.npmjs.org/package/gulp-rename)  
 - If you want to change the generated files name, again use [gulp-rename](https://www.npmjs.org/package/gulp-rename)
 - If you want different destination for the files, use [gulp-if](https://www.npmjs.org/package/gulp-if)
 - Unlike [gulp-svg-sprites](https://www.npmjs.org/package/gulp-svg-sprites) it doesn't generate preview files.
-- Unlike [gulp-svg-sprites](https://www.npmjs.org/package/gulp-svg-sprites) there is no way to add padding to svg files.   
+- Unlike [gulp-svg-sprites](https://www.npmjs.org/package/gulp-svg-sprites) there is no way to add padding to svg files.
  It should be the purpose of another plugin, no?
 
-So put together, you will have something like that:
+### All put together:
 
 ```js
-var gulp 		= require('gulp');
-var if 			= require('gulp-if');
-var rename 		= require('gulp-rename');
-var svgSymbols 	= require('gulp-svg-symbols');
+var gulp        = require('gulp');
+var if          = require('gulp-if');
+var rename      = require('gulp-rename');
+var svgSymbols  = require('gulp-svg-symbols');
+var dictionary  = require('./svg-dictionary.json');
 
 gulp.task('sprites', function () {
   return gulp.src('assets/svg/*.svg')
-   	.pipe(rename(renameFunction))
-    .pipe(svgSymbols({
-      svgId:     'icon-%f',
-	  className: '.icon-%f',
-	  fontSize:   16,
-	  css: false
-    }))
-    .pipe(rename(outputFilesRenameFunction))
-    .pipe(gulp.dest('views/svg'));
+  .pipe(rename(renameFunction))
+  .pipe(svgSymbols({
+    svgId:     'icon-%f',
+    className: '.icon-%f',
+    fontSize:   16,
+    accessibility: function (name) {
+      return {
+        title: dictionary[name].title,
+        descriptions: dictionary[name].description
+      }
+    },
+    css: false
+  }))
+  .pipe(rename(outputFilesRenameFunction))
+  .pipe(gulp.dest('views/svg'));
 });
 ```
 
 ## Release History
 
-- **0.1.2** — Config for optional CSS output 
+- **0.1.2** — Config for optional CSS output
 - **0.1.1** — Add travis build
 - **0.1.0** — Publish to NPM and fix [watch issue](https://github.com/Hiswe/gulp-svg-symbols/issues/2)
 - **0.0.2** — Css can be generated with *em* size
@@ -96,5 +123,5 @@ gulp.task('sprites', function () {
 
 ## All credits goes to
 
-- [Chris Coyier](http://css-tricks.com/) for the trick
+- [Chris Coyier](http://css-tricks.com/) for the [trick](http://css-tricks.com/svg-symbol-good-choice-icons/)
 - [Shaky Shane](https://www.npmjs.org/~shakyshane) for the [gulp-svg-sprites](https://www.npmjs.org/package/gulp-svg-sprites) plugin
