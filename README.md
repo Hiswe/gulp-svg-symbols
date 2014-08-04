@@ -115,6 +115,7 @@ gulp.task('sprites', function () {
 
 ## Release History
 
+- **0.1.3** — Custom `<title>` &amp; `<desc>` content
 - **0.1.2** — Config for optional CSS output
 - **0.1.1** — Add travis build
 - **0.1.0** — Publish to NPM and fix [watch issue](https://github.com/Hiswe/gulp-svg-symbols/issues/2)
