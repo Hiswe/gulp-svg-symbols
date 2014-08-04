@@ -1,3 +1,8 @@
+'use strict';
+
+/*jshint maxlen:false */
+/*global jasmine, beforeEach, afterEach, describe, expect, it, spyOn, xdescribe, xit */
+
 var fs            = require('fs');
 var path          = require('path');
 var gutil         = require('gulp-util');
@@ -21,19 +26,21 @@ describe('transform method with options', function () {
       title: 'codepen icon',
       id: 'icon-codepen',
       className: '.icon-codepen',
-      cssWidth : '1.5em',
-      cssHeight : '1.5em'
+      cssWidth: '1.5em',
+      cssHeight: '1.5em',
+      viewBox: '0 0 24 24'
     };
     this.config = {
       svgId:     'icon-%f',
       className: '.icon-%f',
       fontSize:   16
-    }
+    };
   });
 
   it('should gather the right data for a svg file', function (done) {
     var that = this;
     formatSvgData(this.file, this.config, function (result) {
+      delete result.data;
       expect(result.info).toEqual(jasmine.any(Object));
       expect(result.info).toEqual(that.info);
       done();
@@ -44,9 +51,9 @@ describe('transform method with options', function () {
     var that = this;
     formatSvgData(this.file, this.config, function (result) {
       toSvg([result], function (err, result) {
-        var outputFile = fs.readFileSync('test/output/codepen-symbol.svg').toString();
+        var outputFile = fs.readFileSync('test/output/codepen-symbol.svg');
         expect(result.path).toEqual('svg-symbols.svg');
-        expect(result.contents.toString()).toEqual(outputFile);
+        expect(result.contents.toString()).toEqual(outputFile.toString());
         done();
       });
     });
@@ -56,9 +63,9 @@ describe('transform method with options', function () {
     var that = this;
     formatSvgData(this.file, this.config, function(result){
       toCss([result], function(err, result){
-        var outputFile = fs.readFileSync('test/output/codepen-symbol.css').toString();
+        var outputFile = fs.readFileSync('test/output/codepen-symbol.css');
         expect(result.path).toEqual('svg-symbols.css');
-        expect(result.contents.toString()).toEqual(outputFile);
+        expect(result.contents.toString()).toEqual(outputFile.toString());
         done();
       });
     });

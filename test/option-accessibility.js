@@ -1,3 +1,8 @@
+'use strict';
+
+/*jshint maxlen:false */
+/*global jasmine, beforeEach, afterEach, describe, expect, it, spyOn, xdescribe, xit */
+
 var _             = require('lodash');
 var fs            = require('fs');
 var path          = require('path');
@@ -20,6 +25,7 @@ describe('Accessibility option', function () {
     this.info = {
       width: 28,
       height: 24,
+      viewBox : '0 0 28 24',
       title: 'mail icon',
       id: 'icon-mail',
       className: '.icon-mail',
@@ -52,14 +58,14 @@ describe('Accessibility option', function () {
     var that = this;
     var expectedResult = _.merge(this.info, this.dummyDesc);
     delete expectedResult.pouic;
-    this.config.accessibility = function (name) { return that.dummyDesc; }
+    this.config.accessibility = function (name) { return that.dummyDesc; };
     formatSvgData(this.file, this.config, function (result) {
       expect(result.info).toEqual(expectedResult);
       done();
     });
   });
 
-  it('should render the SVG without title if accessibility is unwanted', function (done) {
+  it('should render the SVG without title if no accessibility is unwanted', function (done) {
     var that = this;
     this.config.accessibility = false;
     formatSvgData(this.file, this.config, function (result) {
@@ -74,7 +80,7 @@ describe('Accessibility option', function () {
 
   it('should render the SVG with title & desc if a custom accessibility function is defined', function (done) {
     var that = this;
-    this.config.accessibility = function (name) { return that.dummyDesc; }
+    this.config.accessibility = function (name) { return that.dummyDesc; };
     formatSvgData(this.file, this.config, function (result) {
       toSvg([result], function (err, result) {
         var outputFile = fs.readFileSync('test/output/mail-symbol-accessible.svg').toString();

@@ -1,10 +1,13 @@
 'use strict';
 
 var _             = require('lodash');
+var path          = require('path');
 var gutil         = require('gulp-util');
 var GulpError     = gutil.PluginError;
 var through       = require('through2');
 var Promise       = require('bluebird');
+var _tmpl         = require('consolidate').lodash;
+var File          = gutil.File;
 
 var PLUGIN_NAME   = 'gulp-svg-symbols';
 
@@ -50,7 +53,7 @@ function flush(cb) {
 }
 
 // Greatly inspired by https://www.npmjs.org/package/gulp-svg-sprites
-module.exports = function (opts) {
+var plugin = function (opts) {
   // flush the buffer
   // https://github.com/Hiswe/gulp-svg-symbols/issues/2
   buffer  = [];
@@ -58,3 +61,33 @@ module.exports = function (opts) {
   options = _.merge(_.cloneDeep(defaults), opts || {});
   return through.obj(transform, flush);
 };
+
+// Generate a demo html page
+plugin.demoPage = function (opts) {
+  buffer = [];
+  options = _.merge(_.cloneDeep(defaults), opts || {});
+  return through.obj(transform, function (cb) {
+    var that          = this;
+    var files         = [toSvgFile(buffer), toCssFile(buffer)];
+    var demoTemplate  = path.join(__dirname, './templates/demo.html');
+
+    var allFilesDone  = function allFilesDone(files) {
+      var datas = {icons: buffer, files: files};
+      _tmpl(demoTemplate, datas, function (err, result) {
+        if (err) return cb(err, result);
+        var file =  new File({
+          cwd:  './',
+          base: './',
+          path: 'svg-symbols-demo-page.html',
+          contents: new Buffer(result)
+        });
+        that.push(file);
+        cb();
+      });
+    };
+
+    Promise.all(files).then(allFilesDone);
+  });
+};
+
+module.exports = plugin;

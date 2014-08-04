@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>Gulp SVG Symbols test page</title>
+    <meta name="description" content="" />
+    <meta name="viewport" content="width=device-width" />
+    <style type="text/css">
+      html {
+        font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+        background: #ecf4f8;
+        text-align: center;
+      }
+      html, body {
+        margin: 0; padding: 0;
+      }
+      h1 {
+        margin: 0 0 1em; padding: 1em;
+        background: white;
+      }
+      div {
+        display: inline-block;
+        background: white;
+        margin: .5em; padding: 1em;
+        border-radius: .5em;
+      }
+      p {
+        margin: 0; padding: 0 0 .5em;
+      }
+    </style>
+    <style type="text/css">
+      <%= files[1].contents.toString() %>
+    </style>
+  </head>
+  <body>
+    <%= files[0].contents.toString() %>
+    <h1>Gulp SVG Symbols demo page</h1>
+    <main><% _.each( icons, function( icon ){ %>
+      <div>
+        <p>#<%= icon.id %></p>
+        <svg role="img" class="<%= icon.id %>">
+          <use xlink:href="#<%= icon.id %>"></use>
+        </svg>
+      </div><% }); %>
+    </main>
+  </body>
+</html>

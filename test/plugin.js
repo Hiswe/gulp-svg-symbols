@@ -1,3 +1,7 @@
+'use strict';
+/*jshint maxlen:false */
+/*global jasmine, beforeEach, afterEach, describe, expect, it, spyOn, xdescribe, xit */
+
 var fs            = require('fs');
 var es            = require('event-stream');
 var gulp          = require('gulp');
@@ -5,7 +9,7 @@ var path          = require('path');
 var gutil         = require('gulp-util');
 
 var svgSymbols    = require('../index.js');
-var srcGlob       = 'test/source/*.svg'
+var srcGlob       = 'test/source/*.svg';
 
 describe('gulp-svg-symbols plugin', function () {
   beforeEach(function () {
@@ -40,21 +44,21 @@ describe('gulp-svg-symbols plugin', function () {
             return data;
           }))
           .pipe(es.wait(function () {
-            var svgOutputFile = fs.readFileSync('test/output/svg-symbols.svg').toString();
-            var cssOutputFile = fs.readFileSync('test/output/svg-symbols.css').toString();
+            var svgOutputFile = fs.readFileSync('test/output/svg-symbols.svg');
+            var cssOutputFile = fs.readFileSync('test/output/svg-symbols.css');
             expect(that.output.length).toEqual(2);
-            expect(that.output[0].contents.toString()).toEqual(svgOutputFile);
-            expect(that.output[1].contents.toString()).toEqual(cssOutputFile);
+            expect(that.output[0].contents.toString()).toEqual(svgOutputFile.toString());
+            expect(that.output[1].contents.toString()).toEqual(cssOutputFile.toString());
             done();
           }));
       }));
   });
 });
 
-describe('gulp-svg-symbols plugin without CSS', function () {
+xdescribe('gulp-svg-symbols plugin without CSS', function () {
   beforeEach(function () {
     this.output =  [];
-    this.options = {css: false}
+    this.options = {css: false};
   });
 
   it('should produce one file', function(done){
@@ -84,9 +88,9 @@ describe('gulp-svg-symbols plugin without CSS', function () {
             return data;
           }))
           .pipe(es.wait(function () {
-            var svgOutputFile = fs.readFileSync('test/output/svg-symbols.svg').toString();
+            var svgOutputFile = fs.readFileSync('test/output/svg-symbols.svg');
             expect(that.output.length).toEqual(1);
-            expect(that.output[0].contents.toString()).toEqual(svgOutputFile);
+            expect(that.output[0].contents.toString()).toEqual(svgOutputFile.toString());
             done();
           }));
       }));
