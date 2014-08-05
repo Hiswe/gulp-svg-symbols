@@ -144,6 +144,7 @@ gulp.task('demo', function () {
 
 ## Release History
 
+- **0.1.5** — Fix test
 - **0.1.4** — Fix viewbox issue
 - **0.1.3** — Custom `<title>` &amp; `<desc>` content
 - **0.1.2** — Config for optional CSS output
