@@ -88,7 +88,6 @@ return {
 
 ```js
 var gulp        = require('gulp');
-var if          = require('gulp-if');
 var rename      = require('gulp-rename');
 var svgSymbols  = require('gulp-svg-symbols');
 var dictionary  = require('./svg-dictionary.json');
@@ -103,7 +102,7 @@ gulp.task('sprites', function () {
     accessibility: function (name) {
       return {
         title: dictionary[name].title,
-        descriptions: dictionary[name].description
+        description: dictionary[name].description
       }
     },
     css: false
@@ -113,8 +112,39 @@ gulp.task('sprites', function () {
 });
 ```
 
+## Untested features
+
+### SVGO
+
+This plugin use [SVGO](https://github.com/svg/svgo) before concatenating the files.  
+Options to SVGO could be passed by using svgoConfig option:
+
+```js
+.pipe(svgSymbols({
+  svgoConfig: {
+    // pass here any options to svgo
+  }
+}))
+```
+
+### Demo page
+
+You can generate a simple demo page with `svgSymbols.demoPage()`
+
+```js
+var gulp = require('gulp');
+var svgSymbols = require('gulp-svg-symbols');
+
+gulp.task('demo', function () {
+  return gulp.src('assets/svg/*.svg')
+    .pipe(svgSymbols.demoPage())
+    .pipe(gulp.dest('tmp'));
+});
+```
+
 ## Release History
 
+- **0.1.4** — Fix viewbox issue
 - **0.1.3** — Custom `<title>` &amp; `<desc>` content
 - **0.1.2** — Config for optional CSS output
 - **0.1.1** — Add travis build

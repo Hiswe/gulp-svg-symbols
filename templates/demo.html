@@ -38,9 +38,9 @@
     <h1>Gulp SVG Symbols demo page</h1>
     <main><% _.each( icons, function( icon ){ %>
       <div>
-        <p>#<%= icon.id %></p>
-        <svg role="img" class="<%= icon.id %>">
-          <use xlink:href="#<%= icon.id %>"></use>
+        <p>#<%= icon.info.id %></p>
+        <svg role="img" class="<%= icon.info.id %>">
+          <use xlink:href="#<%= icon.info.id %>"></use>
         </svg>
       </div><% }); %>
     </main>
