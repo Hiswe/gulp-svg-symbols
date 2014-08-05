@@ -52,6 +52,7 @@ describe('transform method with options', function () {
     formatSvgData(this.file, this.config, function (result) {
       toSvg([result], function (err, result) {
         var outputFile = fs.readFileSync('test/output/codepen-symbol.svg');
+        expect(err).toBe(null);
         expect(result.path).toEqual('svg-symbols.svg');
         expect(result.contents.toString()).toEqual(outputFile.toString());
         done();
@@ -61,8 +62,9 @@ describe('transform method with options', function () {
 
   it('should render the right css', function (done) {
     var that = this;
-    formatSvgData(this.file, this.config, function(result){
-      toCss([result], function(err, result){
+    formatSvgData(this.file, this.config, function (result) {
+      toCss([result], function (err, result){
+        expect(err).toBe(null);
         var outputFile = fs.readFileSync('test/output/codepen-symbol.css');
         expect(result.path).toEqual('svg-symbols.css');
         expect(result.contents.toString()).toEqual(outputFile.toString());

@@ -46,6 +46,7 @@ describe('transform method without options', function () {
     var that = this;
     formatSvgData(this.github, config, function (result){
       toSvg([result], function (err, result) {
+        expect(err).toBe(null);
         expect(result.path).toEqual('svg-symbols.svg');
         var outputFile = fs.readFileSync('test/output/github-symbol.svg');
         expect(result.contents.toString()).toEqual(outputFile.toString());
@@ -56,11 +57,12 @@ describe('transform method without options', function () {
 
   it('should render the right css', function (done) {
     var that = this;
-    formatSvgData(this.github, config, function (result){
+    formatSvgData(this.github, config, function (result) {
       toCss([result], function (err, result) {
+        expect(err).toBe(null);
         var outputFile = fs.readFileSync('test/output/github-symbol.css');
         expect(result.path).toEqual('svg-symbols.css');
-        expect(result.contents.toString()).toEqual(outputFile).toString();
+        expect(result.contents.toString()).toEqual(outputFile.toString());
         done();
       });
     });
