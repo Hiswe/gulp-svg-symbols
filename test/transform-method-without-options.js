@@ -13,7 +13,7 @@ var toSvg         = require('../lib/svg-data-to-svg-file.js');
 var toCss         = require('../lib/svg-data-to-css-file.js');
 
 // Use the github files for this
-describe('transform method without options', function () {
+xdescribe('transform method without options', function () {
   beforeEach(function() {
     this.github = new gutil.File({
       base: 'test/source',

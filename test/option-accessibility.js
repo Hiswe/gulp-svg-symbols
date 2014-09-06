@@ -14,7 +14,7 @@ var toSvg         = require('../lib/svg-data-to-svg-file.js');
 var toCss         = require('../lib/svg-data-to-css-file.js');
 
 // Use the mail SVG for test
-describe('Accessibility option', function () {
+xdescribe('Accessibility option', function () {
   beforeEach(function () {
     this.file = new gutil.File({
       base: 'test/source',
