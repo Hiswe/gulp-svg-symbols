@@ -1,5 +1,6 @@
 'use strict';
 
+var path        = require('path');
 var gulp        = require('gulp');
 var jshint      = require('gulp-jshint');
 var stylish     = require('jshint-stylish');
@@ -27,8 +28,19 @@ gulp.task('hint', function () {
 });
 
 gulp.task('demo-page', function () {
-	return gulp.src(svgGlob)
+  return gulp.src(svgGlob)
     .pipe(svgSymbols.demoPage())
+    .pipe(gulp.dest('tmp'));
+});
+
+gulp.task('templates', function () {
+  return gulp.src(svgGlob)
+    .pipe(svgSymbols({
+      templates: [
+        path.join(__dirname, './test/source/template.html'),
+        path.join(__dirname, './test/source/template.json')
+      ]
+    }))
     .pipe(gulp.dest('tmp'));
 });
 
@@ -38,10 +50,10 @@ gulp.task('watch', function () {
 });
 
 gulp.task('default', function (cb) {
-	console.log('test');
-	console.log('demo');
-	console.log('hint');
+  console.log('test');
+  console.log('demo');
+  console.log('hint');
   console.log('watch');
-	console.log('demo-page');
-	cb();
+  console.log('demo-page');
+  cb();
 });

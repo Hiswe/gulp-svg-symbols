@@ -33,17 +33,15 @@ function transform(file, encoding, cb) {
 }
 
 function flush(cb) {
-  var that  = this;
+  var that = this;
   var svgData;
   var files;
 
-  // Add custom datas
   svgData = buffer.map(function (svgRawData) {
     return mergeDatas(svgRawData, options);
   });
 
-  // Render all templates
-  files = renderTemplates(svgData, options.templates);
+  files   = renderTemplates(options.templates, svgData);
 
   function outputFiles(files) {
     files.forEach(function (file) {

@@ -12,11 +12,11 @@ var formatSvgData = require('../lib/raw-svg-data.js');
 
 // Use the skull files for that
 var svgFile       = new gutil.File({
-    base: 'test/source',
-    cwd: 'test/',
-    path: 'test/source/skull.svg',
-    contents: fs.readFileSync('test/source/skull.svg')
-  });
+  base: 'test/source',
+  cwd: 'test/',
+  path: 'test/source/skull.svg',
+  contents: fs.readFileSync('test/source/skull.svg')
+});
 var authorizedInfo = ['content', 'width', 'height', 'name', 'viewBox'].sort();
 var expectedInfo  = {
   content:  fs.readFileSync('test/output/skull-symbol.svg').toString(),

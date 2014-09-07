@@ -3,63 +3,58 @@
 /*jshint maxlen:false */
 /*global jasmine, beforeEach, afterEach, describe, expect, it, spyOn, xdescribe, xit */
 
-var fs            = require('fs');
-var path          = require('path');
-var gutil         = require('gulp-util');
+var fs              = require('fs');
+var path            = require('path');
+var gutil           = require('gulp-util');
+var BPromise        = require('bluebird')
 
-// Use the github files for this
-// xdescribe('transform method without options', function () {
-//   beforeEach(function() {
-//     this.github = new gutil.File({
-//       base: 'test/source',
-//       cwd: 'test/',
-//       path: 'test/source/github.svg',
-//       contents: fs.readFileSync('test/source/github.svg')
-//     });
-//     this.info = { width: 22,
-//       height: 24,
-//       title: 'github icon',
-//       id: 'github',
-//       className: '.github',
-//       cssWidth : '22px',
-//       cssHeight : '24px',
-//       viewBox : '0 0 22 24',
-//     };
-//   });
+var renderTemplates = require('../lib/render-templates.js');
+var renderTemplate  = require('../lib/render-templates.js').render;
+var htmlOutput      = fs.readFileSync('test/output/template.html').toString();
+var jsonOutput      = fs.readFileSync('test/output/template.json').toString();
+//
 
-//   it('should gather the right data for a svg file', function (done) {
-//     var that = this;
-//     formatSvgData(this.github, config, function (result) {
-//       delete result.data;
-//       expect(result.info).toEqual(jasmine.any(Object));
-//       expect(result.info).toEqual(that.info);
-//       done();
-//     });
-//   });
+// Use the ios files for that
+// Should add a fill: none property
+// See https://github.com/Hiswe/gulp-svg-symbols/issues/9
+var svgFile         = new gutil.File({
+  base: 'test/source',
+  cwd: 'test/',
+  path: 'test/source/ios.svg',
+  contents: fs.readFileSync('test/source/ios.svg')
+});
+var datas           = [
+  {id: 'pouic'},
+  {id: 'clapou'}
+];
+var templates       = [
+  path.join(__dirname, './source/template.html'),
+  path.join(__dirname, './source/template.json')
+];
 
-//   it('should render the right svg', function (done) {
-//     var that = this;
-//     formatSvgData(this.github, config, function (result){
-//       toSvg([result], function (err, result) {
-//         expect(err).toBe(null);
-//         expect(result.path).toEqual('svg-symbols.svg');
-//         var outputFile = fs.readFileSync('test/output/github-symbol.svg');
-//         expect(result.contents.toString()).toEqual(outputFile.toString());
-//         done();
-//       });
-//     });
-//   });
+console.log(templates);
 
-//   it('should render the right css', function (done) {
-//     var that = this;
-//     formatSvgData(this.github, config, function (result) {
-//       toCss([result], function (err, result) {
-//         expect(err).toBe(null);
-//         var outputFile = fs.readFileSync('test/output/github-symbol.css');
-//         expect(result.path).toEqual('svg-symbols.css');
-//         expect(result.contents.toString()).toEqual(outputFile.toString());
-//         done();
-//       });
-//     });
-//   });
-// });
+describe('Templates', function () {
+
+  it('should render a random template with random infos', function (done) {
+    renderTemplate(templates[0], datas)
+    .then(function (file) {
+      expect(file.contents.toString()).toEqual(htmlOutput);
+      done();
+    })
+    .catch(function (e){
+      console.log(e);
+      done();
+    });
+  });
+
+  it('should render an array of templates', function (done) {
+    var files = renderTemplates(templates, datas);
+    BPromise.all(files).then(function (files) {
+      expect(files.length).toEqual(2);
+      expect(files[0].contents.toString()).toEqual(htmlOutput);
+      expect(files[1].contents.toString()).toEqual(jsonOutput);
+      done();
+    });
+  });
+});

@@ -1,0 +1,7 @@
+{
+  "icons": [
+    <% _.forEach( icons, function( icon, index, collection )
+    { %>{"id": "<%= icon.id %>"}<% if (index !== collection.length -1) {%>,<% }%>
+    <% }); %>
+  ]
+}
