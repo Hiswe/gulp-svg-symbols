@@ -32,8 +32,6 @@ var templates       = [
   path.join(__dirname, './source/template.json')
 ];
 
-console.log(templates);
-
 describe('Templates', function () {
 
   it('should render a random template with random infos', function (done) {
