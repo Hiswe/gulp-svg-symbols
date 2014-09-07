@@ -1,7 +1,0 @@
-<svg xmlns="http://www.w3.org/2000/svg" style="display: none;"><% _.each( icons, function( icon ){ %>
-    <symbol id="<%= icon.info.id %>" viewBox="<%= icon.info.viewBox %>"><% if (icon.info.title) {%>
-      <title><%= icon.info.title %></title><% }%><% if (icon.info.description) {%>
-      <desc><%= icon.info.description %></desc><% }%>
-      <%= icon.data %>
-    </symbol>
-<% }); %></svg>

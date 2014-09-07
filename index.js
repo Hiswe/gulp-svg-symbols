@@ -1,22 +1,19 @@
 'use strict';
 
 var _             = require('lodash');
-var path          = require('path');
 var gutil         = require('gulp-util');
 var GulpError     = gutil.PluginError;
 var through       = require('through2');
-var BPromise       = require('bluebird');
-var _tmpl         = require('consolidate').lodash;
-var File          = gutil.File;
+var BPromise      = require('bluebird');
 
-var PLUGIN_NAME   = 'gulp-svg-symbols';
+var parseOptions      = require('./lib/parse-options.js');
+var gatherDataFromSvg = require('./lib/raw-svg-data.js');
+var mergeDatas        = require('./lib/merge-datas.js');
+var renderTemplates   = require('./lib/render-templates.js');
 
-var buffer        = [];
-var defaults      = require('./lib/default-config');
-var options       = {};
-var formatSvgData = require('./lib/format-svg-data');
-var toSvgFile     = BPromise.promisify(require('./lib/svg-data-to-svg-file'));
-var toCssFile     = BPromise.promisify(require('./lib/svg-data-to-css-file'));
+var PLUGIN_NAME       = 'gulp-svg-symbols';
+var buffer            = [];
+var options           = {};
 
 function transform(file, encoding, cb) {
   if (file.isNull()) {
@@ -29,7 +26,7 @@ function transform(file, encoding, cb) {
     return cb();
   }
 
-  formatSvgData(file, options, function (result) {
+  gatherDataFromSvg(file, options, function (result) {
     buffer.push(result);
     return cb(null);
   });
@@ -37,31 +34,34 @@ function transform(file, encoding, cb) {
 
 function flush(cb) {
   var that  = this;
-  var files = [];
-  buffer.map(function (svgRawData) {
-    var result = options.dataTransform;
+  var svgData;
+  var files;
+
+  // Add custom datas
+  svgData = buffer.map(function (svgRawData) {
+    return mergeDatas(svgRawData, options);
   });
-  files.push(toSvgFile(buffer));
-  // Optional CSS file
-  // https://github.com/Hiswe/gulp-svg-symbols/issues/3
-  if (options.css === true) {
-    files.push(toCssFile(buffer));
-  }
-  BPromise.all(files).then(function (files) {
+
+  // Render all templates
+  files = renderTemplates(svgData, options.templates);
+
+  function outputFiles(files) {
     files.forEach(function (file) {
       that.push(file);
     });
     cb();
-  });
+  }
+
+  BPromise.all(files).then(outputFiles);
 }
 
-// Greatly inspired by https://www.npmjs.org/package/gulp-svg-sprites
 var plugin = function (opts) {
   // flush the buffer
   // https://github.com/Hiswe/gulp-svg-symbols/issues/2
   buffer  = [];
-  // merge options
-  options = _.defaults(opts || {}, defaults);
+
+  options = parseOptions(opts);
+
   return through.obj(transform, flush);
 };
 

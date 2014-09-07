@@ -1,5 +1,0 @@
-<% _.each( icons, function( icon ){ %><%= icon.info.className %> {
-  width: <%= icon.info.cssWidth %>;
-  height: <%= icon.info.cssHeight %>;
-}
-<% }); %>

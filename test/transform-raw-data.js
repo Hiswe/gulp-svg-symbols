@@ -17,11 +17,11 @@ var userOptions       = _.defaults({
 }, defaultOptions);
 var customOptions   = _.defaults({
   id:         'svg-icon-%f',
-  dataTransform: function (svg, options) {
+  transformData: function (svg, options) {
     return {
       svg:  false,
       id:   options.id.replace('%f', svg.name)
-    }
+    };
   }
 }, defaultOptions);
 
@@ -142,7 +142,7 @@ describe('Transform - custom & options', function () {
     expect(keys).toEqual(['svg', 'id'].sort());
     done();
   });
-  it("should have the raw datas that can't be overwritten", function (done) {
+  it('should have the raw datas that can\'t be overwritten', function (done) {
     var result = transformSvgData(svgRawData, customOptions);
     expect(result.svg).toEqual(resultCustomOptions.svg);
     done();

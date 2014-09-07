@@ -1,0 +1,5 @@
+<% _.each( icons, function( icon ){ %><%= icon.className %> {
+  width: <%= icon.width %>;
+  height: <%= icon.height %>;
+}
+<% }); %>
