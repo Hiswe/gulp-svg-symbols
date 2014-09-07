@@ -47,6 +47,9 @@ function flush(cb) {
     files.forEach(function (file) {
       that.push(file);
     });
+    // flush the buffer
+    // https://github.com/Hiswe/gulp-svg-symbols/issues/2
+    buffer  = [];
     cb();
   }
 
@@ -54,42 +57,13 @@ function flush(cb) {
 }
 
 var plugin = function (opts) {
-  // flush the buffer
-  // https://github.com/Hiswe/gulp-svg-symbols/issues/2
-  buffer  = [];
-
   options = parseOptions(opts);
-
   return through.obj(transform, flush);
 };
 
-// TODO move this to lib
 // Generate a demo html page
-// plugin.demoPage = function (opts) {
-//   buffer = [];
-//   options = _.defaults(opts || {}, defaults);
-//   return through.obj(transform, function (cb) {
-//     var that          = this;
-//     var files         = [toSvgFile(buffer), toCssFile(buffer)];
-//     var demoTemplate  = path.join(__dirname, './templates/demo.html');
-
-//     var allFilesDone  = function allFilesDone(files) {
-//       var datas = {icons: buffer, files: files};
-//       _tmpl(demoTemplate, datas, function (err, result) {
-//         if (err) return cb(err, result);
-//         var file =  new File({
-//           cwd:  './',
-//           base: './',
-//           path: 'svg-symbols-demo-page.html',
-//           contents: new Buffer(result)
-//         });
-//         that.push(file);
-//         cb();
-//       });
-//     };
-
-//     BPromise.all(files).then(allFilesDone);
-//   });
-// };
+plugin.demoPage = function () {
+  return plugin({templates: ['default-demo']});
+};
 
 module.exports = plugin;

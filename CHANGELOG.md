@@ -1,0 +1,9 @@
+- **0.2.0** — Custom templates & data handling
+- **0.1.5** — Fix test
+- **0.1.4** — Fix viewbox issue
+- **0.1.3** — Custom `<title>` &amp; `<desc>` content
+- **0.1.2** — Config for optional CSS output
+- **0.1.1** — Add travis build
+- **0.1.0** — Publish to NPM and fix [watch issue](https://github.com/Hiswe/gulp-svg-symbols/issues/2)
+- **0.0.2** — Css can be generated with *em* size
+- **0.0.1** — First release

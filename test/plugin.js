@@ -10,6 +10,7 @@ var svgSymbols    = require('../index.js');
 var srcGlob       = 'test/source/*.svg';
 
 describe('Plugin', function () {
+
   it('should produce two files', function (done) {
     var that = this;
     gulp.src(srcGlob)
@@ -39,4 +40,16 @@ describe('Plugin', function () {
           }));
       }));
   });
+
+  it('should have a demo-page method', function (done) {
+    var that = this;
+    gulp.src(srcGlob)
+      .pipe(svgSymbols.demoPage())
+      .pipe(es.writeArray(function (err, output) {
+        expect(output.length).toEqual(1);
+        expect(output[0].path).toEqual('svg-symbols-demo-page.html');
+        done();
+      }))
+  });
+
 });

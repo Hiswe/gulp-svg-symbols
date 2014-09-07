@@ -8,7 +8,7 @@ var _             = require('lodash');
 var defaults      = require('../lib/default-config.js');
 var parseOptions  = require('../lib/parse-options.js');
 
-xdescribe('Options', function () {
+describe('Options', function () {
 
   it('should keep the original if nothing is passed by', function (done) {
     var options = _.omit(parseOptions(), ['templates']);

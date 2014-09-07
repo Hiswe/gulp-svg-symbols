@@ -28,19 +28,26 @@
       p {
         margin: 0; padding: 0 0 .5em;
       }
-    </style>
-    <style type="text/css">
-      <%= files[1].contents.toString() %>
+      <% _.forEach( icons, function( icon ){ %><%= icon.className %> {
+        width: <%= icon.width %>;
+        height: <%= icon.height %>;
+      }
+      <% }); %>
     </style>
   </head>
   <body>
-    <%= files[0].contents.toString() %>
+    <svg xmlns="http://www.w3.org/2000/svg" style="display: none;"><% _.forEach( icons, function( icon ){ %>
+    <symbol id="<%= icon.id %>" viewBox="<%= icon.svg.viewBox %>"><% if (icon.title) {%>
+      <title><%= icon.title %></title><% }%>
+      <%= icon.svg.content %>
+    </symbol><%
+}); %></svg>
     <h1>Gulp SVG Symbols demo page</h1>
     <main><% _.each( icons, function( icon ){ %>
       <div>
-        <p>#<%= icon.info.id %></p>
-        <svg role="img" class="<%= icon.info.id %>">
-          <use xlink:href="#<%= icon.info.id %>"></use>
+        <p>#<%= icon.id %></p>
+        <svg role="img" class="<%= icon.id %>">
+          <use xlink:href="#<%= icon.id %>"></use>
         </svg>
       </div><% }); %>
     </main>
