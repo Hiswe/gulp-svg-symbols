@@ -177,8 +177,7 @@ gulp.task('sprites', function () {
   .pipe(rename(outputFilesRenameFunction))
   .pipe(gulpif( /[.]svg$/, gulp.dest('views/svg')))
   .pipe(gulpif( /[.]styl$/, gulp.dest('front/css')))
-  .pipe(gulpif( /[.]html$/, gulp.dest('tmp')))
-  .pipe(gulp.dest('views/svg'));
+  .pipe(gulpif( /[.]html$/, gulp.dest('tmp')));
 });
 ```
 
