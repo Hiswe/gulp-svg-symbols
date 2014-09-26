@@ -65,3 +65,44 @@ describe('Gather basic info from SVG', function () {
     });
   });
 });
+
+var noDimensionSvgFile  = new gutil.File({
+  base: 'test/source',
+  cwd: 'test/',
+  path: 'test/source/skull.svg',
+  contents: fs.readFileSync('test/source/gear_without_dimensions.svg')
+});
+var noDimensionExpectedInfo  = {
+  content:  fs.readFileSync('test/output/gear_without_dimensions-symbol.svg').toString(),
+  width:    229.6,
+  height:   259.9,
+  name:     'gear_without_dimensions',
+  viewBox:  '0 0 229.6 259.9'
+};
+
+describe('Handle SVG without dimensions', function () {
+  it('should have the right width', function (done) {
+    formatSvgData(noDimensionSvgFile, {}, function (result) {
+      expect(result.width).toEqual(noDimensionExpectedInfo.width);
+      done();
+    });
+  });
+  it('should have the right height', function (done) {
+    formatSvgData(noDimensionSvgFile, {}, function (result) {
+      expect(result.height).toEqual(noDimensionExpectedInfo.height);
+      done();
+    });
+  });
+  it('should have the right viewbox', function (done) {
+    formatSvgData(noDimensionSvgFile, {}, function (result) {
+      expect(result.viewbox).toEqual(noDimensionExpectedInfo.viewbox);
+      done();
+    });
+  });
+  it('should output the right svg content', function (done) {
+    formatSvgData(noDimensionSvgFile, {}, function (result) {
+      expect(result.content).toEqual(noDimensionExpectedInfo.content);
+      done();
+    });
+  });
+});
