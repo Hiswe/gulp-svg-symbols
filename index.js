@@ -42,7 +42,7 @@ var plugin = function (opts) {
       return mergeDatas(svgRawData, options);
     });
 
-    files   = renderTemplates(options.templates, svgData);
+    files = renderTemplates(options.templates, svgData);
 
     function outputFiles(files) {
       files.forEach(function (file) {

@@ -6,7 +6,7 @@
 var fs              = require('fs');
 var path            = require('path');
 var gutil           = require('gulp-util');
-var BPromise        = require('bluebird')
+var BPromise        = require('bluebird');
 
 var renderTemplates = require('../lib/render-templates.js');
 var renderTemplate  = require('../lib/render-templates.js').render;

@@ -63,9 +63,7 @@ gulp.task('demo', function () {
 
 You can override the [default options](https://github.com/Hiswe/gulp-svg-symbols/blob/master/lib/default-config.js) by passing an object as an argument to `svgSymbols()`
 
-### ~~svgId~~ id & className
-
-**since v0.2.0** `svgId` is replaced by `id`
+### id & className
 
 text templates for generating icon class & symbols id  
 `%f` is the file name placeholder.
@@ -75,31 +73,28 @@ text templates for generating icon class & symbols id
 this option let you define a base font.  
 If it's superior to 0, then the sizes in your CSS file will be in **em**.
 
-### css
+### title
 
-**since v0.2.0** it's better to set  
-
-```js
-templates: ['default-svg']
-```
-
-the deprecated (but still working) way:
-
-```js
-css: false
-```
-
-### ~~accessibility~~ title
-
-**since v0.2.0** you have to set
+Specify whether or not you want the `title` tag in your SVG symbols.  
+It should be better for *accessibility*.  
+It take a text template (like for [id/classname](https://github.com/Hiswe/gulp-svg-symbols#id--classname)) or `false` if you want to remove it
 
 ```js
 title: false
 ```
 
+### css generation
+
+Not really an option but you can deactivate CSS output by removing the CSS template from the template array.  
+See [templates option](https://github.com/Hiswe/gulp-svg-symbols#templates) for more details.
+
+```js
+templates: ['default-svg']
+```
+
 ### templates
 
-Specify your own templates by providing absolute path:
+Specify your own templates by providing an absolute path:
 
 ```js
 templates: [
@@ -108,20 +103,20 @@ templates: [
   // You can still access to default templates by providing:
   'default-svg',
   'default-css',
-  'default-demo'  
+  'default-demo'
 ]
 ```
 
-- template engine is [lodash](http://lodash.com/docs#template)
-- all svg files info are stored in the `icons` array
-- the output files will have the same name & extension as your files
+- template engine is [lodash](http://lodash.com/docs#template).
+- all svg files info are stored in the `icons` array and passed to every templates.
+- the output files will have the same name & extension as your files.
 
 ### transformData
 
 With the ability to provide custom templates, you also have the ability to configure custom datas.
 
 ```js
-transformData: function(svg, options) {
+transformData: function(svg, defaultData, options) {
   /******
   svg is the object containing :
     content (svg markup)
@@ -130,21 +125,26 @@ transformData: function(svg, options) {
     viewBox (as a string)
     name    (svg filename without extension)
 
+  defaultData are the ones needed by default templates
+  see /lib/get-default-data.js
+
   options are the one you have set in your gulpfile,
     minus templates & transformData
   *******/
 
   return {
     // Return every datas you need
-    width:  svg.width + 'em',
-    height: svg.height + 'em'
+    id:         defaultData.id,
+    className:  defaultData.className,
+    width:      svg.width + 'em',
+    height:     svg.height + 'em'
   };
 }
 
 ```
 
 in your templates, svg original datas are accessible in `icon.svg`.  
-**Default templates need the informations provided by default config transformData**
+Of course default templates need `defaultData`.
 
 ### other observations
 
@@ -152,7 +152,12 @@ in your templates, svg original datas are accessible in `icon.svg`.
 - If you want to change the generated files name, again use [gulp-rename](https://www.npmjs.org/package/gulp-rename)
 - If you want different destination for the files, use [gulp-if](https://www.npmjs.org/package/gulp-if)
 - Unlike [gulp-svg-sprites](https://www.npmjs.org/package/gulp-svg-sprites) there is no way to add padding to svg files.
- It should be the purpose of another plugin, no?
+
+### migrating from v0.1.*
+
+- `svgId` is replaced by `id`.
+- `accessibility` is replaced by `title`.
+- `css: false` is still working but is deprecated. It'll be removed in the v0.4
 
 ### Almost all put together:
 
@@ -169,8 +174,9 @@ gulp.task('sprites', function () {
   return gulp.src('assets/svg/*.svg')
   .pipe(rename(renameFunction))
   .pipe(svgSymbols({
-    svgId:     'icon-%f',
-    className: '.icon-%f',
+    svgId:      'icon-%f',
+    className:  '.icon-%f',
+    title:      false,
     fontSize:   16,
     templates: ['default-svg', 'default-demo', 'customCSSTemplate']
   }))

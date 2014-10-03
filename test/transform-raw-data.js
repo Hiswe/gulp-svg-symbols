@@ -25,6 +25,10 @@ var customOptions   = _.defaults({
   }
 }, defaultOptions);
 
+var optionsWithoutTitle = _.defaults({
+  title: false
+});
+
 var svgRawData    = {
   content:  fs.readFileSync('test/output/codepen-symbol.svg').toString(),
   width:    24,
@@ -126,6 +130,14 @@ describe('Transform - default & options', function () {
   it('should output the right height', function (done) {
     var result = transformSvgData(svgRawData, userOptions);
     expect(result.height).toEqual(resultDefaultOptions.height);
+    done();
+  });
+});
+
+describe('Transform - title should be removable', function (done) {
+  it('shouldn\'t have a title', function (done) {
+    var result  = transformSvgData(svgRawData, customOptions);
+    expect(result.title).not.toBeDefined();
     done();
   });
 });

@@ -1,3 +1,4 @@
+- **0.3.0** — Improve default option configuration
 - **0.2.1** — Fix SVG files without dimensions
 - **0.2.0** — Custom templates & data handling
 - **0.1.5** — Fix test
