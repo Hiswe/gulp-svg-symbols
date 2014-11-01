@@ -11,7 +11,7 @@ var defaultOptions    = require('../lib/default-config.js');
 var userOptions       = _.defaults({
   id:         'icon-%f',
   className:  '.icon-%f',
-  fontSize:   16,
+  fontSize:   16
   // Keep default title
   // title:      'logo of %f'
 }, defaultOptions);
@@ -94,7 +94,6 @@ describe('Transform - default', function () {
     done();
   });
 });
-
 
 describe('Transform - default & options', function () {
   it('should be an object', function (done) {

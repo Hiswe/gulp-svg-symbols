@@ -57,8 +57,10 @@ var plugin = function (opts) {
 };
 
 // Generate a demo html page
-plugin.demoPage = function () {
-  return plugin({templates: ['default-demo']});
+plugin.demoPage = function (opts) {
+  opts            = _.omit(opts, ['transformData']);
+  opts.templates  = ['default-demo'];
+  return plugin(opts);
 };
 
 module.exports = plugin;

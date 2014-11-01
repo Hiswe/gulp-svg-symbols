@@ -40,7 +40,7 @@ describe('Templates', function () {
       expect(file.contents.toString()).toEqual(htmlOutput);
       done();
     })
-    .catch(function (e){
+    .catch(function (e) {
       console.log(e);
       done();
     });

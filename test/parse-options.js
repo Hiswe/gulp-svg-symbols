@@ -31,8 +31,8 @@ describe('Options', function () {
 
   it('should merge custom options', function (done) {
     var opts      = {
-      transformData: function(svg, option) { return {};},
-      templates: [ 'svg', 'jade', 'stylus'],
+      transformData: function (svg, option) { return {};},
+      templates: ['svg', 'jade', 'stylus'],
       fontSize:   15,
       id:         '%f',
       className:  '.%f',

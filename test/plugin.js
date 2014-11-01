@@ -23,7 +23,7 @@ describe('Plugin', function () {
       }));
   });
 
-  it('should have the right output if called many times', function(done){
+  it('should have the right output if called many times', function (done) {
     var that = this;
     gulp.src(srcGlob)
       .pipe(svgSymbols())

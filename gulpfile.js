@@ -4,6 +4,7 @@ var path        = require('path');
 var gulp        = require('gulp');
 var jshint      = require('gulp-jshint');
 var stylish     = require('jshint-stylish');
+var jscs        = require('gulp-jscs');
 var jasmine     = require('gulp-jasmine');
 
 var svgSymbols  = require('./index');
@@ -21,10 +22,27 @@ gulp.task('demo', function () {
     .pipe(gulp.dest('tmp'));
 });
 
+gulp.task('demo-single', function () {
+  return gulp.src([
+      'test/source/warning.svg',
+      'test/source/zoom.svg',
+      'test/source/skull.svg'])
+    .pipe(svgSymbols.demoPage({
+      removeAttributes: 'full'
+    }))
+    .pipe(gulp.dest('tmp'));
+});
+
 gulp.task('hint', function () {
   return gulp.src(jsGlob)
     .pipe(jshint())
-    .pipe(jshint.reporter('jshint-stylish'));
+    .pipe(jshint.reporter('jshint-stylish'))
+    .pipe(jscs({
+      preset:                 'crockford',
+      requireMultipleVarDecl: null,
+      validateIndentation:    2,
+      maxErrors:              10
+    }));
 });
 
 gulp.task('demo-page', function () {

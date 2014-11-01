@@ -124,6 +124,7 @@ transformData: function(svg, defaultData, options) {
     height  (in numeric — no units)
     viewBox (as a string)
     name    (svg filename without extension)
+    originalAttributes (object of what was gathered from svg tag)
 
   defaultData are the ones needed by default templates
   see /lib/get-default-data.js
@@ -146,6 +147,45 @@ transformData: function(svg, defaultData, options) {
 in your templates, svg original datas are accessible in `icon.svg`.  
 Of course default templates need `defaultData`.
 
+
+### transformSvg
+
+An array of transform functions
+
+If a string is passed, the plugin will try to find it in the [clean-svg](./lib/clean-svg.js) file.  
+Actually there is only one configured: `'removeEmptyGroup'`
+
+Your transform function have on paramater the [cheerio](https://www.npmjs.org/package/cheerio) object of the whole svg.  
+You have to return this object after modification.
+
+### removeTags
+
+default: `default`  
+
+Strip tags from your svg
+
+`false` to disable  
+
+`array` if you want to customize which ones
+
+the plugin come with some presets that can be found in the [preset](./lib/presets.js)
+
+### removeAttributes
+
+default: `false`
+
+Strip attributes from every tags of your svg
+
+`false` to disable
+
+`array` if you want to customize which ones
+
+the plugin come with some presets that can be found in the [preset](./lib/presets.js)
+
+also It comes with some shortcuts:
+
+'fill*' will remove everything related to fill
+
 ### other observations
 
 - If you want to change the file name use [gulp-rename](https://www.npmjs.org/package/gulp-rename)  
@@ -153,13 +193,22 @@ Of course default templates need `defaultData`.
 - If you want different destination for the files, use [gulp-if](https://www.npmjs.org/package/gulp-if)
 - Unlike [gulp-svg-sprites](https://www.npmjs.org/package/gulp-svg-sprites) there is no way to add padding to svg files.
 
-### migrating from v0.1.*
+## migrating
+
+### from v0.2.\* & v0.3.\*
+
+- SVGO is no more used. If you want to optimize your svg use [gulp-svgmin](https://www.npmjs.org/package/gulp-svgmin)
+- `css: false` is removed
+
+### from v0.1.*
 
 - `svgId` is replaced by `id`.
 - `accessibility` is replaced by `title`.
 - `css: false` is still working but is deprecated. It'll be removed in the v0.4
 
-### Almost all put together:
+## Almost all put together:
+
+The big fat example.
 
 ```js
 var path        = require('path');
@@ -189,22 +238,13 @@ gulp.task('sprites', function () {
 
 `dest` management is left to gulp as you may want to pipe more plugins after svgSymbols use.
 
-## Untested features
-
-### SVGO
-
-This plugin use [SVGO](https://github.com/svg/svgo) before concatenating the files.  
-Options to SVGO could be passed by using svgoConfig option:
-
-```js
-.pipe(svgSymbols({
-  svgoConfig: {
-    // pass here any options to svgo
-  }
-}))
-```
-
 ## All credits goes to
 
 - [Chris Coyier](http://css-tricks.com/) for the [trick](http://css-tricks.com/svg-symbol-good-choice-icons/)
 - [Shaky Shane](https://www.npmjs.org/~shakyshane) for the [gulp-svg-sprites](https://www.npmjs.org/package/gulp-svg-sprites) plugin
+- [FWeinb](https://github.com/FWeinb) for the [grunt-svgstore](https://github.com/FWeinb/grunt-svgstore) plugin
+
+## Alternatives
+
+- [gulp-svg-sprites](https://www.npmjs.org/package/gulp-svg-sprites)
+- [gulp-svg-store](https://github.com/w0rm/gulp-svgstore)
