@@ -12,7 +12,13 @@ var svgGlob     = 'test/source/*.svg';
 var jsGlob      = ['index.js', 'gulpfile.js', 'lib/*.js', 'test/*.js'];
 
 gulp.task('test', function () {
-  return gulp.src('test/*.js')
+  return gulp.src([
+      'test/parse-options.js',
+      // 'test/plugin.js',
+      'test/render-templates.js',
+      'test/svg-raw-datas.js',
+      'test/transform-raw-data.js',
+    ])
     .pipe(jasmine({verbose: true}));
 });
 

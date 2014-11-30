@@ -8,12 +8,45 @@ var _             = require('lodash');
 var defaults      = require('../lib/default-config.js');
 var parseOptions  = require('../lib/parse-options.js');
 
-describe('Options', function () {
+describe('Parse options', function () {
 
-  it('should keep the original if nothing is passed by', function (done) {
-    var options = _.omit(parseOptions(), ['templates']);
-    expect(options).toEqual(_.omit(defaults, ['templates']));
+  it('should keep some originals if nothing is passed by', function (done) {
+    var options = parseOptions();
+    expect(options.id).toEqual(defaults.id);
+    expect(options.className).toEqual(defaults.className);
+    expect(options.fontSize).toEqual(defaults.fontSize);
+    expect(options.title).toEqual(defaults.title);
+    expect(options.templates.length).toEqual(options.templates.length);
+    expect(options.removeAttributes).toEqual(options.removeAttributes);
+    expect(options.transformData).toEqual(options.transformData);
     done();
+  });
+
+  it('should expand transformSvg default', function (done) {
+    var options = parseOptions();
+    expect(options.transformSvg.length).toEqual(1);
+    expect(options.transformSvg[0]).toEqual('removeEmptyGroup');
+    done();
+  });
+
+  it('should expand removeTags default', function (done) {
+    var options = parseOptions();
+    expect(options.removeTags.length).toEqual(1);
+    expect(options.removeTags[0]).toEqual('style');
+    done();
+  });
+
+  it('should expand removeAttributes presets', function (done) {
+    var options = parseOptions({removeAttributes: 'full'});
+    console.log(options.removeAttributes);
+    expect(options.removeAttributes.length).toEqual(16);
+    expect(options.removeAttributes).toEqual([ 'id', 'style', 'fill',
+      'fill-opacity', 'fill-rule', 'clip', 'clip-path', 'clip-rule', 'stroke',
+      'stroke-dasharray', 'stroke-dashoffset', 'stroke-linecap',
+      'stroke-linejoin', 'stroke-miterlimit', 'stroke-opacity',
+      'stroke-width'
+    ]);
+   done();
   });
 
   it('should expand templates array', function (done) {
@@ -38,29 +71,12 @@ describe('Options', function () {
       className:  '.%f',
       title:      '%f icon',
       custom:     {foo: 'bar'},
-      svgoConfig: {bar: 'baz'}
+      transformSvg: false,
+      removeTags: false,
+      removeAttributes: false
     };
     var options   = parseOptions(opts);
-    opts.css      = true;
     expect(options).toEqual(opts);
-    done();
-  });
-
-  it('should remove css template if css: false', function (done) {
-    var options   = parseOptions({css: false});
-    var templates = options.templates;
-    expect(templates.length).toEqual(1);
-    expect(/templates\/svg-symbols.svg$/.test(templates[0])).toBe(true);
-    done();
-  });
-
-  it('shouldn\'t remove any templates if css: false and custom templates are provided', function (done) {
-    var options   = parseOptions({
-      css: false,
-      templates: ['pouic', 'clapou', 'buzuck']
-    });
-    var templates = options.templates;
-    expect(templates.length).toEqual(3);
     done();
   });
 

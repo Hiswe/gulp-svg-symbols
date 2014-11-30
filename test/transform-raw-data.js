@@ -57,7 +57,7 @@ var resultCustomOptions  = {
   id:         'svg-icon-codepen'
 };
 
-describe('Transform - default', function () {
+describe('Transform raw data - default', function () {
   it('should be an object', function (done) {
     var result = transformSvgData(svgRawData, defaultOptions);
     expect(result).toEqual(jasmine.any(Object));
@@ -95,7 +95,7 @@ describe('Transform - default', function () {
   });
 });
 
-describe('Transform - default & options', function () {
+describe('Transform raw data - default & options', function () {
   it('should be an object', function (done) {
     var result = transformSvgData(svgRawData, userOptions);
     expect(result).toEqual(jasmine.any(Object));

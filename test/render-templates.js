@@ -32,7 +32,7 @@ var templates       = [
   path.join(__dirname, './source/template.json')
 ];
 
-describe('Templates', function () {
+describe('Render templates', function () {
 
   it('should render a random template with random infos', function (done) {
     renderTemplate(templates[0], datas)

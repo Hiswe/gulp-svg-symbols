@@ -63,12 +63,14 @@ gulp.task('demo', function () {
 
 You can override the [default options](https://github.com/Hiswe/gulp-svg-symbols/blob/master/lib/default-config.js) by passing an object as an argument to `svgSymbols()`
 
-### id & className
+### Basics
+
+#### id & className
 
 text templates for generating icon class & symbols id  
 `%f` is the file name placeholder.
 
-### fontSize
+#### fontSize
 
 this option let you define a base font.  
 If it's superior to 0, then the sizes in your CSS file will be in **em**.
@@ -92,7 +94,9 @@ See [templates option](https://github.com/Hiswe/gulp-svg-symbols#templates) for 
 templates: ['default-svg']
 ```
 
-### templates
+### Advanced
+
+#### templates
 
 Specify your own templates by providing an absolute path:
 
@@ -111,7 +115,7 @@ templates: [
 - all svg files info are stored in the `icons` array and passed to every templates.
 - the output files will have the same name & extension as your files.
 
-### transformData
+#### transformData
 
 With the ability to provide custom templates, you also have the ability to configure custom datas.
 
@@ -148,7 +152,7 @@ in your templates, svg original datas are accessible in `icon.svg`.
 Of course default templates need `defaultData`.
 
 
-### transformSvg
+#### transformSvg
 
 An array of transform functions
 
@@ -158,7 +162,7 @@ Actually there is only one configured: `'removeEmptyGroup'`
 Your transform function have on paramater the [cheerio](https://www.npmjs.org/package/cheerio) object of the whole svg.  
 You have to return this object after modification.
 
-### removeTags
+#### removeTags
 
 default: `default`  
 
@@ -170,7 +174,7 @@ Strip tags from your svg
 
 the plugin come with some presets that can be found in the [preset](./lib/presets.js)
 
-### removeAttributes
+#### removeAttributes
 
 default: `false`
 
@@ -186,12 +190,13 @@ also It comes with some shortcuts:
 
 'fill*' will remove everything related to fill
 
-### other observations
+### Other observations
 
 - If you want to change the file name use [gulp-rename](https://www.npmjs.org/package/gulp-rename)  
 - If you want to change the generated files name, again use [gulp-rename](https://www.npmjs.org/package/gulp-rename)
 - If you want different destination for the files, use [gulp-if](https://www.npmjs.org/package/gulp-if)
 - Unlike [gulp-svg-sprites](https://www.npmjs.org/package/gulp-svg-sprites) there is no way to add padding to svg files.
+- `dest` management is left to gulp as you may want to pipe more plugins after svgSymbols use.
 
 ## migrating
 
@@ -206,9 +211,8 @@ also It comes with some shortcuts:
 - `accessibility` is replaced by `title`.
 - `css: false` is still working but is deprecated. It'll be removed in the v0.4
 
-## Almost all put together:
+## The big fat example:
 
-The big fat example.
 
 ```js
 var path        = require('path');
@@ -235,8 +239,6 @@ gulp.task('sprites', function () {
   .pipe(gulpif( /[.]html$/, gulp.dest('tmp')));
 });
 ```
-
-`dest` management is left to gulp as you may want to pipe more plugins after svgSymbols use.
 
 ## All credits goes to
 
