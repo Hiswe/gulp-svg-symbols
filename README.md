@@ -6,7 +6,7 @@
 It converts a bunch of svg files to a single svg file containing each one as a symbol.  
 See [css-trick](http://css-tricks.com/svg-symbol-good-choice-icons/) for more details.
 
-The plugin produce 2 files:
+The plugin produces 2 files:
 
 - *svg-symbols.svg* containing all SVG symbols
 - *svg-symbols.css* containing all classes with the right svg sizes
@@ -19,7 +19,7 @@ npm install --save-dev gulp-svg-symbols
 
 ## Example
 
-in your gulpfile.js
+In your gulpfile.js:
 
 ```js
 var gulp       = require('gulp');
@@ -32,7 +32,7 @@ gulp.task('sprites', function () {
 });
 ```
 
-in your HTML, you first have to [reference the SVG](http://css-tricks.com/svg-sprites-use-better-icon-fonts/)  
+In your HTML, you first have to [reference the SVG](http://css-tricks.com/svg-sprites-use-better-icon-fonts/)  
 then:
 
 ```html
@@ -65,19 +65,19 @@ You can override the [default options](https://github.com/Hiswe/gulp-svg-symbols
 
 ### id & className
 
-text templates for generating icon class & symbols id  
+Text templates for generating icon class & symbols id  
 `%f` is the file name placeholder.
 
 ### fontSize
 
-this option let you define a base font.  
+This option lets you define a base font.  
 If it's superior to 0, then the sizes in your CSS file will be in **em**.
 
 ### title
 
 Specify whether or not you want the `title` tag in your SVG symbols.  
 It should be better for *accessibility*.  
-It take a text template (like for [id/classname](https://github.com/Hiswe/gulp-svg-symbols#id--classname)) or `false` if you want to remove it
+It takes a text template (like for [id/classname](https://github.com/Hiswe/gulp-svg-symbols#id--classname)) or `false` if you want to remove it:
 
 ```js
 title: false
@@ -113,7 +113,7 @@ templates: [
 
 ### transformData
 
-With the ability to provide custom templates, you also have the ability to configure custom datas.
+With the ability to provide custom templates, you also have the ability to configure custom data.
 
 ```js
 transformData: function(svg, defaultData, options) {
@@ -143,12 +143,12 @@ transformData: function(svg, defaultData, options) {
 
 ```
 
-in your templates, svg original datas are accessible in `icon.svg`.  
+In your templates, svg original data are accessible in `icon.svg`.  
 Of course default templates need `defaultData`.
 
 ### other observations
 
-- If you want to change the file name use [gulp-rename](https://www.npmjs.org/package/gulp-rename)  
+- If you want to change the file name, use [gulp-rename](https://www.npmjs.org/package/gulp-rename)  
 - If you want to change the generated files name, again use [gulp-rename](https://www.npmjs.org/package/gulp-rename)
 - If you want different destination for the files, use [gulp-if](https://www.npmjs.org/package/gulp-if)
 - Unlike [gulp-svg-sprites](https://www.npmjs.org/package/gulp-svg-sprites) there is no way to add padding to svg files.
@@ -193,7 +193,7 @@ gulp.task('sprites', function () {
 
 ### SVGO
 
-This plugin use [SVGO](https://github.com/svg/svgo) before concatenating the files.  
+This plugin uses [SVGO](https://github.com/svg/svgo) before concatenating the files.  
 Options to SVGO could be passed by using svgoConfig option:
 
 ```js
