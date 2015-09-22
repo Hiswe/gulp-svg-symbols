@@ -45,7 +45,8 @@ gulp.task('templates', function () {
 });
 
 gulp.task('watch', function () {
-  gulp.watch(svgGlob, ['demo']);
+  gulp.watch(svgGlob,                                 ['demo']);
+  gulp.watch('templates/svg-symbols-demo-page.html',  ['demo-page']);
   return gulp.watch(jsGlob, ['hint']);
 });
 
