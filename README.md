@@ -248,5 +248,6 @@ gulp.task('sprites', function () {
 
 ## Alternatives
 
-- [gulp-svg-sprites](https://www.npmjs.org/package/gulp-svg-sprites)
-- [gulp-svg-store](https://github.com/w0rm/gulp-svgstore)
+- [gulp-svg-sprite](https://www.npmjs.com/package/gulp-svg-sprite)
+- [gulp-svg-store](https://www.npmjs.com/package/gulp-svgstore)
+- [gulp-svg-sprites](https://www.npmjs.org/package/gulp-svg-sprites) (not actively maintained)

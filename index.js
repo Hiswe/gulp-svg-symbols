@@ -7,8 +7,8 @@ var GulpError         = gutil.PluginError;
 var through           = require('through2');
 var BPromise          = require('bluebird');
 
-var defaults  				= require('./lib/default-config');
-var gatherDataFromSvg = require('./lib/raw-svg-data.js');
+var defaults          = require('./lib/default-config');
+var svg  				      = require('./lib/svg');
 var mergeDatas        = require('./lib/merge-datas.js');
 var renderTemplates   = require('./lib/render-templates.js');
 
@@ -21,7 +21,9 @@ var templates 				= {
 };
 
 var plugin = function (opts) {
+  opts = opts || {};
   var buffer  = [];
+  var style   = [];
   // clone everything as we don't want to mutate anything
   var options = _.defaults(_.cloneDeep(opts), _.cloneDeep(defaults));
 
@@ -32,6 +34,7 @@ var plugin = function (opts) {
   });
 
   return through.obj(function transform(file, encoding, cb) {
+
     if (file.isNull()) {
       this.push(file);
       return cb();
@@ -42,26 +45,24 @@ var plugin = function (opts) {
       return cb();
     }
 
-    gatherDataFromSvg(file, options, function (result) {
+    svg.parseFile(file, options, function (result) {
+      if (result.style) style.push(result.style);
+      delete result.style;
       buffer.push(result);
       return cb(null);
     });
 
   }, function flush(cb) {
     var that = this;
-    var svgData;
-    var files;
 
-    svgData = buffer.map(function (svgRawData) {
+    var svgData = buffer.map(function (svgRawData) {
       return mergeDatas(svgRawData, options);
     });
 
-    files = renderTemplates(options.templates, svgData);
+    var files = renderTemplates(options.templates, svgData);
 
     function outputFiles(files) {
-      files.forEach(function (file) {
-        that.push(file);
-      });
+      files.forEach(function (file) { that.push(file); });
       cb();
     }
 
