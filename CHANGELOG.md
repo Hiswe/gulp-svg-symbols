@@ -1,3 +1,4 @@
+- **0.3.3** — Better demo page
 - **0.3.1** — Add .npmignore
 - **0.3.0** — Improve default option configuration
 - **0.2.1** — Fix SVG files without dimensions

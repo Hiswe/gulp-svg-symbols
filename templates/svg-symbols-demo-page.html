@@ -21,16 +21,96 @@
         padding: 1em;
         background: white;
       }
-      div {
-        display: inline-block;
+      main {
+        display: flex;
+        flex-wrap: wrap;
+      }
+      main::after {
+        content: '';
+        flex-grow: 100;
+      }
+      p {
+        margin: 0;
+        padding: 0 0 .5em;
+      }
+      .icon,
+      .icon-wrapper {
         background: white;
         margin: .5em;
         padding: 1em;
         border-radius: .5em;
       }
-      p {
-        margin: 0; padding: 0 0 .5em;
+      .icon {
+        display: inline-block;
+        flex-grow: 1;
+        display: flex;
+        flex-direction: column;
+        position: relative;
+        padding-bottom: 0;
+        min-width: 8em;
       }
+      .icon-wrapper {
+        background-color: #fafafa;
+        background-image: linear-gradient(45deg, #ccc 25%, transparent 25%, transparent 75%, #ccc 75%, #ccc),
+        linear-gradient(45deg, #ccc 25%, transparent 25%, transparent 75%, #ccc 75%, #ccc);
+        background-size:30px 30px;
+        background-position:0 0, 15px 15px;
+        margin: auto;
+      }
+      .icon-action {
+        margin: 1em -1em 0;
+        border-top: 1px solid #eee;
+        display: flex;
+      }
+      .icon-action > * {
+        flex-grow: 1;
+      }
+
+      button {
+        font: inherit;
+        background: none;
+        border: 0;
+        outline: 0;
+      }
+      button,
+      label {
+        padding: 1em .5em;
+        flex-basis: 50%;
+        cursor: pointer;
+      }
+      button:hover,
+      label:hover {
+        color: mediumVioletRed;
+      }
+      label {
+        border-left: 1px solid #eee;
+      }
+      input[type=checkbox] {
+        display: none;
+      }
+      /* can't display none: copy won't work */
+      pre {
+        text-align: left;
+        position: absolute;
+        opacity: 0;
+        z-index: 2;
+        padding: 1em;
+        pointer-events: none;
+        border-top: 1px solid #eee;
+        margin: 0 -1em;
+        width: 0;
+      }
+      input:checked ~ .icon-action label {
+        background: #eee;
+      }
+      input:checked ~ pre {
+        position: static;
+        pointer-events: auto;
+        opacity: 1;
+        width: 100%;
+      }
+    </style>
+    <style type="text/css">
       <% _.forEach( icons, function( icon ){ %><%= icon.className %> {
         width: <%= icon.width %>;
         height: <%= icon.height %>;
@@ -47,12 +127,55 @@
 }); %></svg>
     <h1>Gulp SVG Symbols demo page</h1>
     <main><% _.each( icons, function( icon ){ %>
-      <div>
+      <div class="icon">
         <p>#<%= icon.id %></p>
-        <svg role="img" class="<%= icon.id %>">
-          <use xlink:href="#<%= icon.id %>"></use>
-        </svg>
+        <div class="icon-wrapper">
+          <svg role="img" class="<%= icon.id %>">
+            <use xlink:href="#<%= icon.id %>"></use>
+          </svg>
+        </div>
+        <div class="icon-dev">
+          <input class="show-code" id="toggle-<%= icon.id %>" type="checkbox" />
+          <div class="icon-action">
+            <button onclick="gulpSvgSymbol.copy('code-<%= icon.id %>')">Copy</button>
+            <label onclick="gulpSvgSymbol.reflow('code-<%= icon.id %>')" for="toggle-<%= icon.id %>">Show</label>
+          </div>
+<pre>
+<code id="code-<%= icon.id %>"><%= _.escape('<svg role="img" class="') %><%= icon.id %><%= _.escape('">') %>
+  <%= _.escape('<use xlink:href="#') %><%= icon.id %><%= _.escape('"></use>') %>
+<%= _.escape('</svg>') %></code>
+</pre>
+        </div>
       </div><% }); %>
     </main>
+    <script type="text/javascript">
+      (function () {
+        // https://developers.google.com/web/updates/2015/04/cut-and-copy-commands
+        var symb = window.gulpSvgSymbol = {};
+        var main = document.getElementsByTagName('main')[0];
+        symb.copy = function (id) {
+          window.getSelection().removeAllRanges();
+          var code = document.getElementById(id);
+          var range = document.createRange();
+          range.selectNode(code);
+          window.getSelection().addRange(range);
+          try {
+            var successful = document.execCommand('copy');
+            var msg = successful ? 'successful' : 'unsuccessful';
+          } catch(err) {
+            console.log('Oops, unable to copy');
+          }
+          window.getSelection().removeAllRanges();
+        }
+        // Force a reflow so sizes are back to initials…
+        symb.reflow = function (id) {
+          var code = document.getElementById(id);
+          code.style.display = 'none';
+          window.setTimeout(function () {
+            code.style.display = '';
+          }, 0);
+        }
+      }());
+    </script>
   </body>
 </html>
