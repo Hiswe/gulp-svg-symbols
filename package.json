@@ -31,7 +31,6 @@
     "consolidate": "^0.13.1",
     "gulp-util": "^3.0.1",
     "lodash": "^3.10.1",
-    "mathjs": "^2.3.0",
     "through2": "^2.0.0"
   },
   "devDependencies": {
