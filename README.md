@@ -68,7 +68,7 @@ You can override the [default options](https://github.com/Hiswe/gulp-svg-symbols
 #### id & className
 
 text templates for generating icon class & symbols id  
-`%f` is the file name placeholder.
+`%f` is the [slugged](https://www.npmjs.com/package/slug) file name placeholder.
 
 #### fontSize
 
@@ -162,7 +162,6 @@ You have to return this object after modification.
 - If you want to change the generated files name, again use [gulp-rename](https://www.npmjs.org/package/gulp-rename)
 - If you want different destination for the files, use [gulp-if](https://www.npmjs.org/package/gulp-if)
 - Unlike [gulp-svg-sprites](https://www.npmjs.org/package/gulp-svg-sprites) there is no way to add padding to svg files.
-- `dest` management is left to gulp as you may want to pipe more plugins after svgSymbols use.
 
 ## migrating
 
