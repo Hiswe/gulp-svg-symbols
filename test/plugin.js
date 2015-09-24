@@ -66,7 +66,7 @@ describe('Plugin - defs', function () {
       .pipe(svgSymbols({silent: true}))
       .pipe(es.writeArray(function (err, output) {
         var svgContent = output[0].contents.toString()
-        expect(/<defs>/.test(svgContent)).toBe(true);
+        expect(svgContent).toMatch(/<defs>/g);
         done();
       }));
   });
@@ -77,7 +77,7 @@ describe('Plugin - defs', function () {
       .pipe(svgSymbols({silent: true}))
       .pipe(es.writeArray(function (err, output) {
         var svgContent = output[0].contents.toString()
-        expect(/<defs>/.test(svgContent)).toBe(false);
+        expect(svgContent).not.toMatch(/<defs>/g);
         done();
       }));
   });
@@ -87,8 +87,8 @@ describe('Plugin - defs', function () {
     gulp.src('test/source/chinese letter with styles.svg')
       .pipe(svgSymbols({silent: true}))
       .pipe(es.writeArray(function (err, output) {
-        var svgContent = output[0].contents.toString()
-        expect(/<defs>/.test(svgContent)).toBe(false);
+        var svgContent = output[0].contents.toString();
+        expect(svgContent).not.toMatch(/<defs>/g);
         done();
       }));
   });
@@ -106,7 +106,7 @@ describe('Plugin - title', function () {
       }))
       .pipe(es.writeArray(function (err, output) {
         var svgContent = output[0].contents.toString()
-        expect(/<title>pouic<\/title>/.test(svgContent)).toBe(true);
+        expect(svgContent).toMatch(/<title>pouic<\/title>/g);
         done();
       }));
   });
@@ -119,7 +119,7 @@ describe('Plugin - title', function () {
       }))
       .pipe(es.writeArray(function (err, output) {
         var svgContent = output[0].contents.toString()
-        expect(/<title>/.test(svgContent)).toBe(false);
+        expect(svgContent).not.toMatch(/<title>/g);
         done();
       }));
   });
@@ -132,7 +132,7 @@ describe('Plugin - title', function () {
       }))
       .pipe(es.writeArray(function (err, output) {
         var svgContent = output[0].contents.toString()
-        expect(/<title>/.test(svgContent)).toBe(false);
+        expect(svgContent).not.toMatch(/<title>/g);
         done();
       }));
   });
