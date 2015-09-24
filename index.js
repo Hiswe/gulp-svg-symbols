@@ -8,12 +8,12 @@ var through           = require('through2');
 var BPromise          = require('bluebird');
 
 var defaults          = require('./lib/default-config');
-var svg  				      = require('./lib/svg');
+var svg               = require('./lib/svg');
 var templates         = require('./lib/templates.js');
 var utils             = require('./lib/utils.js');
 
 var PLUGIN_NAME       = utils.name;
-var templatesPath 	  = {
+var templatesPath     = {
   'default-svg':  path.join(__dirname, './templates/svg-symbols.svg'),
   'default-css':  path.join(__dirname, './templates/svg-symbols.css'),
   'default-demo': path.join(__dirname, './templates/svg-symbols-demo-page.html')
@@ -28,9 +28,9 @@ var plugin = function (opts) {
   var options = _.defaults(_.cloneDeep(opts), _.cloneDeep(defaults));
 
   // expand path to default templates
-  options.templates = options.templates.map(function(pathName) {
-  	if (pathName in templatesPath) return templatesPath[pathName];
-  	return pathname;
+  options.templates = options.templates.map(function (pathName) {
+    if (pathName in templatesPath) return templatesPath[pathName];
+    return pathName;
   });
 
   // buffer and transform every files
@@ -69,7 +69,9 @@ var plugin = function (opts) {
     var files = templates.renderAll(options.templates, svgData, defs);
 
     function outputFiles(files) {
-      files.forEach(function (file) { that.push(file); });
+      files.forEach(function (file) {
+        that.push(file);
+      });
       cb();
     }
 

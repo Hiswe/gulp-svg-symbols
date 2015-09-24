@@ -44,12 +44,7 @@ gulp.task('hint', function () {
   return gulp.src(jsGlob)
     .pipe(jshint())
     .pipe(jshint.reporter('jshint-stylish'))
-    .pipe(jscs({
-      preset:                 'crockford',
-      requireMultipleVarDecl: null,
-      validateIndentation:    2,
-      maxErrors:              10
-    }));
+    .pipe(jscs());
 });
 
 gulp.task('demo-page', function () {

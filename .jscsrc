@@ -1,0 +1,16 @@
+{
+  "preset":                 "crockford",
+  "requireMultipleVarDecl": null,
+  "validateIndentation":    2,
+  "maxErrors":              10,
+  "requireVarDeclFirst":    false,
+  "disallowTrailingComma":  false,
+  "requireCurlyBraces": [
+    "else",
+    "for",
+    "while",
+    "do",
+    "try",
+    "catch"
+  ]
+}
