@@ -1,15 +1,16 @@
 'use strict';
 
-var path        = require('path');
-var gulp        = require('gulp');
-var jshint      = require('gulp-jshint');
-var stylish     = require('jshint-stylish');
-var jscs        = require('gulp-jscs');
-var jasmine     = require('gulp-jasmine');
+var path          = require('path');
+var gulp          = require('gulp');
+var jshint        = require('gulp-jshint');
+var stylish       = require('jshint-stylish');
+var jscs          = require('gulp-jscs');
+var jsbeautifier  = require('gulp-jsbeautifier');
+var jasmine       = require('gulp-jasmine');
 
-var svgSymbols  = require('./index');
-var svgGlob     = 'test/source/*.svg';
-var jsGlob      = ['index.js', 'gulpfile.js', 'lib/*.js', 'test/*.js'];
+var svgSymbols    = require('./index');
+var svgGlob       = 'test/source/*.svg';
+var jsGlob        = ['index.js', 'gulpfile.js', 'lib/*.js', 'test/*.js'];
 
 gulp.task('test', function () {
   return gulp.src([
@@ -54,6 +55,10 @@ gulp.task('hint', function () {
 gulp.task('demo-page', function () {
   return gulp.src(svgGlob)
     .pipe(svgSymbols.demoPage())
+    .pipe(jsbeautifier({
+      indentSize: 2,
+      logSuccess: false
+    }))
     .pipe(gulp.dest('tmp'));
 });
 
