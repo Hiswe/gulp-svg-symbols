@@ -69,7 +69,10 @@ function gulpSvgSymbols(opts) {
     // better for templates to check if `false` rather than length…
     defs = defs.length > 0 ? defs.join('\n') : false;
 
-    var files = templates.renderAll(options.templates, svgData, defs);
+    var files = templates.renderAll(options.templates, {
+      icons: svgData,
+      defs: defs,
+    });
 
     function outputFiles(files) {
       files.forEach(function (file) {

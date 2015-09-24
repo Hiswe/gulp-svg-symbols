@@ -7,13 +7,12 @@ var es            = require('event-stream');
 var gulp          = require('gulp');
 
 var svgSymbols    = require('../index.js');
-var srcGlob       = 'test/source/*.svg';
 
 describe('Plugin', function () {
 
   it('should produce two files', function (done) {
     var that = this;
-    gulp.src(srcGlob)
+    gulp.src('test/source/*.svg')
       .pipe(svgSymbols({silent: true}))
       .pipe(es.writeArray(function (err, output) {
         expect(output.length).toEqual(2);
@@ -25,17 +24,17 @@ describe('Plugin', function () {
 
   it('should have the right output if called many times', function (done) {
     var that = this;
-    gulp.src(srcGlob)
+    gulp.src('test/source/github.svg')
       .pipe(svgSymbols({silent: true}))
       .pipe(es.wait(function () {
-        gulp.src(srcGlob)
+        gulp.src('test/source/github.svg')
           .pipe(svgSymbols({silent: true}))
           .pipe(es.writeArray(function (err, output) {
-            var svgOutputFile = fs.readFileSync('test/output/svg-symbols.svg');
-            var cssOutputFile = fs.readFileSync('test/output/svg-symbols.css');
+            var svg = output[0].contents.toString();
+            var css = output[1].contents.toString();
             expect(output.length).toEqual(2);
-            expect(output[0].contents.toString()).toEqual(svgOutputFile.toString());
-            expect(output[1].contents.toString()).toEqual(cssOutputFile.toString());
+            expect((svg.match(/<symbol/g) || []).length).toEqual(1);
+            expect((css.match(/github/g) || []).length).toEqual(1);
             done();
           }));
       }));
@@ -43,7 +42,7 @@ describe('Plugin', function () {
 
   it('can generate a demo page', function (done) {
     var that = this;
-    gulp.src(srcGlob)
+    gulp.src('test/source/github.svg')
       .pipe(svgSymbols({
         templates: ['default-demo'],
         silent: true,

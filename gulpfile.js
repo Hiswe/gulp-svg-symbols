@@ -15,17 +15,11 @@ var jsGlob        = ['index.js', 'gulpfile.js', 'lib/*.js', 'test/*.js'];
 gulp.task('test', function () {
   return gulp.src([
       'test/plugin.js',
-      // 'test/render-templates.js',
+      'test/templates.js',
       // 'test/svg-raw-datas.js',
       // 'test/transform-raw-data.js',
     ])
     .pipe(jasmine({verbose: true}));
-});
-
-gulp.task('demo', function () {
-  return gulp.src(svgGlob)
-    .pipe(svgSymbols())
-    .pipe(gulp.dest('tmp'));
 });
 
 gulp.task('hint', function () {
@@ -35,10 +29,14 @@ gulp.task('hint', function () {
     .pipe(jscs());
 });
 
-gulp.task('demo-page', function () {
+gulp.task('demo', function () {
   return gulp.src(svgGlob)
     .pipe(svgSymbols({
-      templates: ['default-demo']
+      templates: [
+        'default-svg',
+        'default-css',
+        'default-demo'
+      ]
     }))
     .pipe(jsbeautifier({
       indentSize: 2,

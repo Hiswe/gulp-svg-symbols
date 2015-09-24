@@ -6,7 +6,7 @@
 It converts a bunch of svg files to a single svg file containing each one as a symbol.  
 See [css-trick](http://css-tricks.com/svg-symbol-good-choice-icons/) for more details.
 
-The plugin produce 2 files:
+The plugin produces 2 files:
 
 - *svg-symbols.svg* containing all SVG symbols
 - *svg-symbols.css* containing all classes with the right svg sizes
@@ -19,7 +19,7 @@ npm install --save-dev gulp-svg-symbols
 
 ## Example
 
-in your gulpfile.js
+In your gulpfile.js:
 
 ```js
 var gulp       = require('gulp');
@@ -32,7 +32,7 @@ gulp.task('sprites', function () {
 });
 ```
 
-in your HTML, you first have to [reference the SVG](http://css-tricks.com/svg-sprites-use-better-icon-fonts/)  
+In your HTML, you first have to [reference the SVG](http://css-tricks.com/svg-sprites-use-better-icon-fonts/)  
 then:
 
 ```html
@@ -52,25 +52,25 @@ You can override the [default options](https://github.com/Hiswe/gulp-svg-symbols
 
 #### id & className
 
-text templates for generating icon class & symbols id  
+Text templates for generating icon class & symbols id  
 `%f` is the [slugged](https://www.npmjs.com/package/slug) file name placeholder.
 
 #### fontSize
 
-this option let you define a base font.  
+This option lets you define a base font.  
 If it's superior to 0, then the sizes in your CSS file will be in **em**.
 
-### title
+#### title
 
 Specify whether or not you want the `title` tag in your SVG symbols.  
 It should be better for *accessibility*.  
-It take a text template (like for [id/classname](https://github.com/Hiswe/gulp-svg-symbols#id--classname)) or `false` if you want to remove it
+It takes a text template (like for [id/classname](https://github.com/Hiswe/gulp-svg-symbols#id--classname)) or `false` if you want to remove it:
 
 ```js
 title: false
 ```
 
-### css generation
+#### css generation
 
 Not really an option but you can deactivate CSS output by removing the CSS template from the template array.  
 See [templates option](https://github.com/Hiswe/gulp-svg-symbols#templates) for more details.
@@ -79,9 +79,9 @@ See [templates option](https://github.com/Hiswe/gulp-svg-symbols#templates) for 
 templates: ['default-svg']
 ```
 
-### Demo page
+#### demo page
 
-Like above, bot really an option.
+Like above, not really an option.  
 You can generate a simple demo page by adding `default-demo` to the templates array.
 
 ```js
@@ -97,7 +97,7 @@ gulp.task('demo', function () {
 });
 ```
 
-### silent
+#### silent
 
 Disable warn messages about missing viewBox.
 
@@ -124,7 +124,7 @@ templates: [
 
 #### transformData
 
-With the ability to provide custom templates, you also have the ability to configure custom datas.
+With the ability to provide custom templates, you also have the ability to configure custom data.
 
 ```js
 transformData: function(svg, defaultData, options) {
@@ -155,7 +155,7 @@ transformData: function(svg, defaultData, options) {
 
 ```
 
-in your templates, svg original datas are accessible in `icon.svg`.  
+In your templates, svg original data are accessible in `icon.svg`.  
 Of course default templates need `defaultData`.
 
 #### transformSvg
@@ -165,23 +165,27 @@ You have to return this object after modification.
 
 ### Other observations
 
-- If you want to change the file name use [gulp-rename](https://www.npmjs.org/package/gulp-rename)  
+- If you want to change the file name, use [gulp-rename](https://www.npmjs.org/package/gulp-rename)  
 - If you want to change the generated files name, again use [gulp-rename](https://www.npmjs.org/package/gulp-rename)
 - If you want different destination for the files, use [gulp-if](https://www.npmjs.org/package/gulp-if)
 - Unlike [gulp-svg-sprites](https://www.npmjs.org/package/gulp-svg-sprites) there is no way to add padding to svg files.
 
-## migrating
+## Migrating
 
-### from v0.2.\* & v0.3.\*
+### from v0.2+ to v1.0
 
-- SVGO is no more used. If you want to optimize your svg use [gulp-svgmin](https://www.npmjs.org/package/gulp-svgmin)
-- `css: false` is removed
+- SVGO is no more used. If you want to optimize your SVG use:  
+  - [gulp-svgmin](https://www.npmjs.org/package/gulp-svgmin) (using SVGO)
+  - or [gulp-cheerio](https://www.npmjs.com/package/gulp-cheerio)
+  - or anything you like :)
+- `css: false` is removed.
+- svgSymbols.demoPage() method has been removed. See **Basics > demo page**
 
-### from v0.1.*
+### from v0.1 to 0.2+
 
 - `svgId` is replaced by `id`.
 - `accessibility` is replaced by `title`.
-- `css: false` is still working but is deprecated. It'll be removed in the v0.4
+- `css: false` is still working but is deprecated.
 
 ## The big fat example:
 
