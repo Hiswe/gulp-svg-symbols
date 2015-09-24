@@ -9,22 +9,21 @@ var BPromise          = require('bluebird');
 
 var defaults          = require('./lib/default-config');
 var svg  				      = require('./lib/svg');
-var mergeDatas        = require('./lib/merge-datas.js');
 var templates         = require('./lib/templates.js');
 var utils             = require('./lib/utils.js');
 
 var PLUGIN_NAME       = utils.name;
-var BASE              = __dirname;
 var templatesPath 	  = {
-  'default-svg':  path.join(BASE, './templates/svg-symbols.svg'),
-  'default-css':  path.join(BASE, './templates/svg-symbols.css'),
-  'default-demo': path.join(BASE, './templates/svg-symbols-demo-page.html')
+  'default-svg':  path.join(__dirname, './templates/svg-symbols.svg'),
+  'default-css':  path.join(__dirname, './templates/svg-symbols.css'),
+  'default-demo': path.join(__dirname, './templates/svg-symbols-demo-page.html')
 };
 
 var plugin = function (opts) {
   opts = opts || {};
   var buffer  = [];
   var defs    = [];
+
   // clone everything as we don't want to mutate anything
   var options = _.defaults(_.cloneDeep(opts), _.cloneDeep(defaults));
 
@@ -34,13 +33,16 @@ var plugin = function (opts) {
   	return pathname;
   });
 
+  // buffer and transform every files
   return through.obj(function transform(file, encoding, cb) {
 
     if (file.isNull()) {
-      this.push(file);
-      return cb();
+      return cb(null, file);
     }
 
+    // we don't handle streams :,(
+    // use https://github.com/nfroidure/gulp-streamify if you're reading this
+    // next versions should use https://www.npmjs.com/package/bufferstreams
     if (file.isStream()) {
       this.emit('error', new GulpError(PLUGIN_NAME, 'Streaming not supported'));
       return cb();
@@ -51,13 +53,17 @@ var plugin = function (opts) {
       return cb(null);
     });
 
+  // put all generated files back in the stream
   }, function flush(cb) {
     var that = this;
 
     var svgData = buffer.map(function (svgRawData) {
+      // defs are not at an SVG level
+      // they should be handled globally to the new SVG file
       if (svgRawData.defs) defs.push(svgRawData.defs);
       delete svgRawData.defs;
-      return mergeDatas(svgRawData, options);
+      //
+      return svg.formatForTemplate(svgRawData, options);
     });
 
     var files = templates.renderAll(options.templates, svgData, defs);
@@ -68,7 +74,6 @@ var plugin = function (opts) {
     }
 
     BPromise.all(files).then(outputFiles);
-
   });
 };
 
