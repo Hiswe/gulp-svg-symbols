@@ -151,44 +151,10 @@ transformData: function(svg, defaultData, options) {
 in your templates, svg original datas are accessible in `icon.svg`.  
 Of course default templates need `defaultData`.
 
-
 #### transformSvg
-
-An array of transform functions
-
-If a string is passed, the plugin will try to find it in the [clean-svg](./lib/clean-svg.js) file.  
-Actually there is only one configured: `'removeEmptyGroup'`
 
 Your transform function have on paramater the [cheerio](https://www.npmjs.org/package/cheerio) object of the whole svg.  
 You have to return this object after modification.
-
-#### removeTags
-
-default: `default`  
-
-Strip tags from your svg
-
-`false` to disable  
-
-`array` if you want to customize which ones
-
-the plugin come with some presets that can be found in the [preset](./lib/presets.js)
-
-#### removeAttributes
-
-default: `false`
-
-Strip attributes from every tags of your svg
-
-`false` to disable
-
-`array` if you want to customize which ones
-
-the plugin come with some presets that can be found in the [preset](./lib/presets.js)
-
-also It comes with some shortcuts:
-
-'fill*' will remove everything related to fill
 
 ### Other observations
 
@@ -212,7 +178,6 @@ also It comes with some shortcuts:
 - `css: false` is still working but is deprecated. It'll be removed in the v0.4
 
 ## The big fat example:
-
 
 ```js
 var path        = require('path');

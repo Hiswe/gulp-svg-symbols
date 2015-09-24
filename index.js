@@ -10,11 +10,12 @@ var BPromise          = require('bluebird');
 var defaults          = require('./lib/default-config');
 var svg  				      = require('./lib/svg');
 var mergeDatas        = require('./lib/merge-datas.js');
-var renderTemplates   = require('./lib/render-templates.js');
+var templates         = require('./lib/templates.js');
+var utils             = require('./lib/utils.js');
 
-var PLUGIN_NAME       = 'gulp-svg-symbols';
+var PLUGIN_NAME       = utils.name;
 var BASE              = __dirname;
-var templates 				= {
+var templatesPath 	  = {
   'default-svg':  path.join(BASE, './templates/svg-symbols.svg'),
   'default-css':  path.join(BASE, './templates/svg-symbols.css'),
   'default-demo': path.join(BASE, './templates/svg-symbols-demo-page.html')
@@ -23,13 +24,13 @@ var templates 				= {
 var plugin = function (opts) {
   opts = opts || {};
   var buffer  = [];
-  var style   = [];
+  var defs    = [];
   // clone everything as we don't want to mutate anything
   var options = _.defaults(_.cloneDeep(opts), _.cloneDeep(defaults));
 
   // expand path to default templates
   options.templates = options.templates.map(function(pathName) {
-  	if (pathName in templates) return templates[pathName];
+  	if (pathName in templatesPath) return templatesPath[pathName];
   	return pathname;
   });
 
@@ -46,8 +47,6 @@ var plugin = function (opts) {
     }
 
     svg.parseFile(file, options, function (result) {
-      if (result.style) style.push(result.style);
-      delete result.style;
       buffer.push(result);
       return cb(null);
     });
@@ -56,10 +55,12 @@ var plugin = function (opts) {
     var that = this;
 
     var svgData = buffer.map(function (svgRawData) {
+      if (svgRawData.defs) defs.push(svgRawData.defs);
+      delete svgRawData.defs;
       return mergeDatas(svgRawData, options);
     });
 
-    var files = renderTemplates(options.templates, svgData);
+    var files = templates.renderAll(options.templates, svgData, defs);
 
     function outputFiles(files) {
       files.forEach(function (file) { that.push(file); });
@@ -77,5 +78,7 @@ plugin.demoPage = function (opts) {
   opts.templates  = ['default-demo'];
   return plugin(opts);
 };
+
+plugin.pluginName = PLUGIN_NAME;
 
 module.exports = plugin;
