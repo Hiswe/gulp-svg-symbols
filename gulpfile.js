@@ -14,11 +14,10 @@ var jsGlob        = ['index.js', 'gulpfile.js', 'lib/*.js', 'test/*.js'];
 
 gulp.task('test', function () {
   return gulp.src([
-      'test/parse-options.js',
-      // 'test/plugin.js',
-      'test/render-templates.js',
-      'test/svg-raw-datas.js',
-      'test/transform-raw-data.js',
+      'test/plugin.js',
+      // 'test/render-templates.js',
+      // 'test/svg-raw-datas.js',
+      // 'test/transform-raw-data.js',
     ])
     .pipe(jasmine({verbose: true}));
 });
@@ -26,17 +25,6 @@ gulp.task('test', function () {
 gulp.task('demo', function () {
   return gulp.src(svgGlob)
     .pipe(svgSymbols())
-    .pipe(gulp.dest('tmp'));
-});
-
-gulp.task('demo-single', function () {
-  return gulp.src([
-      'test/source/warning.svg',
-      'test/source/zoom.svg',
-      'test/source/skull.svg'])
-    .pipe(svgSymbols.demoPage({
-      removeAttributes: 'full'
-    }))
     .pipe(gulp.dest('tmp'));
 });
 
@@ -49,7 +37,9 @@ gulp.task('hint', function () {
 
 gulp.task('demo-page', function () {
   return gulp.src(svgGlob)
-    .pipe(svgSymbols.demoPage())
+    .pipe(svgSymbols({
+      templates: ['default-demo']
+    }))
     .pipe(jsbeautifier({
       indentSize: 2,
       logSuccess: false

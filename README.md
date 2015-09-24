@@ -44,21 +44,6 @@ then:
 - **class** is the one generated in the CSS file
 - **xlink:href** is the symbol id in the SVG file
 
-## Demo page
-
-You can generate a simple demo page with `svgSymbols.demoPage()`
-
-```js
-var gulp = require('gulp');
-var svgSymbols = require('gulp-svg-symbols');
-
-gulp.task('demo', function () {
-  return gulp.src('assets/svg/*.svg')
-    .pipe(svgSymbols.demoPage())
-    .pipe(gulp.dest('tmp'));
-});
-```
-
 ## Options
 
 You can override the [default options](https://github.com/Hiswe/gulp-svg-symbols/blob/master/lib/default-config.js) by passing an object as an argument to `svgSymbols()`
@@ -93,6 +78,28 @@ See [templates option](https://github.com/Hiswe/gulp-svg-symbols#templates) for 
 ```js
 templates: ['default-svg']
 ```
+
+### Demo page
+
+Like above, bot really an option.
+You can generate a simple demo page by adding `default-demo` to the templates array.
+
+```js
+var gulp = require('gulp');
+var svgSymbols = require('gulp-svg-symbols');
+
+gulp.task('demo', function () {
+  return gulp.src('assets/svg/*.svg')
+    .pipe(svgSymbols({
+      templates: ['default-demo']
+    }))
+    .pipe(gulp.dest('tmp'));
+});
+```
+
+### silent
+
+Disable warn messages about missing viewBox.
 
 ### Advanced
 

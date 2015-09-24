@@ -19,7 +19,7 @@ var templatesPath     = {
   'default-demo': path.join(__dirname, './templates/svg-symbols-demo-page.html')
 };
 
-var plugin = function (opts) {
+function gulpSvgSymbols(opts) {
   opts = opts || {};
   var buffer  = [];
   var defs    = [];
@@ -65,6 +65,9 @@ var plugin = function (opts) {
       //
       return svg.formatForTemplate(svgRawData, options);
     });
+    // force defs to have a value.
+    // better for templates to check if `false` rather than length…
+    defs = defs.length > 0 ? defs.join('\n') : false;
 
     var files = templates.renderAll(options.templates, svgData, defs);
 
@@ -79,13 +82,4 @@ var plugin = function (opts) {
   });
 };
 
-// Generate a demo html page
-plugin.demoPage = function (opts) {
-  opts            = _.omit(opts, ['transformData']);
-  opts.templates  = ['default-demo'];
-  return plugin(opts);
-};
-
-plugin.pluginName = PLUGIN_NAME;
-
-module.exports = plugin;
+module.exports = gulpSvgSymbols;

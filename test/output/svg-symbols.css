@@ -1,32 +1,55 @@
-.codepen {
-  width: 24px;
-  height: 24px;
+.chinese-letter-with-styles {
+  width: 36px;
+  height: 36px;
 }
+.cls-1 { fill: #fff45c; stroke: #fc0; stroke-width: 2px; }
+.cls-2, .cls-3 { font-size: 20px; }
+.cls-3 { fill: #fc0; font-family: "Microsoft YaHei"; }
+
 .gear_without_dimensions {
-  width: 229.6px;
-  height: 259.9px;
+  width: 229px;
+  height: 259px;
 }
+
 .github {
   width: 22px;
   height: 24px;
 }
+
+.gradient {
+  width: 100px;
+  height: 100px;
+}
+
 .ios {
   width: 32px;
   height: 32px;
 }
-.mail {
-  width: 28px;
-  height: 24px;
-}
+
 .skull {
   width: 150px;
   height: 150px;
 }
-.warning {
+
+.warning-with-styles-and-empty-group {
   width: 64px;
   height: 64px;
 }
+.alert{fill:#C40000;}
+.white{fill:#FFFFFF;}
+.st0{fill:#808285;}
+.st1{fill:#AEAFAF;}
+.st2{fill:#231F20;}
+.st3{opacity:0.5;fill:#231F20;}
+.st4{opacity:0.8;fill:#231F20;}
+.st5{opacity:0.1;fill:#231F20;}
+.st6{opacity:0.55;fill:#231F20;}
+.st7{opacity:0.3;fill:#231F20;}
+.st8{fill:#FFFFFF;stroke:#AEAFAF;}
+.st9{fill-rule:evenodd;clip-rule:evenodd;fill:#82B82D;}
+
 .zoom {
   width: 20px;
   height: 20px;
 }
+
