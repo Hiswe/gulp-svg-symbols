@@ -16,7 +16,7 @@ gulp.task('test', function () {
   return gulp.src([
       'test/plugin.js',
       'test/templates.js',
-      // 'test/svg-raw-datas.js',
+      'test/get-svg-datas.js',
       'test/transform-raw-data.js',
     ])
     .pipe(jasmine({verbose: true}));

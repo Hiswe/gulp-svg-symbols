@@ -8,7 +8,7 @@ var path          = require('path');
 var gutil         = require('gulp-util');
 
 var config        = require('../lib/default-config');
-var formatSvgData = require('../lib/raw-svg-data.js');
+var formatSvgData = require('../lib/svg.js').parseFile;
 
 // Use the skull files for that
 var svgFile       = new gutil.File({
@@ -17,7 +17,17 @@ var svgFile       = new gutil.File({
   path: 'test/source/skull.svg',
   contents: fs.readFileSync('test/source/skull.svg')
 });
-var authorizedInfo = ['content', 'height', 'name', 'originalAttributes', 'viewBox', 'width'].sort();
+
+var authorizedInfo = [
+  'name',
+  'viewBox',
+  'originalAttributes',
+  'id',
+  'width',
+  'height',
+  'content',
+].sort();
+
 var expectedInfo  = {
   content:  fs.readFileSync('test/output/skull-symbol.svg').toString(),
   width:    150,
@@ -26,7 +36,7 @@ var expectedInfo  = {
   viewBox:  '-50 0 150 150'
 };
 
-describe('SVG raw datas - Gather basic info from SVG', function () {
+describe('get SVG datas - Gather basic info from SVG', function () {
   it('should be an object', function (done) {
     formatSvgData(svgFile, {}, function (result) {
       expect(result).toEqual(jasmine.any(Object));
@@ -60,6 +70,12 @@ describe('SVG raw datas - Gather basic info from SVG', function () {
   });
 });
 
+// describe('get SVG datas - Handle Styles', function () {
+// });
+
+// describe('get SVG datas - Handle Defs', function () {
+// });
+
 var noDimensionSvgFile  = new gutil.File({
   base: 'test/source',
   cwd: 'test/',
@@ -74,7 +90,7 @@ var noDimensionExpectedInfo  = {
   viewBox:  '0 0 229.6 259.9'
 };
 
-describe('SVG raw datas - Handle SVG without dimensions', function () {
+describe('get SVG datas - Handle SVG without dimensions', function () {
   it('should have the right width', function (done) {
     formatSvgData(noDimensionSvgFile, {}, function (result) {
       expect(result.width).toEqual(noDimensionExpectedInfo.width);
