@@ -70,12 +70,6 @@ describe('get SVG datas - Gather basic info from SVG', function () {
   });
 });
 
-// describe('get SVG datas - Handle Styles', function () {
-// });
-
-// describe('get SVG datas - Handle Defs', function () {
-// });
-
 var noDimensionSvgFile  = new gutil.File({
   base: 'test/source',
   cwd: 'test/',

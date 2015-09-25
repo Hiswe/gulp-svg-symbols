@@ -62,7 +62,6 @@ describe('Plugin', function () {
 describe('Plugin - defs', function () {
 
   it('should handle svg with defs', function (done) {
-    var that = this;
     gulp.src('test/source/gradient.svg')
       .pipe(svgSymbols({warn: false}))
       .pipe(es.writeArray(function (err, output) {
@@ -73,7 +72,6 @@ describe('Plugin - defs', function () {
   });
 
   it('should handle svg withouts defs', function (done) {
-    var that = this;
     gulp.src('test/source/gear_without_dimensions.svg')
       .pipe(svgSymbols({warn: false}))
       .pipe(es.writeArray(function (err, output) {
@@ -84,12 +82,39 @@ describe('Plugin - defs', function () {
   });
 
   it('should handle svg with empty defs', function (done) {
-    var that = this;
     gulp.src('test/source/chinese letter with styles.svg')
       .pipe(svgSymbols({warn: false}))
       .pipe(es.writeArray(function (err, output) {
         var svgContent = output[0].contents.toString();
         expect(svgContent).not.toMatch(/<defs>/g);
+        done();
+      }));
+  });
+
+});
+
+describe('Plugin - style tags', function () {
+  it('should remove style attributes and put content in another file', function (done) {
+    gulp.src('test/source/warning with styles and empty group.svg')
+      .pipe(svgSymbols({warn: false}))
+      .pipe(es.writeArray(function (err, output) {
+        var svgContent = output[0].contents.toString()
+        var cssContent = output[1].contents.toString()
+        expect(svgContent).not.toMatch(/<style/g);
+        expect(cssContent).toMatch(/\.alert{fill:#C40000;}/g);
+        done();
+      }));
+  });
+
+});
+
+describe('Plugin - empty groups', function () {
+  it('should remove empty groups', function (done) {
+    gulp.src('test/source/warning with styles and empty group.svg')
+      .pipe(svgSymbols({warn: false}))
+      .pipe(es.writeArray(function (err, output) {
+        var svgContent = output[0].contents.toString()
+        expect((svgContent.match(/<g>/g) || []).length).toEqual(1);
         done();
       }));
   });
