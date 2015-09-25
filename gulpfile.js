@@ -17,7 +17,7 @@ gulp.task('test', function () {
       'test/plugin.js',
       'test/templates.js',
       // 'test/svg-raw-datas.js',
-      // 'test/transform-raw-data.js',
+      'test/transform-raw-data.js',
     ])
     .pipe(jasmine({verbose: true}));
 });

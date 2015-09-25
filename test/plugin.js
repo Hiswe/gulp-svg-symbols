@@ -22,6 +22,8 @@ describe('Plugin', function () {
       }));
   });
 
+  // control duplicate attributes in a watch case
+  // https://github.com/Hiswe/gulp-svg-symbols/issues/2
   it('should have the right output if called many times', function (done) {
     var that = this;
     gulp.src('test/source/github.svg')
@@ -124,6 +126,19 @@ describe('Plugin - title', function () {
   });
 
   it('should remove title if title option is an empty string', function (done) {
+    gulp.src(src)
+      .pipe(svgSymbols({
+        title: '',
+        silent: true,
+      }))
+      .pipe(es.writeArray(function (err, output) {
+        var svgContent = output[0].contents.toString()
+        expect(svgContent).not.toMatch(/<title>/g);
+        done();
+      }));
+  });
+
+  xit('should\'t add a title if one is already there', function (done) {
     gulp.src(src)
       .pipe(svgSymbols({
         title: '',

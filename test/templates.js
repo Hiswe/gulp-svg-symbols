@@ -31,10 +31,7 @@ describe('Render templates', function () {
       expect(file.contents.toString()).toEqual(htmlOutput);
       done();
     })
-    .catch(function (e) {
-      console.log(e);
-      done.fail();
-    });
+    .catch(done.fail);
   });
 
   it('should render an array of templates', function (done) {
@@ -47,9 +44,6 @@ describe('Render templates', function () {
         expect(files[1].contents.toString()).toEqual(jsonOutput);
         done();
       })
-      .catch(function (e) {
-        console.log(e);
-        done.fail();
-      });
+      .catch(done.fail);
   });
 });
