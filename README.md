@@ -60,14 +60,14 @@ Text templates for generating icon class & symbols id
 This option lets you define a base font.  
 If it's superior to 0, then the sizes in your CSS file will be in **em**.
 
-#### title
+#### title (default: false, deprecated)
 
-Specify whether or not you want the `title` tag in your SVG symbols.  
+Specify whether or not you want to add a missing `title` tag in your SVG symbols.  
 It should be better for *accessibility*.  
-It takes a text template (like for [id/classname](https://github.com/Hiswe/gulp-svg-symbols#id--classname)) or `false` if you want to remove it:
+It takes a text template (like for [id/classname](https://github.com/Hiswe/gulp-svg-symbols#id--classname)) or
 
 ```js
-title: false
+title: '%f icon'
 ```
 
 #### css generation
@@ -97,9 +97,9 @@ gulp.task('demo', function () {
 });
 ```
 
-#### silent
+#### warn (default: true)
 
-Disable warn messages about missing viewBox.
+Disable plugin warn messages (like: missing viewBox).
 
 ### Advanced
 

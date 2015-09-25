@@ -1,19 +1,21 @@
 'use strict';
 
-var _                 = require('lodash');
-var path              = require('path');
-var gutil             = require('gulp-util');
-var GulpError         = gutil.PluginError;
-var through           = require('through2');
-var BPromise          = require('bluebird');
+var _             = require('lodash');
+var path          = require('path');
+var gutil         = require('gulp-util');
+var GulpError     = gutil.PluginError;
+var warn          = gutil.colors.yellow;
+var grey          = gutil.colors.grey;
+var through       = require('through2');
+var BPromise      = require('bluebird');
 
-var defaults          = require('./lib/default-config');
-var svg               = require('./lib/svg');
-var templates         = require('./lib/templates.js');
-var utils             = require('./lib/utils.js');
+var defaults      = require('./lib/default-config');
+var svg           = require('./lib/svg');
+var templates     = require('./lib/templates.js');
+var utils         = require('./lib/utils.js');
 
-var PLUGIN_NAME       = utils.name;
-var templatesPath     = {
+var PLUGIN_NAME   = utils.name;
+var templatesPath = {
   'default-svg':  path.join(__dirname, './templates/svg-symbols.svg'),
   'default-css':  path.join(__dirname, './templates/svg-symbols.css'),
   'default-demo': path.join(__dirname, './templates/svg-symbols-demo-page.html')
@@ -26,6 +28,10 @@ function gulpSvgSymbols(opts) {
 
   // clone everything as we don't want to mutate anything
   var options = _.defaults(_.cloneDeep(opts), _.cloneDeep(defaults));
+
+  if (options.warn && options.title !== false) {
+    gutil.log(warn(PLUGIN_NAME), grey('title option is deprecated, please handle while transforming your SVGs'));
+  }
 
   // expand path to default templates
   options.templates = options.templates.map(function (pathName) {

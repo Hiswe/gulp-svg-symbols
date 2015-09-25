@@ -80,7 +80,7 @@ describe('Transform data - default', function () {
   });
   it('should have the right title', function (done) {
     var result = transformSvgData(svgRawData, defaultOptions);
-    expect(result.title).toEqual(resultDefault.title);
+    expect(result.title).toBeUndefined();
     done();
   });
   it('should output the right width', function (done) {

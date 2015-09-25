@@ -13,7 +13,7 @@ describe('Plugin', function () {
   it('should produce two files', function (done) {
     var that = this;
     gulp.src('test/source/*.svg')
-      .pipe(svgSymbols({silent: true}))
+      .pipe(svgSymbols({warn: false}))
       .pipe(es.writeArray(function (err, output) {
         expect(output.length).toEqual(2);
         expect(output[0].path).toEqual('svg-symbols.svg');
@@ -27,10 +27,10 @@ describe('Plugin', function () {
   it('should have the right output if called many times', function (done) {
     var that = this;
     gulp.src('test/source/github.svg')
-      .pipe(svgSymbols({silent: true}))
+      .pipe(svgSymbols({warn: false}))
       .pipe(es.wait(function () {
         gulp.src('test/source/github.svg')
-          .pipe(svgSymbols({silent: true}))
+          .pipe(svgSymbols({warn: false}))
           .pipe(es.writeArray(function (err, output) {
             var svg = output[0].contents.toString();
             var css = output[1].contents.toString();
@@ -47,7 +47,7 @@ describe('Plugin', function () {
     gulp.src('test/source/github.svg')
       .pipe(svgSymbols({
         templates: ['default-demo'],
-        silent: true,
+        warn: false,
       }))
       .pipe(es.writeArray(function (err, output) {
         expect(output.length).toEqual(1);
@@ -64,7 +64,7 @@ describe('Plugin - defs', function () {
   it('should handle svg with defs', function (done) {
     var that = this;
     gulp.src('test/source/gradient.svg')
-      .pipe(svgSymbols({silent: true}))
+      .pipe(svgSymbols({warn: false}))
       .pipe(es.writeArray(function (err, output) {
         var svgContent = output[0].contents.toString()
         expect(svgContent).toMatch(/<defs>/g);
@@ -75,7 +75,7 @@ describe('Plugin - defs', function () {
   it('should handle svg withouts defs', function (done) {
     var that = this;
     gulp.src('test/source/gear_without_dimensions.svg')
-      .pipe(svgSymbols({silent: true}))
+      .pipe(svgSymbols({warn: false}))
       .pipe(es.writeArray(function (err, output) {
         var svgContent = output[0].contents.toString()
         expect(svgContent).not.toMatch(/<defs>/g);
@@ -86,7 +86,7 @@ describe('Plugin - defs', function () {
   it('should handle svg with empty defs', function (done) {
     var that = this;
     gulp.src('test/source/chinese letter with styles.svg')
-      .pipe(svgSymbols({silent: true}))
+      .pipe(svgSymbols({warn: false}))
       .pipe(es.writeArray(function (err, output) {
         var svgContent = output[0].contents.toString();
         expect(svgContent).not.toMatch(/<defs>/g);
@@ -103,7 +103,7 @@ describe('Plugin - title', function () {
     gulp.src(src)
       .pipe(svgSymbols({
         title: 'pouic',
-        silent: true,
+        warn: false,
       }))
       .pipe(es.writeArray(function (err, output) {
         var svgContent = output[0].contents.toString()
@@ -116,7 +116,7 @@ describe('Plugin - title', function () {
     gulp.src(src)
       .pipe(svgSymbols({
         title: false,
-        silent: true,
+        warn: false,
       }))
       .pipe(es.writeArray(function (err, output) {
         var svgContent = output[0].contents.toString()
@@ -129,7 +129,7 @@ describe('Plugin - title', function () {
     gulp.src(src)
       .pipe(svgSymbols({
         title: '',
-        silent: true,
+        warn: false,
       }))
       .pipe(es.writeArray(function (err, output) {
         var svgContent = output[0].contents.toString()
@@ -138,15 +138,16 @@ describe('Plugin - title', function () {
       }));
   });
 
-  xit('should\'t add a title if one is already there', function (done) {
-    gulp.src(src)
+  it('should\'t add a title if one is already there', function (done) {
+    gulp.src('test/source/instagram-black.svg')
       .pipe(svgSymbols({
-        title: '',
-        silent: true,
+        title: 'clapou',
+        warn: false,
       }))
       .pipe(es.writeArray(function (err, output) {
         var svgContent = output[0].contents.toString()
-        expect(svgContent).not.toMatch(/<title>/g);
+        expect(svgContent).toMatch(/<title>/g);
+        expect((svgContent.match(/<symbol/g) || []).length).toEqual(1);
         done();
       }));
   });
