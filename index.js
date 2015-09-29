@@ -29,10 +29,6 @@ function gulpSvgSymbols(opts) {
   // clone everything as we don't want to mutate anything
   var options = _.defaults(_.cloneDeep(opts), _.cloneDeep(defaults));
 
-  if (options.warn && options.title !== false) {
-    gutil.log(warn(PLUGIN_NAME), grey('title option is deprecated, please handle while transforming your SVGs'));
-  }
-
   // expand path to default templates
   options.templates = options.templates.map(function (pathName) {
     if (pathName in templatesPath) return templatesPath[pathName];
