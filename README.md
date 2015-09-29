@@ -148,13 +148,10 @@ transformData: function(svg, defaultData, options) {
 In your templates, svg original data are accessible in `icon.svg`.  
 Of course default templates need `defaultData`.
 
-#### transformSvg
-
-Your transform function have on paramater the [cheerio](https://www.npmjs.org/package/cheerio) object of the whole svg.  
-You have to return this object after modification.
-
 ### Other observations
 
+- If you want to manipulate your icons files, use [gulp-cheerio](https://www.npmjs.com/package/gulp-cheerio)
+- If you want to optimize your icons files or the SVG output, use [gulp-svgmin](https://www.npmjs.org/package/gulp-svgmin) (using SVGO)
 - If you want to change the file name, use [gulp-rename](https://www.npmjs.org/package/gulp-rename)  
 - If you want to change the generated files name, again use [gulp-rename](https://www.npmjs.org/package/gulp-rename)
 - If you want different destination for the files, use [gulp-if](https://www.npmjs.org/package/gulp-if)
@@ -164,10 +161,7 @@ You have to return this object after modification.
 
 ### from v0.2+ to v1.0
 
-- SVGO is no more used. If you want to optimize your SVG use:  
-  - [gulp-svgmin](https://www.npmjs.org/package/gulp-svgmin) (using SVGO)
-  - or [gulp-cheerio](https://www.npmjs.com/package/gulp-cheerio)
-  - or anything you like :)
+- SVGO is no more used.
 - `css: false` is removed.
 - svgSymbols.demoPage() method has been removed. See **Basics > demo page**
 

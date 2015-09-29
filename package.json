@@ -4,6 +4,7 @@
   "description": "Convert SVG files to symbols with gulp",
   "main": "index.js",
   "scripts": {
+    "hint": "gulp hint",
     "test": "gulp test"
   },
   "repository": {
@@ -37,9 +38,10 @@
   "devDependencies": {
     "event-stream": "^3.1.7",
     "gulp": "^3.8.5",
+    "gulp-cheerio": "^0.6.2",
     "gulp-jasmine": "^2.1.0",
     "gulp-jsbeautifier": "^1.0.1",
-    "gulp-jscs": "^2.0.0",
+    "gulp-jscs": "^3.0.0",
     "gulp-jshint": "^1.8.4",
     "jshint-stylish": "^2.0.1"
   }

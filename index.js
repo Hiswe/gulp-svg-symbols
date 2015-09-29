@@ -85,6 +85,6 @@ function gulpSvgSymbols(opts) {
 
     BPromise.all(files).then(outputFiles);
   });
-};
+}
 
 module.exports = gulpSvgSymbols;

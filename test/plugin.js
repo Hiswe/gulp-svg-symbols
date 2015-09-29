@@ -65,7 +65,7 @@ describe('Plugin - defs', function () {
     gulp.src('test/source/gradient.svg')
       .pipe(svgSymbols({warn: false}))
       .pipe(es.writeArray(function (err, output) {
-        var svgContent = output[0].contents.toString()
+        var svgContent = output[0].contents.toString();
         expect(svgContent).toMatch(/<defs>/g);
         done();
       }));
@@ -75,7 +75,7 @@ describe('Plugin - defs', function () {
     gulp.src('test/source/gear_without_dimensions.svg')
       .pipe(svgSymbols({warn: false}))
       .pipe(es.writeArray(function (err, output) {
-        var svgContent = output[0].contents.toString()
+        var svgContent = output[0].contents.toString();
         expect(svgContent).not.toMatch(/<defs>/g);
         done();
       }));
@@ -98,8 +98,8 @@ describe('Plugin - style tags', function () {
     gulp.src('test/source/warning with styles and empty group.svg')
       .pipe(svgSymbols({warn: false}))
       .pipe(es.writeArray(function (err, output) {
-        var svgContent = output[0].contents.toString()
-        var cssContent = output[1].contents.toString()
+        var svgContent = output[0].contents.toString();
+        var cssContent = output[1].contents.toString();
         expect(svgContent).not.toMatch(/<style/g);
         expect(cssContent).toMatch(/\.alert{fill:#C40000;}/g);
         done();
@@ -113,7 +113,7 @@ describe('Plugin - empty groups', function () {
     gulp.src('test/source/warning with styles and empty group.svg')
       .pipe(svgSymbols({warn: false}))
       .pipe(es.writeArray(function (err, output) {
-        var svgContent = output[0].contents.toString()
+        var svgContent = output[0].contents.toString();
         expect((svgContent.match(/<g>/g) || []).length).toEqual(1);
         done();
       }));
@@ -131,7 +131,7 @@ describe('Plugin - title', function () {
         warn: false,
       }))
       .pipe(es.writeArray(function (err, output) {
-        var svgContent = output[0].contents.toString()
+        var svgContent = output[0].contents.toString();
         expect(svgContent).toMatch(/<title>pouic<\/title>/g);
         done();
       }));
@@ -144,7 +144,7 @@ describe('Plugin - title', function () {
         warn: false,
       }))
       .pipe(es.writeArray(function (err, output) {
-        var svgContent = output[0].contents.toString()
+        var svgContent = output[0].contents.toString();
         expect(svgContent).not.toMatch(/<title>/g);
         done();
       }));
@@ -157,7 +157,7 @@ describe('Plugin - title', function () {
         warn: false,
       }))
       .pipe(es.writeArray(function (err, output) {
-        var svgContent = output[0].contents.toString()
+        var svgContent = output[0].contents.toString();
         expect(svgContent).not.toMatch(/<title>/g);
         done();
       }));
@@ -170,7 +170,7 @@ describe('Plugin - title', function () {
         warn: false,
       }))
       .pipe(es.writeArray(function (err, output) {
-        var svgContent = output[0].contents.toString()
+        var svgContent = output[0].contents.toString();
         expect(svgContent).toMatch(/<title>/g);
         expect((svgContent.match(/<symbol/g) || []).length).toEqual(1);
         done();
