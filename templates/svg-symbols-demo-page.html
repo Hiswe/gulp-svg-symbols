@@ -13,10 +13,12 @@
         text-align: center;
       }
       html, body {
-        margin: 0; padding: 0;
+        margin: 0;
+        padding: 0;
       }
       h1 {
-        margin: 0 0 1em; padding: 1em;
+        margin: 0 0 1em;
+        padding: 1em;
         background: white;
       }
       main {
@@ -113,11 +115,16 @@
         width: <%= icon.width %>;
         height: <%= icon.height %>;
       }
+      <%= icon.style %>
       <% }); %>
     </style>
   </head>
   <body>
-    <svg xmlns="http://www.w3.org/2000/svg" style="display: none;"><% _.forEach( icons, function( icon ){ %>
+    <svg xmlns="http://www.w3.org/2000/svg" style="width:0; height:0; visibility:hidden;">
+    <defs>
+      <%= defs %>
+    </defs>
+    <% _.forEach( icons, function( icon ){ %>
     <symbol id="<%= icon.id %>" viewBox="<%= icon.svg.viewBox %>"><% if (icon.title) {%>
       <title><%= icon.title %></title><% }%>
       <%= icon.svg.content %>
