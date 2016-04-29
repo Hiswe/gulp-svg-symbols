@@ -133,7 +133,7 @@ describe('Transform data - default & options', function () {
   });
 });
 
-describe('Transform - title should be removable', function (done) {
+describe('Transform - title should be removable', function () {
   it('shouldn\'t have a title', function (done) {
     var result  = transformSvgData(svgRawData, customOptions);
     expect(result.title).not.toBeDefined();
