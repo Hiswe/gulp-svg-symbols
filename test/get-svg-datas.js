@@ -10,6 +10,10 @@ var gutil         = require('gulp-util');
 var config        = require('../lib/default-config');
 var formatSvgData = require('../lib/svg.js').parseFile;
 
+////////
+// BASIC
+////////
+
 // Use the skull files for that
 var svgFile       = new gutil.File({
   base: 'test/source',
@@ -100,6 +104,85 @@ describe('get SVG datas - Handle SVG without dimensions', function () {
   it('should have the right viewbox', function (done) {
     formatSvgData(noDimensionSvgFile, {}, function (result) {
       expect(result.viewbox).toEqual(noDimensionExpectedInfo.viewbox);
+      done();
+    });
+  });
+});
+
+////////
+// NO DIMENSIONS
+////////
+
+var noDimensionSvgFile  = new gutil.File({
+  base: 'test/source',
+  cwd: 'test/',
+  path: 'test/source/skull.svg',
+  contents: fs.readFileSync('test/source/gear_without_dimensions.svg')
+});
+var noDimensionExpectedInfo  = {
+  content:  fs.readFileSync('test/output/gear_without_dimensions-symbol.svg').toString(),
+  width:    229.6,
+  height:   259.9,
+  name:     'gear_without_dimensions',
+  viewBox:  '0 0 229.6 259.9'
+};
+
+describe('get SVG datas - Handle SVG without dimensions', function () {
+  it('should have the right width', function (done) {
+    formatSvgData(noDimensionSvgFile, {}, function (result) {
+      expect(result.width).toEqual(noDimensionExpectedInfo.width);
+      done();
+    });
+  });
+  it('should have the right height', function (done) {
+    formatSvgData(noDimensionSvgFile, {}, function (result) {
+      expect(result.height).toEqual(noDimensionExpectedInfo.height);
+      done();
+    });
+  });
+  it('should have the right viewbox', function (done) {
+    formatSvgData(noDimensionSvgFile, {}, function (result) {
+      expect(result.viewbox).toEqual(noDimensionExpectedInfo.viewbox);
+      done();
+    });
+  });
+});
+
+////////
+// PERCENT DIMENSIONS
+////////
+
+// https://github.com/Hiswe/gulp-svg-symbols/issues/24
+
+var percentSvgFile  = new gutil.File({
+  base: 'test/source',
+  cwd: 'test/',
+  path: 'test/source/skull.svg',
+  contents: fs.readFileSync('test/source/icon-with-percent-size.svg')
+});
+var percentExpectedInfo  = {
+  width:    20,
+  height:   26,
+  name:     'icon-with-percent-size',
+  viewBox:  '0 0 20 26'
+};
+
+describe('get SVG datas - Handle SVG with percent dimensions', function () {
+  it('should have the right width', function (done) {
+    formatSvgData(percentSvgFile, {}, function (result) {
+      expect(result.width).toEqual(percentExpectedInfo.width);
+      done();
+    });
+  });
+  it('should have the right height', function (done) {
+    formatSvgData(percentSvgFile, {}, function (result) {
+      expect(result.height).toEqual(percentExpectedInfo.height);
+      done();
+    });
+  });
+  it('should have the right viewbox', function (done) {
+    formatSvgData(percentSvgFile, {}, function (result) {
+      expect(result.viewbox).toEqual(percentExpectedInfo.viewbox);
       done();
     });
   });
