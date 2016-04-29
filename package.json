@@ -42,6 +42,7 @@
     "gulp-jsbeautifier": "^2.0.3",
     "gulp-jscs": "^3.0.2",
     "gulp-jshint": "^2.0.0",
+    "jshint": "^2.9.2",
     "jshint-stylish": "^2.1.0"
   }
 }
