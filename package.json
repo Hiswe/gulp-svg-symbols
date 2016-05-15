@@ -32,7 +32,6 @@
     "consolidate": "^0.14.1",
     "gulp-util": "^3.0.7",
     "lodash": "^4.11.1",
-    "slug": "^0.9.1",
     "through2": "^2.0.1"
   },
   "devDependencies": {
