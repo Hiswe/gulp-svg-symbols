@@ -72,6 +72,7 @@ function gulpSvgSymbols(opts) {
     defs = defs.length > 0 ? defs.join('\n') : false;
 
     var files = templates.renderAll(options.templates, {
+      svgClassname: options.svgClassname,
       icons: svgData,
       defs: defs,
     });

@@ -29,22 +29,6 @@ gulp.task('hint', function () {
     .pipe(jscs());
 });
 
-gulp.task('demo', function () {
-  return gulp.src(svgGlob)
-    .pipe(svgSymbols({
-      templates: [
-        'default-svg',
-        'default-css',
-        'default-demo'
-      ]
-    }))
-    .pipe(jsbeautifier({
-      indentSize: 2,
-      logSuccess: false
-    }))
-    .pipe(gulp.dest('tmp'));
-});
-
 gulp.task('templates', function () {
   return gulp.src(svgGlob)
     .pipe(svgSymbols({
@@ -57,16 +41,12 @@ gulp.task('templates', function () {
 });
 
 gulp.task('watch', function () {
-  gulp.watch(svgGlob,                                 ['demo']);
-  gulp.watch('templates/svg-symbols-demo-page.html',  ['demo-page']);
   return gulp.watch(jsGlob, ['hint']);
 });
 
 gulp.task('default', function (cb) {
   console.log('test');
-  console.log('demo');
   console.log('hint');
   console.log('watch');
-  console.log('demo-page');
   cb();
 });
