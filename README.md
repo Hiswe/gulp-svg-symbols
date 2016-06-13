@@ -65,6 +65,39 @@ It takes a text template (like for [id/classname](https://github.com/Hiswe/gulp-
 title: '%f icon'
 ```
 
+#### svgClassname (default: `false`)
+
+Specify a `class` for the `<svg>` container tag in the default SVG template.
+
+```js
+svgClassname: 'svg-icon-lib',
+```
+
+output:
+
+```html
+<svg xmlns="http://www.w3.org/2000/svg" class="svg-icon-lib">
+```
+
+This is usefull when you want to include the SVG symbols directly in the DOM (i.e. no external reference)
+
+A secure way of hiding the svg is by styling it this way:
+
+```css
+.svg-icon-lib {
+  border: 0 !important;
+  clip: rect(0 0 0 0) !important;
+  height: 1px !important;
+  margin: -1px !important;
+  overflow: hidden !important;
+  padding: 0 !important;
+  position: absolute !important;
+  width: 1px !important;
+}
+```
+
+A simple `display: none` will mess with defs rendering (gradients and so on…)
+
 #### templates (default: `['default-svg', 'default-css']`)
 
 *gulp-svg-symbols* come with some default templates.  
@@ -157,45 +190,28 @@ Of course default templates need `defaultData`.
 - If you want different destination for the files, use [gulp-if](https://www.npmjs.org/package/gulp-if)
 - Unlike [gulp-svg-sprites](https://www.npmjs.org/package/gulp-svg-sprites) there is no way to add padding to svg files.
 
-## Migrating
+## Other stuff
 
-see [MIGRATING.md](https://github.com/Hiswe/gulp-svg-symbols/blob/master/MIGRATING.md)
+### Migrating
 
-## The big fat example:
+See [MIGRATING.md](https://github.com/Hiswe/gulp-svg-symbols/blob/master/MIGRATING.md)
 
-```js
-var path        = require('path');
-var gulp        = require('gulp');
-var gulpif      = require('gulp-if');
-var rename      = require('gulp-rename');
-var svgSymbols  = require('gulp-svg-symbols');
+### Examples
 
-var customCSSTemplate = path.join(__dirname, './icons.styl');
+Go in the [examples folder](https://github.com/Hiswe/gulp-svg-symbols/blob/master/examples), then `npm install && gulp`.  
+You will have a list of all task examples there
 
-gulp.task('sprites', function () {
-  return gulp.src('assets/svg/*.svg')
-  .pipe(rename(renameFunction))
-  .pipe(svgSymbols({
-    id:      'icon-%f',
-    className:  '.icon-%f',
-    title:      false,
-    fontSize:   16,
-    templates: ['default-svg', 'default-demo', 'customCSSTemplate']
-  }))
-  .pipe(rename(outputFilesRenameFunction))
-  .pipe(gulpif( /[.]svg$/, gulp.dest('views/svg')))
-  .pipe(gulpif( /[.]styl$/, gulp.dest('front/css')))
-  .pipe(gulpif( /[.]html$/, gulp.dest('tmp')));
-});
-```
+### Usefull frontend lib:
 
-## All credits goes to
+- [svg4everybody](https://www.npmjs.com/package/svg4everybody) leverage external SVG for browser which doesn't support it
+
+### All credits goes to
 
 - [Chris Coyier](http://css-tricks.com/) for the [trick](http://css-tricks.com/svg-symbol-good-choice-icons/)
 - [Shaky Shane](https://www.npmjs.org/~shakyshane) for the [gulp-svg-sprites](https://www.npmjs.org/package/gulp-svg-sprites) plugin
 - [FWeinb](https://github.com/FWeinb) for the [grunt-svgstore](https://github.com/FWeinb/grunt-svgstore) plugin
 
-## Alternatives
+### Alternatives
 
 - [gulp-svg-sprite](https://www.npmjs.com/package/gulp-svg-sprite)
 - [gulp-svg-store](https://www.npmjs.com/package/gulp-svgstore)

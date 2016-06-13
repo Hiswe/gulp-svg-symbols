@@ -10,7 +10,13 @@ var jasmine       = require('gulp-jasmine');
 
 var svgSymbols    = require('./index');
 var svgGlob       = 'test/source/*.svg';
-var jsGlob        = ['index.js', 'gulpfile.js', 'lib/*.js', 'test/*.js'];
+var jsGlob        = [
+  'index.js',
+  'gulpfile.js',
+  'lib/*.js',
+  'test/*.js',
+  'examples/gulpfile.js',
+];
 
 gulp.task('test', function () {
   return gulp.src([

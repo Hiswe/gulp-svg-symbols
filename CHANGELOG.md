@@ -1,3 +1,5 @@
+- **2.0.0** — Change default SVG template
+- **1.0.0** — Remove SVGO
 - **0.3.2** — Better demo page
 - **0.3.1** — Add .npmignore
 - **0.3.0** — Improve default option configuration

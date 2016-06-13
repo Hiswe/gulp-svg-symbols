@@ -11,7 +11,7 @@ var svgGlob       = '../test/source/*.svg';
 require('gulp-task-list')(gulp);
 
 // output task lists
-gulp.task('default', ['task-list'])
+gulp.task('default', ['task-list']);
 
 // default options output
 gulp.task('svg', function () {
@@ -41,7 +41,6 @@ gulp.task('svg-classname', function () {
   }))
   .pipe(gulp.dest('ex-svg-classname'));
 });
-
 
 var customCSSTemplate = path.join(__dirname, '../test/source/template.json');
 // custom templates & files in different folders
