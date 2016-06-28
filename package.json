@@ -32,7 +32,7 @@
     "consolidate": "^0.14.1",
     "gulp-util": "^3.0.7",
     "lodash": "^4.11.1",
-    "slug": "^0.9.1",
+    "speakingurl": "^9.0.0",
     "through2": "^2.0.1"
   },
   "devDependencies": {
@@ -40,7 +40,7 @@
     "gulp": "^3.9.1",
     "gulp-jasmine": "^2.3.0",
     "gulp-jsbeautifier": "^2.0.3",
-    "gulp-jscs": "^3.0.2",
+    "gulp-jscs": "^4.0.0",
     "gulp-jshint": "^2.0.0",
     "jshint": "^2.9.2",
     "jshint-stylish": "^2.1.0"

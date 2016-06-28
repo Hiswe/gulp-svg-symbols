@@ -8,11 +8,15 @@ var gulp          = require('gulp');
 
 var svgSymbols    = require('../index.js');
 
-describe('Plugin', function () {
+////////
+// BASIC
+////////
+
+describe('Plugin – basic', function () {
 
   it('should produce two files', function (done) {
     var that = this;
-    gulp.src('test/source/*.svg')
+    gulp.src(['test/source/*.svg', '!test/source/crâne noir.svg'])
       .pipe(svgSymbols({warn: false}))
       .pipe(es.writeArray(function (err, output) {
         expect(output.length).toEqual(2);
@@ -58,6 +62,9 @@ describe('Plugin', function () {
 
 });
 
+////////
+// CONCAT DEFS
+////////
 
 describe('Plugin - defs', function () {
 
@@ -93,6 +100,10 @@ describe('Plugin - defs', function () {
 
 });
 
+////////
+// CONCAT STYLES
+////////
+
 describe('Plugin - style tags', function () {
   it('should remove style attributes and put content in another file', function (done) {
     gulp.src('test/source/warning with styles and empty group.svg')
@@ -108,6 +119,10 @@ describe('Plugin - style tags', function () {
 
 });
 
+////////
+// REMOVE EMPTY GROUPS
+////////
+
 describe('Plugin - empty groups', function () {
   it('should remove empty groups', function (done) {
     gulp.src('test/source/warning with styles and empty group.svg')
@@ -120,6 +135,10 @@ describe('Plugin - empty groups', function () {
   });
 
 });
+
+////////
+// HANDLE TITLE
+////////
 
 describe('Plugin - title', function () {
   var src = 'test/source/gear_without_dimensions.svg';
@@ -176,4 +195,60 @@ describe('Plugin - title', function () {
         done();
       }));
   });
+});
+
+
+////////
+// HANDLE IDS
+////////
+
+describe('Plugin - id', function () {
+
+  it('should slug ids', function (done) {
+    var src = 'test/source/crâne noir.svg';
+    gulp.src(src)
+      .pipe(svgSymbols({warn: false,}))
+      .pipe(es.writeArray(function (err, output) {
+        var svgContent = output[0].contents.toString();
+        expect(svgContent).toMatch(/id="crane-noir"/g);
+        done();
+      }));
+  });
+
+  it('should handle speakingurl options', function (done) {
+    var src = 'test/source/crâne noir.svg';
+    gulp.src(src)
+      .pipe(svgSymbols({
+        warn: false,
+        slug: {
+          separator: '_',
+          custom: {
+            'c': 'k'
+          }
+        }
+      }))
+      .pipe(es.writeArray(function (err, output) {
+        var svgContent = output[0].contents.toString();
+        expect(svgContent).toMatch(/id="krane_noir"/g);
+        done();
+      }));
+  });
+
+  it('should handle custom slug function', function (done) {
+    var src = 'test/source/crâne noir.svg';
+    gulp.src(src)
+      .pipe(svgSymbols({
+        warn: false,
+        slug: function (name) {
+          var result = name.split(' ');
+          return 'test-name-'  + result[1];
+        },
+      }))
+      .pipe(es.writeArray(function (err, output) {
+        var svgContent = output[0].contents.toString();
+        expect(svgContent).toMatch(/id="test-name-noir"/g);
+        done();
+      }));
+  });
+
 });
