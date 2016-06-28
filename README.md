@@ -98,6 +98,43 @@ A secure way of hiding the svg is by styling it this way:
 
 A simple `display: none` will mess with defs rendering (gradients and so on…)
 
+#### slug (default: `{}`)
+
+In order to have nice ids in the template and to keep the gulp task quite simple, gulp-svg-symbols use [speakingurl](https://www.npmjs.com/package/speakingurl).  
+
+You can pass a [speakingurl's config](https://www.npmjs.com/package/speakingurl#getsluginput-options) here:
+
+```js
+gulp.src('*.svg')
+.pipe(svgSymbols({
+  slug: {
+    separator: '_',
+  },
+}))
+
+```
+
+You can also provide a custom function which should return a `string`:
+
+```js
+gulp.src('*.svg')
+.pipe(svgSymbols({
+  slug: function (name) {
+    return name.replace(/\s/g, '-');
+  },
+}))
+```
+
+Or if you want to use [gulp-rename](https://www.npmjs.com/package/gulp-rename):
+
+```js
+gulp.src('*.svg')
+.pipe(rename(/* gulp rename options*/))
+.pipe(svgSymbols({
+  slug: function (name) { return name; },
+}))
+```
+
 #### templates (default: `['default-svg', 'default-css']`)
 
 *gulp-svg-symbols* come with some default templates.  

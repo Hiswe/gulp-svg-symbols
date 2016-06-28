@@ -1,4 +1,6 @@
-- **2.0.0** — Change default SVG template
+- **2.0.0**
+  - Change default SVG template
+  - Change id handling (moving from [slug](https://www.npmjs.com/package/slug) to [speakingurl](https://www.npmjs.com/package/speakingurl))
 - **1.0.0** — Remove SVGO
 - **0.3.2** — Better demo page
 - **0.3.1** — Add .npmignore
