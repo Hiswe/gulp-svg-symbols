@@ -28,8 +28,8 @@ See [css-trick](http://css-tricks.com/svg-symbol-good-choice-icons/) for more de
 - [Other stuff](#other-stuff)
   - [Migrating](#migrating)
   - [More examples](#more-examples)
-  - [Usefull frontend lib:](#usefull-frontend-lib)
-  - [All credits goes to](#all-credits-goes-to)
+  - [Usefull frontend lib](#usefull-frontend-lib)
+  - [Credits](#credits)
   - [Alternatives](#alternatives)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
@@ -78,7 +78,8 @@ You can override the [default options](https://github.com/Hiswe/gulp-svg-symbols
 **default:** `'%f'` and  `'.%f'`
 
 Text templates for generating icon class & symbols id  
-`%f` is the [slugged](https://www.npmjs.com/package/slug) file name placeholder.
+`%f` is the [speakingurled](https://www.npmjs.com/package/speakingurl) file name placeholder.  
+See more about the name in the [slug option](#slug)
 
 #### fontSize
 
@@ -279,11 +280,11 @@ See [MIGRATING.md](https://github.com/Hiswe/gulp-svg-symbols/blob/master/MIGRATI
 Go in the [examples folder](https://github.com/Hiswe/gulp-svg-symbols/blob/master/examples), then `npm install && gulp`.  
 You will have a list of all task examples there
 
-### Usefull frontend lib:
+### Usefull frontend lib
 
 - [svg4everybody](https://www.npmjs.com/package/svg4everybody) leverage external SVG for browser which doesn't support it
 
-### All credits goes to
+### Credits
 
 - [Chris Coyier](http://css-tricks.com/) for the [trick](http://css-tricks.com/svg-symbol-good-choice-icons/)
 - [Shaky Shane](https://www.npmjs.org/~shakyshane) for the [gulp-svg-sprites](https://www.npmjs.org/package/gulp-svg-sprites) plugin
