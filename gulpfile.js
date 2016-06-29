@@ -50,7 +50,7 @@ gulp.task('templates', function () {
 gulp.task('toc', function() {
   return gulp.src('./README.md')
   .pipe(doctoc({
-    mode: "github.com",
+    mode: 'github.com',
   }))
   .pipe(gulp.dest('./'));
 });

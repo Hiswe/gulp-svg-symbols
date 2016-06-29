@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>Gulp SVG Symbols test page</title>
+    <meta name="description" content="" />
+    <meta name="viewport" content="width=device-width" />
+    <style type="text/css">
+      html {
+        font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+        background: #ecf4f8;
+        text-align: center;
+      }
+      html, body {
+        margin: 0;
+        padding: 0;
+      }
+      h1 {
+        margin: 0 0 1em;
+        padding: 1em;
+        background: white;
+      }
+    </style>
+    <style type="text/css">
+      <% _.forEach( icons, function( icon ){ %><%= icon.className %> {
+        width: <%= icon.width %>;
+        height: <%= icon.height %>;
+      }
+      <%= icon.style %>
+      <% }); %>
+    </style>
+  </head>
+  <body>
+    <svg xmlns="http://www.w3.org/2000/svg" style="width:0; height:0; visibility:hidden;">
+    <defs>
+      <%= defs %>
+    </defs>
+    <% _.forEach( icons, function( icon ){ %>
+    <symbol id="<%= icon.id %>" viewBox="<%= icon.svg.viewBox %>"<% if (icon.svg.originalAttributes.preserveAspectRatio) {%> preserveAspectRatio="<%= icon.svg.originalAttributes.preserveAspectRatio %>" <% }%>><% if (icon.title) {%>
+      <title><%= icon.title %></title><% }%>
+      <%= icon.svg.content %>
+    </symbol><%
+}); %></svg>
+    <h1>line whould take 100% <br> octocat should stay same sized</h1>
+    <main>
+      <p>untouched SVG</p>
+      <svg role="img" class="aspect-ratio">
+        <use xlink:href="#aspect-ratio"></use>
+      </svg>
+      <br>
+      <svg role="img" class="github">
+        <use xlink:href="#github"></use>
+      </svg>
+      <p>SVG with width at 100%</p>
+      <svg role="img" class="aspect-ratio" style="width: 100%">
+        <use xlink:href="#aspect-ratio"></use>
+      </svg>
+      <svg role="img" class="github" style="width: 100%">
+        <use xlink:href="#github"></use>
+      </svg>
+    </main>
+  </body>
+</html>

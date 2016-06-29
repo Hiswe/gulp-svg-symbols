@@ -16,14 +16,18 @@ describe('Plugin – basic', function () {
 
   it('should produce two files', function (done) {
     var that = this;
-    gulp.src(['test/source/*.svg', '!test/source/crâne noir.svg'])
-      .pipe(svgSymbols({warn: false}))
-      .pipe(es.writeArray(function (err, output) {
-        expect(output.length).toEqual(2);
-        expect(output[0].path).toEqual('svg-symbols.svg');
-        expect(output[1].path).toEqual('svg-symbols.css');
-        done();
-      }));
+    gulp.src([
+      'test/source/*.svg',
+      '!test/source/crâne noir.svg',
+      '!test/source/aspect-ratio.svg',
+    ])
+    .pipe(svgSymbols({warn: false}))
+    .pipe(es.writeArray(function (err, output) {
+      expect(output.length).toEqual(2);
+      expect(output[0].path).toEqual('svg-symbols.svg');
+      expect(output[1].path).toEqual('svg-symbols.css');
+      done();
+    }));
   });
 
   // control duplicate attributes in a watch case
@@ -197,7 +201,6 @@ describe('Plugin - title', function () {
   });
 });
 
-
 ////////
 // HANDLE IDS
 ////////
@@ -247,6 +250,48 @@ describe('Plugin - id', function () {
       .pipe(es.writeArray(function (err, output) {
         var svgContent = output[0].contents.toString();
         expect(svgContent).toMatch(/id="test-name-noir"/g);
+        done();
+      }));
+  });
+
+});
+
+
+////////
+// HANDLE PRESERVE ASPECT RATIO
+////////
+
+describe('Plugin - preserveAspectRatio', function () {
+
+  it('should\'nt add preserveAspectRatio if none present on source', function (done) {
+    var src = 'test/source/zoom.svg';
+    gulp.src(src)
+      .pipe(svgSymbols({warn: false,}))
+      .pipe(es.writeArray(function (err, output) {
+        var svgContent = output[0].contents.toString();
+        expect(svgContent).not.toMatch(/preserveAspectRatio/g);
+        done();
+      }));
+  });
+
+  it('should port preserveAspectRatio with a value of "none"', function (done) {
+    var src = 'test/source/aspect-ratio.svg';
+    gulp.src(src)
+      .pipe(svgSymbols({warn: false,}))
+      .pipe(es.writeArray(function (err, output) {
+        var svgContent = output[0].contents.toString();
+        expect(svgContent).toMatch(/preserveAspectRatio="none"/g);
+        done();
+      }));
+  });
+
+  it('should port preserveAspectRatio with any value', function (done) {
+    var src = 'test/source/chinese letter with styles.svg';
+    gulp.src(src)
+      .pipe(svgSymbols({warn: false,}))
+      .pipe(es.writeArray(function (err, output) {
+        var svgContent = output[0].contents.toString();
+        expect(svgContent).toMatch(/preserveAspectRatio="xMidYMid"/g);
         done();
       }));
   });

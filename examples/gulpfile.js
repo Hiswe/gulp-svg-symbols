@@ -60,3 +60,18 @@ gulp.task('custom-template', function () {
   .pipe(gulpif( /[.]json$/, gulp.dest('ex-custom-template/front')))
   .pipe(gulpif( /[.]html$/, gulp.dest('ex-custom-template/tmp')));
 });
+
+
+// custom template to test aspect ratio
+gulp.task('aspect-ratio', function () {
+  return gulp.src([
+    '../test/source/aspect-ratio.svg',
+    '../test/source/github.svg'
+  ])
+  .pipe(svgSymbols({
+    templates: [
+      path.join(__dirname, '/aspect-ratio-test.html'),
+    ]
+  }))
+  .pipe(gulp.dest('ex-aspect-ratio'));
+});
