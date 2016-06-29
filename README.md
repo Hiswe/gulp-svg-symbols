@@ -14,7 +14,7 @@ See [css-trick](http://css-tricks.com/svg-symbol-good-choice-icons/) for more de
 - [Example](#example)
 - [Options](#options)
   - [Basics](#basics)
-    - [id & className](#id-&-classname)
+    - [id and className](#id-and-classname)
     - [fontSize](#fontsize)
     - [title](#title)
     - [svgClassname](#svgclassname)
@@ -73,7 +73,7 @@ You can override the [default options](https://github.com/Hiswe/gulp-svg-symbols
 
 ### Basics
 
-#### id & className
+#### id and className
 
 **default:** `'%f'` and  `'.%f'`
 
