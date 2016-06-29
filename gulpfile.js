@@ -7,6 +7,7 @@ var stylish       = require('jshint-stylish');
 var jscs          = require('gulp-jscs');
 var jsbeautifier  = require('gulp-jsbeautifier');
 var jasmine       = require('gulp-jasmine');
+var doctoc        = require('gulp-doctoc');
 
 var svgSymbols    = require('./index');
 var svgGlob       = 'test/source/*.svg';
@@ -44,6 +45,14 @@ gulp.task('templates', function () {
       ]
     }))
     .pipe(gulp.dest('tmp'));
+});
+
+gulp.task('toc', function() {
+  return gulp.src('./README.md')
+  .pipe(doctoc({
+    mode: "github.com",
+  }))
+  .pipe(gulp.dest('./'));
 });
 
 gulp.task('watch', function () {

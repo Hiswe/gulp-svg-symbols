@@ -6,6 +6,34 @@
 It converts a bunch of svg files to a single svg file containing each one as a symbol.  
 See [css-trick](http://css-tricks.com/svg-symbol-good-choice-icons/) for more details.
 
+<!-- START doctoc generated TOC please keep comment here to allow auto update -->
+<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+
+
+- [Install](#install)
+- [Example](#example)
+- [Options](#options)
+  - [Basics](#basics)
+    - [id & className](#id-&-classname)
+    - [fontSize](#fontsize)
+    - [title](#title)
+    - [svgClassname](#svgclassname)
+    - [slug](#slug)
+    - [templates](#templates)
+    - [warn](#warn)
+  - [Advanced](#advanced)
+    - [templates](#templates-1)
+    - [transformData](#transformdata)
+  - [Other observations](#other-observations)
+- [Other stuff](#other-stuff)
+  - [Migrating](#migrating)
+  - [More examples](#more-examples)
+  - [Usefull frontend lib:](#usefull-frontend-lib)
+  - [All credits goes to](#all-credits-goes-to)
+  - [Alternatives](#alternatives)
+
+<!-- END doctoc generated TOC please keep comment here to allow auto update -->
+
 ## Install
 
 ```
@@ -45,17 +73,23 @@ You can override the [default options](https://github.com/Hiswe/gulp-svg-symbols
 
 ### Basics
 
-#### id & className (default: `'%f'` and  `'.%f'`)
+#### id & className
+
+**default:** `'%f'` and  `'.%f'`
 
 Text templates for generating icon class & symbols id  
 `%f` is the [slugged](https://www.npmjs.com/package/slug) file name placeholder.
 
-#### fontSize (default: `0`)
+#### fontSize
+
+**default:** `0`
 
 This option lets you define a base font.  
 If it's superior to 0, then the sizes in your CSS file will be in **em** else sizes are provided with **px**.
 
-#### title (default: `false`)
+#### title
+
+**default:** `false`
 
 Specify whether or not you want to add a missing `title` tag in your SVG symbols.  
 It should be better for *accessibility*.  
@@ -65,7 +99,9 @@ It takes a text template (like for [id/classname](https://github.com/Hiswe/gulp-
 title: '%f icon'
 ```
 
-#### svgClassname (default: `false`)
+#### svgClassname
+
+**default:** `false`
 
 Specify a `class` for the `<svg>` container tag in the default SVG template.
 
@@ -98,7 +134,9 @@ A secure way of hiding the svg is by styling it this way:
 
 A simple `display: none` will mess with defs rendering (gradients and so on…)
 
-#### slug (default: `{}`)
+#### slug
+
+**default:** `{}`
 
 In order to have nice ids in the template and to keep the gulp task quite simple, gulp-svg-symbols use [speakingurl](https://www.npmjs.com/package/speakingurl).  
 
@@ -135,7 +173,9 @@ gulp.src('*.svg')
 }))
 ```
 
-#### templates (default: `['default-svg', 'default-css']`)
+#### templates
+
+**default:** `['default-svg', 'default-css']`
 
 *gulp-svg-symbols* come with some default templates.  
 Their names are:
@@ -157,7 +197,9 @@ will output only the SVG file.
 You can deactivate CSS output by removing the CSS template from the template array.  
 See [templates option](https://github.com/Hiswe/gulp-svg-symbols#templates) for more details.
 
-#### warn (default: `true`)
+#### warn
+
+**default:** `true`
 
 Disable plugin warn messages (like: missing viewBox).
 
@@ -222,7 +264,6 @@ Of course default templates need `defaultData`.
 
 - If you want to manipulate your icons files, use [gulp-cheerio](https://www.npmjs.com/package/gulp-cheerio)
 - If you want to optimize your icons files or the SVG output, use [gulp-svgmin](https://www.npmjs.org/package/gulp-svgmin) (using SVGO)
-- If you want to change the file name, use [gulp-rename](https://www.npmjs.org/package/gulp-rename)  
 - If you want to change the generated files name, again use [gulp-rename](https://www.npmjs.org/package/gulp-rename)
 - If you want different destination for the files, use [gulp-if](https://www.npmjs.org/package/gulp-if)
 - Unlike [gulp-svg-sprites](https://www.npmjs.org/package/gulp-svg-sprites) there is no way to add padding to svg files.
@@ -233,7 +274,7 @@ Of course default templates need `defaultData`.
 
 See [MIGRATING.md](https://github.com/Hiswe/gulp-svg-symbols/blob/master/MIGRATING.md)
 
-### Examples
+### More examples
 
 Go in the [examples folder](https://github.com/Hiswe/gulp-svg-symbols/blob/master/examples), then `npm install && gulp`.  
 You will have a list of all task examples there

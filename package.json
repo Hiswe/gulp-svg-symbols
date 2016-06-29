@@ -38,6 +38,7 @@
   "devDependencies": {
     "event-stream": "^3.3.2",
     "gulp": "^3.9.1",
+    "gulp-doctoc": "^0.1.4",
     "gulp-jasmine": "^2.3.0",
     "gulp-jsbeautifier": "^2.0.3",
     "gulp-jscs": "^4.0.0",
