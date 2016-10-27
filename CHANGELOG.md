@@ -1,3 +1,6 @@
+- **2.0.1**
+  - Update dependencies
+  - Better *real situation* example folder
 - **2.0.0**
   - Change default SVG template
   - Change id handling (moving from [slug](https://www.npmjs.com/package/slug) to [speakingurl](https://www.npmjs.com/package/speakingurl))
