@@ -28,11 +28,11 @@
   "homepage": "https://github.com/Hiswe/gulp-svg-symbols",
   "dependencies": {
     "bluebird": "^3.3.5",
-    "cheerio": "^0.20.0",
+    "cheerio": "^0.22.0",
     "consolidate": "^0.14.1",
     "gulp-util": "^3.0.7",
     "lodash": "^4.11.1",
-    "speakingurl": "^9.0.0",
+    "speakingurl": "^10.0.0",
     "through2": "^2.0.1"
   },
   "devDependencies": {
@@ -42,8 +42,8 @@
     "gulp-jasmine": "^2.3.0",
     "gulp-jsbeautifier": "^2.0.3",
     "gulp-jscs": "^4.0.0",
-    "gulp-jshint": "^2.0.0",
-    "jshint": "^2.9.2",
+    "gulp-jshint": "^2.0.2",
+    "jshint": "^2.9.4",
     "jshint-stylish": "^2.1.0"
   }
 }
