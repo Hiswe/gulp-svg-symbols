@@ -8,10 +8,18 @@
   },
   "author": "Hiswe",
   "license": "WTFPL",
+  "scripts": {
+    "svg": "gulp svg",
+    "demo-page": "gulp demo-page",
+    "svg-classname": "gulp svg-classname",
+    "custom-template": "gulp custom-template",
+    "aspect-ratio": "gulp aspect-ratio"
+  },
   "devDependencies": {
     "gulp": "^3.9.1",
     "gulp-if": "^2.0.1",
     "gulp-rename": "^1.2.2",
+    "gulp-svg-symbols": "^2.0.0",
     "gulp-task-list": "0.0.1"
   }
 }

@@ -2,7 +2,7 @@
 
 var path          = require('path');
 var gulp          = require('gulp');
-var svgSymbols    = require('../index');
+var svgSymbols    = require('gulp-svg-symbols');
 var gulpif        = require('gulp-if');
 var rename        = require('gulp-rename');
 
