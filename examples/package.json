@@ -16,7 +16,8 @@
     "gulp": "^3.9.1",
     "gulp-if": "^2.0.1",
     "gulp-rename": "^1.2.2",
-    "gulp-svg-symbols": "^2.0.1",
+    "gulp-svg-symbols": "^2.0.2",
     "gulp-task-list": "0.0.1"
-  }
+  },
+  "dependencies": {}
 }
