@@ -29,7 +29,7 @@
       border: none;
     }
     .gss-toolbar {
-      position: fixed;
+      position: absolute;
       z-index: 100;
       top: 0;
       left: 0;
@@ -39,6 +39,9 @@
       text-align: left;
       background: white;
     }
+    .gss-toolbar--active {
+      position: fixed;
+    }
     .gss-toolbar > * {
       display: inline-block;
       vertical-align: middle;
@@ -46,6 +49,16 @@
       margin: 0;
       padding: .5rem 1rem;
       line-height: 1.35;
+    }
+    .gss-toolbar h1 {
+      display: none;
+      font: inherit;
+    }
+    .gss-toolbar:not(.gss-toolbar--active) h1 {
+      display: inline-block;
+    }
+    .gss-toolbar:not(.gss-toolbar--active) h1 ~ * {
+      display: none !important;
     }
     .gss-toolbar.gss-toolbar > * + * {
       border-left: solid 1px #c6c6c6;
@@ -102,9 +115,9 @@
     .gss-iconlist ul {
       display: flex;
       flex-wrap: wrap;
+      justify-content: center;
       align-content: center;
-      box-sizing: border-box;
-      min-height: 100%;
+      min-height: calc(100vh - 100px);
       margin: 0;
       padding: 0;
       list-style: none;
@@ -131,15 +144,15 @@
       background-color: rgba(0,0,0,.8);
     }
     .gss-iconlist-item a > svg {
-      width: 2rem;
-      height: 2rem;
+      width: 2.75rem;
+      height: 2.75rem;
       vertical-align: top;
       fill: currentColor;
     }
     @media (min-width: 40em) {
       .gss-iconlist-item a > svg {
-        width: 3rem;
-        height: 3rem;
+        width: 3.5rem;
+        height: 3.5rem;
       }
     }
 
@@ -241,7 +254,7 @@
       overflow: hidden;
       min-height: 8rem;
     }
-    .gss-iconbox[data-state="icon"] .gss-iconbox-wrapper {
+    .gss-iconbox:not([data-state="info"]) .gss-iconbox-wrapper {
       background-color: #fafafa;
       background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" fill="rgb(238,238,238)" width="100" height="100"><rect x="0" y="0" width="50" height="50"></rect><rect x="50" y="50" width="50" height="50"></rect></svg>');
       background-size: 24px 24px;
@@ -292,6 +305,7 @@
       color: #444;
     }
     .gss-iconbox-code {
+      flex-grow: 1;
       margin: 0;
       padding: 1rem;
       text-align: left;
@@ -378,7 +392,8 @@
     <rect width="2" height="2" x="3" y="3"></rect>
   </symbol>
 </svg>
-<header class="gss-toolbar" hidden>
+<header class="gss-toolbar">
+  <h1><%= icons.length %> Symbols</h1>
   <button class="gss-toolbar-list">
     <svg aria-label="Compact" width="15" height="15"><use xlink:href="#gss-icon-list"></use>
     </svg> List
@@ -447,7 +462,7 @@ icons.forEach(function(icon) {
     var main = document.querySelector('main');
 
     // Show header
-    header.removeAttribute('hidden');
+    header.classList.add('gss-toolbar--active');
 
     // Hide example code and show controls
     [].forEach.call(
