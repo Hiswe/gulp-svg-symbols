@@ -275,7 +275,7 @@
     }
     .gss-showOriginal .gss-iconbox-icon > svg {
       margin-top: 1rem;
-      outline: solid 1px rgba(199, 0, 109, 0.75);
+      outline: solid 1px rgba(0,0,0,.5);
       box-shadow: 0 0 0 250px rgba(255,255,255,.8);
     }
     @media (min-resolution: 2dppx) {
@@ -358,6 +358,7 @@
     <%= icon.style %>
     <% }); %>
   </style>
+  <style class="gss-filter-css"></style>
 </head>
 <body>
 <svg xmlns="http://www.w3.org/2000/svg" style="width:0; height:0; visibility:hidden; position: absolute;">
@@ -365,7 +366,7 @@
     <%= defs %>
   </defs>
   <% _.forEach( icons, function( icon ){ %>
-  <symbol id="<%= icon.id %>" viewBox="<%= icon.svg.viewBox %>"><% if (icon.title) {%>
+  <symbol id="<%= icon.id %>" viewBox="<%= icon.svg.viewBox %>"<% if (icon.svg.originalAttributes.preserveAspectRatio) {%> preserveAspectRatio="<%= icon.svg.originalAttributes.preserveAspectRatio %>"<% }%>><% if (icon.title) {%>
     <title><%= icon.title %></title><% }%>
     <%= icon.svg.content %>
   </symbol><%
@@ -388,7 +389,6 @@
   <button class="gss-toolbar-orig" data-toggle-class="gss-showOriginal">Original Size</button>
   <button class="gss-toolbar-outl" data-toggle-class="gss-showColor">Test Color</button>
 </header>
-<style class="gss-filter-css"></style>
 <main>
 <nav class="gss-iconlist" hidden></nav>
 <div class="gss-iconboxes"><%
