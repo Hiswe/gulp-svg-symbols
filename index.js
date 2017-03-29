@@ -63,7 +63,6 @@ function gulpSvgSymbols(opts) {
       // defs are not at an SVG level
       // they should be handled globally to the new SVG file
       if (svgRawData.defs) defs.push(svgRawData.defs);
-      delete svgRawData.defs;
       //
       return svg.formatForTemplate(svgRawData, options);
     });
