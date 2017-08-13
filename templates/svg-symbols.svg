@@ -1,9 +1,36 @@
-<svg xmlns="http://www.w3.org/2000/svg"<% if(svgClassname) {%> class="<%= svgClassname %>"<% } %>><% if(defs) {%>
-  <defs>
-      <%= defs %>
-  </defs><% } %><% _.forEach( icons, function( icon ){ %>
-    <symbol id="<%= icon.id %>" viewBox="<%= icon.svg.viewBox %>"<% if (icon.svg.originalAttributes.preserveAspectRatio) {%> preserveAspectRatio="<%= icon.svg.originalAttributes.preserveAspectRatio %>" <% }%>><% if (icon.title) {%>
-      <title><%= icon.title %></title><% }%>
-      <%= icon.svg.content %>
-    </symbol><%
-}); %></svg>
+<%
+  function attrs(obj) {
+    return Object.getOwnPropertyNames(obj).reduce(function(str, key) {
+      var attr = key.replace(/[^a-zA-Z\-]/g, '');
+      var raw = obj[key], t = typeof raw;
+      if (t === 'string' || t === 'boolean' || (t === 'number' && !isNaN(raw))) {
+        return str + ' ' + attr + '="' + String(raw).replace(/"/g, '&quot;') + '"';
+      }
+      return str;
+    }, '');
+  }
+
+  function symbol(icon) {
+    var symbolAttrs = attrs({
+      id: icon.id,
+      viewBox: icon.svg.viewBox,
+      preserveAspectRatio: icon.svg.originalAttributes.preserveAspectRatio
+    });
+    var title = icon.title ? '<title>' + icon.title + '</title>' : '';
+    return '<symbol'+symbolAttrs+'>' + title + icon.svg.content + '</symbol>';
+  }
+
+  var symbols = icons.map(symbol).join('\n');
+  var haystack = symbols + (defs || '');
+  var svgAttrs = attrs({
+    'xmlns': 'http://www.w3.org/2000/svg',
+    'xmlns:xlink': /\sxlink:[a-z]+=/.test(haystack) ? 'http://www.w3.org/1999/xlink' : null,
+    'class': typeof svgClassname === 'string' ? svgClassname : null
+  });
+
+%><svg<%= svgAttrs %>>
+<% if (defs) { %><defs>
+<%= defs.trim() %>
+</defs>
+<% } %><%= symbols %>
+</svg>
