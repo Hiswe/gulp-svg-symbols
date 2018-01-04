@@ -23,36 +23,36 @@ function test() {
     `test/get-svg-datas.js`,
     `test/transform-raw-data.js`,
   ])
-  .pipe(jasmine({verbose: true}));
+    .pipe(jasmine({verbose: true}));
 }
 test.description = `run the tests`;
 
 function lint() {
   return gulp.src(jsGlob)
-  .pipe(eslint({fix: true}))
-  .pipe(eslint.format())
-  .pipe(gulp.dest(`./`));
+    .pipe(eslint({fix: true}))
+    .pipe(eslint.format())
+    .pipe(gulp.dest(`./`));
 }
 lint.description = `lint the code using eslint`;
 
 function templates() {
   return gulp.src(svgGlob)
-  .pipe(svgSymbols({
-    templates: [
-      path.join(__dirname, `./test/source/template.html`),
-      path.join(__dirname, `./test/source/template.json`)
-    ]
-  }))
-  .pipe(gulp.dest(`tmp`));
+    .pipe(svgSymbols({
+      templates: [
+        path.join(__dirname, `./test/source/template.html`),
+        path.join(__dirname, `./test/source/template.json`)
+      ]
+    }))
+    .pipe(gulp.dest(`tmp`));
 }
 templates.description = `test some user-defined templates`;
 
 function toc() {
   return gulp.src(`./README.md`)
-  .pipe(doctoc({
-    mode: `github.com`,
-  }))
-  .pipe(gulp.dest(`./`));
+    .pipe(doctoc({
+      mode: `github.com`,
+    }))
+    .pipe(gulp.dest(`./`));
 }
 toc.description = `update the readme's table of content`;
 

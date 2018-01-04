@@ -18,13 +18,12 @@ const templatesPath = {
   'default-demo': path.join(__dirname, `./templates/svg-symbols-demo-page.html`)
 };
 
-function gulpSvgSymbols(opts) {
-  opts = opts || {};
-  var buffer  = [];
-  var defs    = [];
+function gulpSvgSymbols(opts = {}) {
+  const buffer  = [];
+  let defs      = [];
 
   // clone everything as we don't want to mutate anything
-  var options = _.defaults(_.cloneDeep(opts), _.cloneDeep(defaults));
+  const options = _.defaults(_.cloneDeep(opts), _.cloneDeep(defaults));
 
   // expand path to default templates
   options.templates = options.templates.map(function (pathName) {
@@ -55,9 +54,9 @@ function gulpSvgSymbols(opts) {
 
   // put all generated files back in the stream
   }, function flush(cb) {
-    var that = this;
+    const that    = this;
 
-    var svgData = buffer.map(function (svgRawData) {
+    const svgData = buffer.map(function (svgRawData) {
       // defs are not at an SVG level
       // they should be handled globally to the new SVG file
       if (svgRawData.defs) defs.push(svgRawData.defs);
@@ -68,7 +67,7 @@ function gulpSvgSymbols(opts) {
     // better for templates to check if `false` rather than length…
     defs = defs.length > 0 ? defs.join(`\n`) : false;
 
-    var files = templates.renderAll(options.templates, {
+    const files = templates.renderAll(options.templates, {
       svgClassname: options.svgClassname,
       icons: svgData,
       defs: defs,

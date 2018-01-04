@@ -8,5 +8,8 @@ module.exports = {
   },
   rules: {
     quotes: [`warn`, `backtick`],
+    indent: [`warn`, 2],
+    'no-unused-vars': [`error`, { args: "none" }],
+    'no-var': [`error`],
   },
 };
