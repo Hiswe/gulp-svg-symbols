@@ -14,7 +14,7 @@ const svgFile       = new Vinyl({
   base: `test/source`,
   cwd:  `test/`,
   path: `test/source/skull.svg`,
-  contents: fs.readFileSync(`test/source/skull.svg`)
+  contents: fs.readFileSync(`test/source/skull.svg`),
 });
 
 const authorizedInfo = [
@@ -31,7 +31,7 @@ const expectedInfo  = {
   width:    150,
   height:   150,
   name:     `skull`,
-  viewBox:  `-50 0 150 150`
+  viewBox:  `-50 0 150 150`,
 };
 
 describe(`get SVG datas - Gather basic info from SVG`, function () {
@@ -76,14 +76,14 @@ const noDimensionSvgFile  = new Vinyl({
   base: `test/source`,
   cwd: `test/`,
   path: `test/source/skull.svg`,
-  contents: fs.readFileSync(`test/source/gear_without_dimensions.svg`)
+  contents: fs.readFileSync(`test/source/gear_without_dimensions.svg`),
 });
 const noDimensionExpectedInfo  = {
   content:  fs.readFileSync(`test/output/gear_without_dimensions-symbol.svg`).toString(),
   width:    229.6,
   height:   259.9,
   name:     `gear_without_dimensions`,
-  viewBox:  `0 0 229.6 259.9`
+  viewBox:  `0 0 229.6 259.9`,
 };
 
 describe(`get SVG datas - Handle SVG without dimensions`, function () {
@@ -117,13 +117,13 @@ const percentSvgFile  = new Vinyl({
   base: `test/source`,
   cwd: `test/`,
   path: `test/source/skull.svg`,
-  contents: fs.readFileSync(`test/source/icon-with-percent-size.svg`)
+  contents: fs.readFileSync(`test/source/icon-with-percent-size.svg`),
 });
 const percentExpectedInfo  = {
   width:    20,
   height:   26,
   name:     `icon-with-percent-size`,
-  viewBox:  `0 0 20 26`
+  viewBox:  `0 0 20 26`,
 };
 
 describe(`get SVG datas - Handle SVG with percent dimensions`, function () {

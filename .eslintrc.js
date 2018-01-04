@@ -14,6 +14,10 @@ module.exports = {
     'max-len': [`warn`, {code: 80, ignoreTemplateLiterals: true}],
     'max-nested-callbacks': [`warn`, {max: 4}],
     'comma-style': [`warn`],
+    'comma-dangle': [`warn`, {
+        arrays: "always",
+        objects: "always",
+    }],
     'eol-last': [`warn`],
   },
 };

@@ -23,13 +23,13 @@ function test() {
     `test/get-svg-datas.js`,
     `test/transform-raw-data.js`,
   ])
-    .pipe(jasmine({verbose: true}));
+    .pipe(jasmine({verbose: true,}));
 }
 test.description = `run the tests`;
 
 function lint() {
   return gulp.src(jsGlob)
-    .pipe(eslint({fix: true}))
+    .pipe(eslint({fix: true,}))
     .pipe(eslint.format())
     .pipe(gulp.dest(`./`));
 }
@@ -40,8 +40,8 @@ function templates() {
     .pipe(svgSymbols({
       templates: [
         path.join(__dirname, `./test/source/template.html`),
-        path.join(__dirname, `./test/source/template.json`)
-      ]
+        path.join(__dirname, `./test/source/template.json`),
+      ],
     }))
     .pipe(gulp.dest(`tmp`));
 }

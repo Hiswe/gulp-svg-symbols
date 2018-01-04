@@ -9,16 +9,16 @@ const userOptions       = _.defaults({
   id:         `icon-%f`,
   className:  `.icon-%f`,
   fontSize:   16,
-  title:      `logo of %f`
+  title:      `logo of %f`,
 }, defaultOptions);
 const customOptions   = _.defaults({
   id:         `svg-icon-%f`,
   transformData: function (svg, options) {
     return {
       svg:  false,
-      id:   options.id.replace(`%f`, svg.id)
+      id:   options.id.replace(`%f`, svg.id),
     };
-  }
+  },
 }, defaultOptions);
 
 const svgRawData    = {
@@ -35,7 +35,7 @@ const resultDefault  = {
   className:  `.codepen-square`,
   title:      `codepen square icon`,
   width:      `24px`,
-  height:     `24px`
+  height:     `24px`,
 };
 const resultDefaultOptions  = {
   svg:        svgRawData,
@@ -43,11 +43,11 @@ const resultDefaultOptions  = {
   className:  `.icon-codepen-square`,
   title:      `logo of codepen square`,
   width:      `1.5em`,
-  height:     `1.5em`
+  height:     `1.5em`,
 };
 const resultCustomOptions  = {
   svg:        svgRawData,
-  id:         `svg-icon-codepen-square`
+  id:         `svg-icon-codepen-square`,
 };
 
 describe(`Transform data - default`, function () {
@@ -143,7 +143,7 @@ describe(`Transform - custom & options`, function () {
   it(`should have only user keys`, function (done) {
     const result  = transformSvgData(svgRawData, customOptions);
     const keys    = Object.keys(result).sort();
-    expect(keys).toEqual([`svg`, `id`].sort());
+    expect(keys).toEqual([`svg`, `id`,].sort());
     done();
   });
   it(`should have the raw datas that can't be overwritten`, function (done) {

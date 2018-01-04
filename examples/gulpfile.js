@@ -24,7 +24,7 @@ function demoPage() {
         `default-svg`,
         `default-css`,
         `default-demo`,
-      ]
+      ],
     }))
     .pipe(gulp.dest(`ex-demo-page`));
 }
@@ -49,7 +49,7 @@ function customTemplate() {
       className:  `.icon-%f`,
       title:      false,
       fontSize:   16,
-      templates: [`default-svg`, `default-demo`, customCSSTemplate]
+      templates: [`default-svg`, `default-demo`, customCSSTemplate,],
     }))
     .pipe(rename(function (path) {
       path.basename = `icon-files`;
@@ -64,12 +64,12 @@ customTemplate.description  = `Using custom templates`
 function aspectRatio() {
   return gulp.src([
     `../test/source/aspect-ratio.svg`,
-    `../test/source/github.svg`
+    `../test/source/github.svg`,
   ])
     .pipe(svgSymbols({
       templates: [
         path.join(__dirname, `/aspect-ratio-test.html`),
-      ]
+      ],
     }))
     .pipe(gulp.dest(`ex-aspect-ratio`));
 }

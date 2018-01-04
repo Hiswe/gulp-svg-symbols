@@ -15,7 +15,7 @@ const PLUGIN_NAME   = utils.name;
 const templatesPath = {
   'default-svg':  path.join(__dirname, `./templates/svg-symbols.svg`),
   'default-css':  path.join(__dirname, `./templates/svg-symbols.css`),
-  'default-demo': path.join(__dirname, `./templates/svg-symbols-demo-page.html`)
+  'default-demo': path.join(__dirname, `./templates/svg-symbols-demo-page.html`),
 };
 
 function gulpSvgSymbols(opts = {}) {
