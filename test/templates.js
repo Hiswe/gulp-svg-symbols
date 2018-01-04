@@ -3,39 +3,39 @@
 /*jshint maxlen:false */
 /*global jasmine, beforeEach, afterEach, describe, expect, it, spyOn, xdescribe, xit */
 
-var gulp            = require('gulp');
-var fs              = require('fs');
-var path            = require('path');
-var gutil           = require('gulp-util');
-var BPromise        = require('bluebird');
-var es              = require('event-stream');
+var gulp            = require(`gulp`);
+var fs              = require(`fs`);
+var path            = require(`path`);
+var gutil           = require(`gulp-util`);
+var BPromise        = require(`bluebird`);
+var es              = require(`event-stream`);
 
-var svgSymbols      = require('../index.js');
-var templates       = require('../lib/templates.js');
-var htmlOutput      = fs.readFileSync('test/output/template.html').toString();
-var jsonOutput      = fs.readFileSync('test/output/template.json').toString();
+var svgSymbols      = require(`../index.js`);
+var templates       = require(`../lib/templates.js`);
+var htmlOutput      = fs.readFileSync(`test/output/template.html`).toString();
+var jsonOutput      = fs.readFileSync(`test/output/template.json`).toString();
 
 var datas           = {
   icons: [
-    {id: 'pouic'},
-    {id: 'clapou'},
+    {id: `pouic`},
+    {id: `clapou`},
   ],
 };
 var tmpl            = [
-  path.join(__dirname, './source/template.html'),
-  path.join(__dirname, './source/template.json')
+  path.join(__dirname, `./source/template.html`),
+  path.join(__dirname, `./source/template.json`)
 ];
 
-describe('Render default-svg', function () {
+describe(`Render default-svg`, function () {
 
-  it('should add a classname to root SVG when passed as option', function (done) {
+  it(`should add a classname to root SVG when passed as option`, function (done) {
   var that = this;
     gulp
-    .src('test/source/*.svg')
+    .src(`test/source/*.svg`)
     .pipe(svgSymbols({
       warn: false,
-      svgClassname: 'foobar',
-      templates: ['default-svg']
+      svgClassname: `foobar`,
+      templates: [`default-svg`]
     }))
     .pipe(es.writeArray(function (err, output) {
       var svg = output[0].contents.toString();
@@ -45,9 +45,9 @@ describe('Render default-svg', function () {
   });
 });
 
-describe('Render custom templates', function () {
+describe(`Render custom templates`, function () {
 
-  it('should render a random template with random infos', function (done) {
+  it(`should render a random template with random infos`, function (done) {
     templates.render(tmpl[0], datas)
     .then(function (file) {
       expect(file.contents.toString()).toEqual(htmlOutput);
@@ -56,7 +56,7 @@ describe('Render custom templates', function () {
     .catch(done.fail);
   });
 
-  it('should render an array of templates', function (done) {
+  it(`should render an array of templates`, function (done) {
     var files = templates.renderAll(tmpl, datas);
     BPromise
       .all(files)

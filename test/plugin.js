@@ -2,42 +2,42 @@
 /*jshint maxlen:false */
 /*global jasmine, beforeEach, afterEach, describe, expect, it, spyOn, xdescribe, xit */
 
-var fs            = require('fs');
-var es            = require('event-stream');
-var gulp          = require('gulp');
+var fs            = require(`fs`);
+var es            = require(`event-stream`);
+var gulp          = require(`gulp`);
 
-var svgSymbols    = require('../index.js');
+var svgSymbols    = require(`../index.js`);
 
 ////////
 // BASIC
 ////////
 
-describe('Plugin – basic', function () {
+describe(`Plugin – basic`, function () {
 
-  it('should produce two files', function (done) {
+  it(`should produce two files`, function (done) {
     var that = this;
     gulp.src([
-      'test/source/*.svg',
-      '!test/source/crâne noir.svg',
-      '!test/source/aspect-ratio.svg',
+      `test/source/*.svg`,
+      `!test/source/crâne noir.svg`,
+      `!test/source/aspect-ratio.svg`,
     ])
     .pipe(svgSymbols({warn: false}))
     .pipe(es.writeArray(function (err, output) {
       expect(output.length).toEqual(2);
-      expect(output[0].path).toEqual('svg-symbols.svg');
-      expect(output[1].path).toEqual('svg-symbols.css');
+      expect(output[0].path).toEqual(`svg-symbols.svg`);
+      expect(output[1].path).toEqual(`svg-symbols.css`);
       done();
     }));
   });
 
   // control duplicate attributes in a watch case
   // https://github.com/Hiswe/gulp-svg-symbols/issues/2
-  it('should have the right output if called many times', function (done) {
+  it(`should have the right output if called many times`, function (done) {
     var that = this;
-    gulp.src('test/source/github.svg')
+    gulp.src(`test/source/github.svg`)
       .pipe(svgSymbols({warn: false}))
       .pipe(es.wait(function () {
-        gulp.src('test/source/github.svg')
+        gulp.src(`test/source/github.svg`)
           .pipe(svgSymbols({warn: false}))
           .pipe(es.writeArray(function (err, output) {
             var svg = output[0].contents.toString();
@@ -50,16 +50,16 @@ describe('Plugin – basic', function () {
       }));
   });
 
-  it('can generate a demo page', function (done) {
+  it(`can generate a demo page`, function (done) {
     var that = this;
-    gulp.src('test/source/github.svg')
+    gulp.src(`test/source/github.svg`)
       .pipe(svgSymbols({
-        templates: ['default-demo'],
+        templates: [`default-demo`],
         warn: false,
       }))
       .pipe(es.writeArray(function (err, output) {
         expect(output.length).toEqual(1);
-        expect(output[0].path).toEqual('svg-symbols-demo-page.html');
+        expect(output[0].path).toEqual(`svg-symbols-demo-page.html`);
         done();
       }));
   });
@@ -70,10 +70,10 @@ describe('Plugin – basic', function () {
 // CONCAT DEFS
 ////////
 
-describe('Plugin - defs', function () {
+describe(`Plugin - defs`, function () {
 
-  it('should handle svg with defs', function (done) {
-    gulp.src('test/source/gradient.svg')
+  it(`should handle svg with defs`, function (done) {
+    gulp.src(`test/source/gradient.svg`)
       .pipe(svgSymbols({warn: false}))
       .pipe(es.writeArray(function (err, output) {
         var svgContent = output[0].contents.toString();
@@ -82,8 +82,8 @@ describe('Plugin - defs', function () {
       }));
   });
 
-  it('should handle svg withouts defs', function (done) {
-    gulp.src('test/source/gear_without_dimensions.svg')
+  it(`should handle svg withouts defs`, function (done) {
+    gulp.src(`test/source/gear_without_dimensions.svg`)
       .pipe(svgSymbols({warn: false}))
       .pipe(es.writeArray(function (err, output) {
         var svgContent = output[0].contents.toString();
@@ -92,8 +92,8 @@ describe('Plugin - defs', function () {
       }));
   });
 
-  it('should handle svg with empty defs', function (done) {
-    gulp.src('test/source/chinese letter with styles.svg')
+  it(`should handle svg with empty defs`, function (done) {
+    gulp.src(`test/source/chinese letter with styles.svg`)
       .pipe(svgSymbols({warn: false}))
       .pipe(es.writeArray(function (err, output) {
         var svgContent = output[0].contents.toString();
@@ -108,9 +108,9 @@ describe('Plugin - defs', function () {
 // CONCAT STYLES
 ////////
 
-describe('Plugin - style tags', function () {
-  it('should remove style attributes and put content in another file', function (done) {
-    gulp.src('test/source/warning with styles and empty group.svg')
+describe(`Plugin - style tags`, function () {
+  it(`should remove style attributes and put content in another file`, function (done) {
+    gulp.src(`test/source/warning with styles and empty group.svg`)
       .pipe(svgSymbols({warn: false}))
       .pipe(es.writeArray(function (err, output) {
         var svgContent = output[0].contents.toString();
@@ -127,9 +127,9 @@ describe('Plugin - style tags', function () {
 // REMOVE EMPTY GROUPS
 ////////
 
-describe('Plugin - empty groups', function () {
-  it('should remove empty groups', function (done) {
-    gulp.src('test/source/warning with styles and empty group.svg')
+describe(`Plugin - empty groups`, function () {
+  it(`should remove empty groups`, function (done) {
+    gulp.src(`test/source/warning with styles and empty group.svg`)
       .pipe(svgSymbols({warn: false}))
       .pipe(es.writeArray(function (err, output) {
         var svgContent = output[0].contents.toString();
@@ -144,13 +144,13 @@ describe('Plugin - empty groups', function () {
 // HANDLE TITLE
 ////////
 
-describe('Plugin - title', function () {
-  var src = 'test/source/gear_without_dimensions.svg';
+describe(`Plugin - title`, function () {
+  var src = `test/source/gear_without_dimensions.svg`;
 
-  it('should handle title', function (done) {
+  it(`should handle title`, function (done) {
     gulp.src(src)
       .pipe(svgSymbols({
-        title: 'pouic',
+        title: `pouic`,
         warn: false,
       }))
       .pipe(es.writeArray(function (err, output) {
@@ -160,7 +160,7 @@ describe('Plugin - title', function () {
       }));
   });
 
-  it('should remove title if title option is false', function (done) {
+  it(`should remove title if title option is false`, function (done) {
     gulp.src(src)
       .pipe(svgSymbols({
         title: false,
@@ -173,10 +173,10 @@ describe('Plugin - title', function () {
       }));
   });
 
-  it('should remove title if title option is an empty string', function (done) {
+  it(`should remove title if title option is an empty string`, function (done) {
     gulp.src(src)
       .pipe(svgSymbols({
-        title: '',
+        title: ``,
         warn: false,
       }))
       .pipe(es.writeArray(function (err, output) {
@@ -186,10 +186,10 @@ describe('Plugin - title', function () {
       }));
   });
 
-  it('should\'t add a title if one is already there', function (done) {
-    gulp.src('test/source/instagram-black.svg')
+  it(`should't add a title if one is already there`, function (done) {
+    gulp.src(`test/source/instagram-black.svg`)
       .pipe(svgSymbols({
-        title: 'clapou',
+        title: `clapou`,
         warn: false,
       }))
       .pipe(es.writeArray(function (err, output) {
@@ -205,10 +205,10 @@ describe('Plugin - title', function () {
 // HANDLE IDS
 ////////
 
-describe('Plugin - id', function () {
+describe(`Plugin - id`, function () {
 
-  it('should slug ids', function (done) {
-    var src = 'test/source/crâne noir.svg';
+  it(`should slug ids`, function (done) {
+    var src = `test/source/crâne noir.svg`;
     gulp.src(src)
       .pipe(svgSymbols({warn: false,}))
       .pipe(es.writeArray(function (err, output) {
@@ -218,15 +218,15 @@ describe('Plugin - id', function () {
       }));
   });
 
-  it('should handle speakingurl options', function (done) {
-    var src = 'test/source/crâne noir.svg';
+  it(`should handle speakingurl options`, function (done) {
+    var src = `test/source/crâne noir.svg`;
     gulp.src(src)
       .pipe(svgSymbols({
         warn: false,
         slug: {
-          separator: '_',
+          separator: `_`,
           custom: {
-            'c': 'k'
+            'c': `k`
           }
         }
       }))
@@ -237,14 +237,14 @@ describe('Plugin - id', function () {
       }));
   });
 
-  it('should handle custom slug function', function (done) {
-    var src = 'test/source/crâne noir.svg';
+  it(`should handle custom slug function`, function (done) {
+    var src = `test/source/crâne noir.svg`;
     gulp.src(src)
       .pipe(svgSymbols({
         warn: false,
         slug: function (name) {
-          var result = name.split(' ');
-          return 'test-name-'  + result[1];
+          var result = name.split(` `);
+          return `test-name-`  + result[1];
         },
       }))
       .pipe(es.writeArray(function (err, output) {
@@ -261,10 +261,10 @@ describe('Plugin - id', function () {
 // HANDLE PRESERVE ASPECT RATIO
 ////////
 
-describe('Plugin - preserveAspectRatio', function () {
+describe(`Plugin - preserveAspectRatio`, function () {
 
-  it('should\'nt add preserveAspectRatio if none present on source', function (done) {
-    var src = 'test/source/zoom.svg';
+  it(`should'nt add preserveAspectRatio if none present on source`, function (done) {
+    var src = `test/source/zoom.svg`;
     gulp.src(src)
       .pipe(svgSymbols({warn: false,}))
       .pipe(es.writeArray(function (err, output) {
@@ -274,8 +274,8 @@ describe('Plugin - preserveAspectRatio', function () {
       }));
   });
 
-  it('should port preserveAspectRatio with a value of "none"', function (done) {
-    var src = 'test/source/aspect-ratio.svg';
+  it(`should port preserveAspectRatio with a value of "none"`, function (done) {
+    var src = `test/source/aspect-ratio.svg`;
     gulp.src(src)
       .pipe(svgSymbols({warn: false,}))
       .pipe(es.writeArray(function (err, output) {
@@ -285,8 +285,8 @@ describe('Plugin - preserveAspectRatio', function () {
       }));
   });
 
-  it('should port preserveAspectRatio with any value', function (done) {
-    var src = 'test/source/chinese letter with styles.svg';
+  it(`should port preserveAspectRatio with any value`, function (done) {
+    var src = `test/source/chinese letter with styles.svg`;
     gulp.src(src)
       .pipe(svgSymbols({warn: false,}))
       .pipe(es.writeArray(function (err, output) {
