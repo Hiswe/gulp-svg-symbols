@@ -1,8 +1,5 @@
 'use strict';
 
-/*jshint maxlen:false */
-/*global jasmine, beforeEach, afterEach, describe, expect, it, spyOn, xdescribe, xit */
-
 const gulp            = require(`gulp`);
 const fs              = require(`fs`);
 const path            = require(`path`);

@@ -1,8 +1,5 @@
 'use strict';
 
-/*jshint maxlen:false */
-/*global jasmine, beforeEach, afterEach, describe, expect, it, spyOn, xdescribe, xit */
-
 const _                 = require(`lodash`);
 const fs                = require(`fs`);
 

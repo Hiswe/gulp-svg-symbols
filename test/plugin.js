@@ -1,6 +1,4 @@
 'use strict';
-/*jshint maxlen:false */
-/*global jasmine, beforeEach, afterEach, describe, expect, it, spyOn, xdescribe, xit */
 
 const es            = require(`event-stream`);
 const gulp          = require(`gulp`);
@@ -259,7 +257,7 @@ describe(`Plugin - id`, function () {
 
 describe(`Plugin - preserveAspectRatio`, function () {
 
-  it(`should'nt add preserveAspectRatio if none present on source`, function (done) {
+  it(`shouldn't add preserveAspectRatio if none present on source`, function (done) {
     const src = `test/source/zoom.svg`;
     gulp.src(src)
       .pipe(svgSymbols({warn: false,}))
