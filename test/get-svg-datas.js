@@ -26,8 +26,7 @@ const authorizedInfo = [
   `height`,
   `content`,
 ].sort();
-
-var expectedInfo  = {
+const expectedInfo  = {
   content:  fs.readFileSync(`test/output/skull-symbol.svg`).toString(),
   width:    150,
   height:   150,

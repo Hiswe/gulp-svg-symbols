@@ -24,10 +24,6 @@ const customOptions   = _.defaults({
   }
 }, defaultOptions);
 
-const optionsWithoutTitle = _.defaults({
-  title: false
-});
-
 const svgRawData    = {
   content:  fs.readFileSync(`test/output/codepen-symbol.svg`).toString(),
   width:    24,

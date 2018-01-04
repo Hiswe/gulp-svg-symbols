@@ -19,14 +19,14 @@ svg.description = `default use of the plugin`
 // adding the demo page
 function demoPage() {
   return gulp.src(svgGlob)
-  .pipe(svgSymbols({
-    templates: [
-      `default-svg`,
-      `default-css`,
-      `default-demo`,
-    ]
-  }))
-  .pipe(gulp.dest(`ex-demo-page`));
+    .pipe(svgSymbols({
+      templates: [
+        `default-svg`,
+        `default-css`,
+        `default-demo`,
+      ]
+    }))
+    .pipe(gulp.dest(`ex-demo-page`));
 }
 demoPage.description  = `Generating the demo page along with the default templates`
 

@@ -6,7 +6,6 @@
 const gulp            = require(`gulp`);
 const fs              = require(`fs`);
 const path            = require(`path`);
-const gutil           = require(`gulp-util`);
 const BPromise        = require(`bluebird`);
 const es              = require(`event-stream`);
 
