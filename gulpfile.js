@@ -1,17 +1,14 @@
 'use strict';
 
-var path          = require('path');
-var gulp          = require('gulp');
-var jshint        = require('gulp-jshint');
-var stylish       = require('jshint-stylish');
-var jscs          = require('gulp-jscs');
-var jsbeautifier  = require('gulp-jsbeautifier');
-var jasmine       = require('gulp-jasmine');
-var doctoc        = require('gulp-doctoc');
+const path          = require('path');
+const gulp          = require('gulp');
+const eslint        = require('gulp-eslint')
+const jasmine       = require('gulp-jasmine');
+const doctoc        = require('gulp-doctoc');
 
-var svgSymbols    = require('./index');
-var svgGlob       = 'test/source/*.svg';
-var jsGlob        = [
+const svgSymbols    = require('./index');
+const svgGlob       = 'test/source/*.svg';
+const jsGlob        = [
   'index.js',
   'gulpfile.js',
   'lib/*.js',
@@ -19,49 +16,54 @@ var jsGlob        = [
   'examples/gulpfile.js',
 ];
 
-gulp.task('test', function () {
+function test() {
   return gulp.src([
-      'test/plugin.js',
-      'test/templates.js',
-      'test/get-svg-datas.js',
-      'test/transform-raw-data.js',
-    ])
-    .pipe(jasmine({verbose: true}));
-});
+    'test/plugin.js',
+    'test/templates.js',
+    'test/get-svg-datas.js',
+    'test/transform-raw-data.js',
+  ])
+  .pipe(jasmine({verbose: true}));
+}
+test.description = `run the tests`;
 
-gulp.task('hint', function () {
+function lint() {
   return gulp.src(jsGlob)
-    .pipe(jshint())
-    .pipe(jshint.reporter('jshint-stylish'))
-    .pipe(jscs());
-});
+  .pipe(eslint({fix: true}))
+  .pipe(eslint.format())
+  // .pige(gulp.dest('./'));
+}
+lint.description = `lint the code using eslint`;
 
-gulp.task('templates', function () {
+function templates() {
   return gulp.src(svgGlob)
-    .pipe(svgSymbols({
-      templates: [
-        path.join(__dirname, './test/source/template.html'),
-        path.join(__dirname, './test/source/template.json')
-      ]
-    }))
-    .pipe(gulp.dest('tmp'));
-});
+  .pipe(svgSymbols({
+    templates: [
+      path.join(__dirname, './test/source/template.html'),
+      path.join(__dirname, './test/source/template.json')
+    ]
+  }))
+  .pipe(gulp.dest('tmp'));
+}
+templates.description = `test some user-defined templates`;
 
-gulp.task('toc', function() {
+function toc() {
   return gulp.src('./README.md')
   .pipe(doctoc({
     mode: 'github.com',
   }))
   .pipe(gulp.dest('./'));
-});
+}
+toc.description = `update the readme's table of content`;
 
-gulp.task('watch', function () {
-  return gulp.watch(jsGlob, ['hint']);
-});
+function watch() {
+  return gulp.watch(jsGlob, lint);
+}
+watch.description = `hint on file change`;
 
-gulp.task('default', function (cb) {
-  console.log('test');
-  console.log('hint');
-  console.log('watch');
-  cb();
-});
+module.exports = {
+  test,
+  lint,
+  templates,
+  watch,
+};

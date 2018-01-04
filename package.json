@@ -5,45 +5,41 @@
   "main": "index.js",
   "scripts": {
     "hint": "gulp hint",
+    "lint": "gulp lint",
     "test": "gulp test"
   },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/Hiswe/gulp-svg-symbols.git"
-  },
+  "repository": "https://github.com/Hiswe/gulp-svg-symbols.git",
   "keywords": [
     "gulpplugin",
     "svg",
     "symbols"
   ],
-  "author": {
-    "name": "Yannick Aïvayan",
-    "email": "yannick.aivayan@hiswe.net",
-    "url": "http://hiswe.net"
-  },
+  "author": "Yannick Aïvayan <yannick.aivayan@hiswe.net> (http://hiswe.net)",
   "license": "WTFPL",
   "bugs": {
     "url": "https://github.com/Hiswe/gulp-svg-symbols/issues"
   },
   "homepage": "https://github.com/Hiswe/gulp-svg-symbols",
   "dependencies": {
+    "ansi-grey": "^0.1.1",
+    "ansi-yellow": "^0.1.1",
     "bluebird": "^3.3.5",
     "cheerio": "^0.22.0",
-    "consolidate": "^0.14.1",
-    "gulp-util": "^3.0.7",
+    "consolidate": "^0.15.0",
+    "fancy-log": "^1.3.2",
     "lodash": "^4.11.1",
-    "speakingurl": "^10.0.0",
-    "through2": "^2.0.1"
+    "plugin-error": "^0.1.2",
+    "speakingurl": "^14.0.1",
+    "through2": "^2.0.1",
+    "vinyl": "^2.1.0"
   },
   "devDependencies": {
     "event-stream": "^3.3.2",
-    "gulp": "^3.9.1",
+    "gulp": "gulpjs/gulp.git#4.0",
     "gulp-doctoc": "^0.1.4",
-    "gulp-jasmine": "^2.3.0",
-    "gulp-jsbeautifier": "^2.0.3",
+    "gulp-eslint": "^4.0.0",
+    "gulp-jasmine": "^3.0.0",
     "gulp-jscs": "^4.0.0",
-    "gulp-jshint": "^2.0.2",
-    "jshint": "^2.9.4",
-    "jshint-stylish": "^2.1.0"
+    "jshint": "^2.9.4"
   }
 }

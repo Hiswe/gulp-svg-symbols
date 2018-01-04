@@ -1,21 +1,18 @@
 'use strict';
 
-var _             = require('lodash');
-var path          = require('path');
-var gutil         = require('gulp-util');
-var GulpError     = gutil.PluginError;
-var warn          = gutil.colors.yellow;
-var grey          = gutil.colors.grey;
-var through       = require('through2');
-var BPromise      = require('bluebird');
+const _             = require('lodash');
+const path          = require('path');
+const PluginError   = require('plugin-error');
+const through       = require('through2');
+const BPromise      = require('bluebird');
 
-var defaults      = require('./lib/default-config');
-var svg           = require('./lib/svg');
-var templates     = require('./lib/templates.js');
-var utils         = require('./lib/utils.js');
+const defaults      = require('./lib/default-config');
+const svg           = require('./lib/svg');
+const templates     = require('./lib/templates.js');
+const utils         = require('./lib/utils.js');
 
-var PLUGIN_NAME   = utils.name;
-var templatesPath = {
+const PLUGIN_NAME   = utils.name;
+const templatesPath = {
   'default-svg':  path.join(__dirname, './templates/svg-symbols.svg'),
   'default-css':  path.join(__dirname, './templates/svg-symbols.css'),
   'default-demo': path.join(__dirname, './templates/svg-symbols-demo-page.html')
@@ -46,7 +43,8 @@ function gulpSvgSymbols(opts) {
     // use https://github.com/nfroidure/gulp-streamify if you're reading this
     // next versions should use https://www.npmjs.com/package/bufferstreams
     if (file.isStream()) {
-      this.emit('error', new GulpError(PLUGIN_NAME, 'Streaming not supported'));
+      const errorReason = `Streaming is not supported`;
+      this.emit('error', new PluginError(PLUGIN_NAME, errorReason));
       return cb();
     }
 
