@@ -81,6 +81,8 @@ function gulpSvgSymbols(opts = {}) {
     }
 
     // automatically insert xlink if needed
+    // even if it's deprecated in SVG2 most software will still produce SVG 1.1
+    // and I can't find find a good website for SVG2 support in browsers…
     const haystack  = svgData.map(templates.svgdataToSymbol).join(``) + (defs || ``);
     if (/\sxlink:[a-z]+=/.test(haystack)) {
       options.svgAttrs[`xmlns:xlink`] = `http://www.w3.org/1999/xlink`;

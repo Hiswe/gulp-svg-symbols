@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" width="150" height="40" viewBox="0 0 150 40">
+  <a xlink:href="http://example.com/link/">
+    <text x="10" y="25" >An example link.</text>
+  </a>
+</svg>

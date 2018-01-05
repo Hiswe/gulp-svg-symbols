@@ -144,6 +144,20 @@ describe(`Attributes handling in default-svg`, function () {
         done();
       }));
   });
+
+  it(`should add the xlink namespace if founded on the file`, done => {
+    gulp
+      .src(`test/source/xlink-href.svg`)
+      .pipe(svgSymbols({
+        warn: false,
+        templates: [`default-svg`, ],
+      }))
+      .pipe(es.writeArray( (err, output) => {
+        const svg = output[0].contents.toString();
+        expect(svg).toMatch(/\sxmlns:xlink="http:\/\/www.w3.org\/1999\/xlink"/g);
+        done();
+      }));
+  });
 });
 
 describe(`Render custom templates`, function () {
