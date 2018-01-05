@@ -5,6 +5,7 @@ module.exports = {
   },
   env: {
     node: true,
+    es6: true,
   },
   rules: {
     'quotes': [`warn`, `backtick`],
@@ -14,6 +15,7 @@ module.exports = {
     'max-len': [`warn`, {code: 80, ignoreTemplateLiterals: true}],
     'max-nested-callbacks': [`warn`, {max: 4}],
     'comma-style': [`warn`],
+    'comma-spacing': [`warn`],
     'comma-dangle': [`warn`, {
         arrays: "always",
         objects: "always",

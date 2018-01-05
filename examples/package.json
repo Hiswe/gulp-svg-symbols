@@ -5,6 +5,7 @@
   "main": "gulpfile.js",
   "scripts": {
     "list": "gulp -T",
+    "all": "gulp all",
     "svg": "gulp svg",
     "demo-page": "gulp demo-page",
     "svg-classname": "gulp svg-classname",

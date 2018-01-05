@@ -13,8 +13,8 @@ const jsonOutput      = fs.readFileSync(`test/output/template.json`).toString();
 
 const datas           = {
   icons: [
-    {id: `pouic`,},
-    {id: `clapou`,},
+    {id: `pouic`, },
+    {id: `clapou`, },
   ],
 };
 const tmpl            = [
@@ -30,7 +30,7 @@ describe(`Render default-svg`, function () {
       .pipe(svgSymbols({
         warn: false,
         svgClassname: `foobar`,
-        templates: [`default-svg`,],
+        templates: [`default-svg`, ],
       }))
       .pipe(es.writeArray(function (err, output) {
         const svg = output[0].contents.toString();

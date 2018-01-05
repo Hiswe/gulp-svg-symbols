@@ -34,7 +34,7 @@ demoPage.description  = `Generating the demo page along with the default templat
 function svgClassname() {
   return gulp.src(svgGlob)
     .pipe(svgSymbols({
-      svgClassname: `custom-name`,
+      svgAttrs: { classname: `custom-name`, },
     }))
     .pipe(gulp.dest(`ex-svg-classname`));
 }
@@ -49,7 +49,7 @@ function customTemplate() {
       className:  `.icon-%f`,
       title:      false,
       fontSize:   16,
-      templates: [`default-svg`, `default-demo`, customCSSTemplate,],
+      templates: [`default-svg`, `default-demo`, customCSSTemplate, ],
     }))
     .pipe(rename(function (path) {
       path.basename = `icon-files`;
@@ -75,8 +75,9 @@ function aspectRatio() {
 }
 aspectRatio.description = `A custom template with aspect ratios`;
 
-gulp.task(`svg` ,svg);
+gulp.task(`svg`, svg);
 gulp.task(`demo-page`, demoPage);
-gulp.task(`svg-classname` ,svgClassname);
-gulp.task(`custom-template` ,customTemplate);
-gulp.task(`aspect-ratio` ,aspectRatio);
+gulp.task(`svg-classname`, svgClassname);
+gulp.task(`custom-template`, customTemplate);
+gulp.task(`aspect-ratio`, aspectRatio);
+gulp.task(`all`, gulp.parallel(svg, demoPage, svgClassname, customTemplate, aspectRatio));

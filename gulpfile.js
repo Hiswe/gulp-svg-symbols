@@ -7,6 +7,8 @@ const jasmine       = require(`gulp-jasmine`);
 const doctoc        = require(`gulp-doctoc`);
 const cache         = require(`gulp-cached`);
 
+// In your own environment it should be:
+//  const svgSymbols    = require(`gulp-svg-symbols`);
 const svgSymbols    = require(`./index`);
 const svgGlob       = `test/source/*.svg`;
 const jsGlob        = [
@@ -24,14 +26,14 @@ function test() {
     `test/get-svg-datas.js`,
     `test/transform-raw-data.js`,
   ])
-    .pipe(jasmine({verbose: true,}));
+    .pipe(jasmine({verbose: true, }));
 }
 test.description = `run the tests`;
 
 function lint() {
   return gulp.src(jsGlob)
     .pipe(cache(`linting`))
-    .pipe(eslint({fix: true,}))
+    .pipe(eslint({fix: true, }))
     .pipe(eslint.format())
     .pipe(gulp.dest(`./`));
 }

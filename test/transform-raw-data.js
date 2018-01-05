@@ -143,7 +143,7 @@ describe(`Transform - custom & options`, function () {
   it(`should have only user keys`, function (done) {
     const result  = transformSvgData(svgRawData, customOptions);
     const keys    = Object.keys(result).sort();
-    expect(keys).toEqual([`svg`, `id`,].sort());
+    expect(keys).toEqual([`svg`, `id`, ].sort());
     done();
   });
   it(`should have the raw datas that can't be overwritten`, function (done) {

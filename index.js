@@ -4,7 +4,6 @@ const _             = require(`lodash`);
 const path          = require(`path`);
 const PluginError   = require(`plugin-error`);
 const through       = require(`through2`);
-const BPromise      = require(`bluebird`);
 
 const defaults      = require(`./lib/default-config`);
 const svg           = require(`./lib/svg`);
@@ -26,7 +25,7 @@ function gulpSvgSymbols(opts = {}) {
   const options = _.defaults(_.cloneDeep(opts), _.cloneDeep(defaults));
 
   // expand path to default templates
-  options.templates = options.templates.map(function (pathName) {
+  options.templates = options.templates.map( pathName => {
     if (pathName in templatesPath) return templatesPath[pathName];
     return pathName;
   });
@@ -67,8 +66,21 @@ function gulpSvgSymbols(opts = {}) {
     // better for templates to check if `false` rather than length…
     defs = defs.length > 0 ? defs.join(`\n`) : false;
 
+    // svgClassname option is now living inside svgAttrs
+    // issue a deprecation warning and copy the value to it's rightful place
+    if (typeof options.svgClassname !== `undefined`) {
+      utils.logWarn(options, `options.svgClassname is deprecated. Please replace it with options.svgAttrs.classname`);
+      options.svgAttrs.classname = options.svgClassname;
+    }
+
+    // automatically insert xlink if needed
+    const haystack  = svgData.map(templates.svgdataToSymbol).join(``) + (defs || ``);
+    if (/\sxlink:[a-z]+=/.test(haystack)) {
+      options.svgAttrs[`xmlns:xlink`] = `http://www.w3.org/1999/xlink`;
+    }
+
     const files = templates.renderAll(options.templates, {
-      svgClassname: options.svgClassname,
+      svgAttrs: options.svgAttrs,
       icons: svgData,
       defs: defs,
     });
@@ -80,7 +92,7 @@ function gulpSvgSymbols(opts = {}) {
       cb();
     }
 
-    BPromise.all(files).then(outputFiles);
+    Promise.all(files).then(outputFiles);
   });
 }
 
