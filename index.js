@@ -22,7 +22,9 @@ function gulpSvgSymbols(opts = {}) {
   let defs      = [];
 
   // clone everything as we don't want to mutate anything
-  const options = _.defaults(_.cloneDeep(opts), _.cloneDeep(defaults));
+  const options = _.defaultsDeep(_.cloneDeep(opts), _.cloneDeep(defaults));
+  // retore templates array as it will be messed up by _.defaultsDeep
+  options.templates = opts.templates || defaults.templates;
 
   // expand path to default templates
   options.templates = options.templates.map( pathName => {
@@ -54,6 +56,11 @@ function gulpSvgSymbols(opts = {}) {
   // put all generated files back in the stream
   }, function flush(cb) {
     const that    = this;
+
+    // don't produce any file if no datas
+    if (buffer.length === 0) {
+      return cb();
+    }
 
     const svgData = buffer.map(function (svgRawData) {
       // defs are not at an SVG level

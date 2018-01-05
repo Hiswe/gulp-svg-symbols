@@ -35,33 +35,33 @@ const expectedInfo  = {
 };
 
 describe(`get SVG datas - Gather basic info from SVG`, function () {
-  it(`should be an object`, function (done) {
-    formatSvgData(svgFile, {}, function (result) {
+  it(`should be an object`, done => {
+    formatSvgData(svgFile, {}, result => {
       expect(result).toEqual(jasmine.any(Object));
       expect(Object.keys(result).sort()).toEqual(authorizedInfo);
       done();
     });
   });
-  it(`should have the right width`, function (done) {
-    formatSvgData(svgFile, {}, function (result) {
+  it(`should have the right width`, done => {
+    formatSvgData(svgFile, {}, result => {
       expect(result.width).toEqual(expectedInfo.width);
       done();
     });
   });
-  it(`should have the right height`, function (done) {
-    formatSvgData(svgFile, {}, function (result) {
+  it(`should have the right height`, done => {
+    formatSvgData(svgFile, {}, result => {
       expect(result.height).toEqual(expectedInfo.height);
       done();
     });
   });
-  it(`should have the right viewbox`, function (done) {
-    formatSvgData(svgFile, {}, function (result) {
+  it(`should have the right viewbox`, done => {
+    formatSvgData(svgFile, {}, result => {
       expect(result.viewbox).toEqual(expectedInfo.viewbox);
       done();
     });
   });
-  it(`should output the right name`, function (done) {
-    formatSvgData(svgFile, {}, function (result) {
+  it(`should output the right name`, done => {
+    formatSvgData(svgFile, {}, result => {
       expect(result.name).toEqual(expectedInfo.name);
       done();
     });
@@ -87,20 +87,20 @@ const noDimensionExpectedInfo  = {
 };
 
 describe(`get SVG datas - Handle SVG without dimensions`, function () {
-  it(`should have the right width`, function (done) {
-    formatSvgData(noDimensionSvgFile, {}, function (result) {
+  it(`should have the right width`, done => {
+    formatSvgData(noDimensionSvgFile, {}, result => {
       expect(result.width).toEqual(noDimensionExpectedInfo.width);
       done();
     });
   });
-  it(`should have the right height`, function (done) {
-    formatSvgData(noDimensionSvgFile, {}, function (result) {
+  it(`should have the right height`, done => {
+    formatSvgData(noDimensionSvgFile, {}, result => {
       expect(result.height).toEqual(noDimensionExpectedInfo.height);
       done();
     });
   });
-  it(`should have the right viewbox`, function (done) {
-    formatSvgData(noDimensionSvgFile, {}, function (result) {
+  it(`should have the right viewbox`, done => {
+    formatSvgData(noDimensionSvgFile, {}, result => {
       expect(result.viewbox).toEqual(noDimensionExpectedInfo.viewbox);
       done();
     });
@@ -127,20 +127,20 @@ const percentExpectedInfo  = {
 };
 
 describe(`get SVG datas - Handle SVG with percent dimensions`, function () {
-  it(`should have the right width`, function (done) {
-    formatSvgData(percentSvgFile, {}, function (result) {
+  it(`should have the right width`, done => {
+    formatSvgData(percentSvgFile, {}, result => {
       expect(result.width).toEqual(percentExpectedInfo.width);
       done();
     });
   });
-  it(`should have the right height`, function (done) {
-    formatSvgData(percentSvgFile, {}, function (result) {
+  it(`should have the right height`, done => {
+    formatSvgData(percentSvgFile, {}, result => {
       expect(result.height).toEqual(percentExpectedInfo.height);
       done();
     });
   });
-  it(`should have the right viewbox`, function (done) {
-    formatSvgData(percentSvgFile, {}, function (result) {
+  it(`should have the right viewbox`, done => {
+    formatSvgData(percentSvgFile, {}, result => {
       expect(result.viewbox).toEqual(percentExpectedInfo.viewbox);
       done();
     });
