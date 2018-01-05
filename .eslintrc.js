@@ -7,8 +7,8 @@ module.exports = {
     node: true,
   },
   rules: {
-    quotes: [`warn`, `backtick`],
-    indent: [`warn`, 2],
+    'quotes': [`warn`, `backtick`],
+    'indent': [`warn`, 2],
     'no-unused-vars': [`error`, { args: "none" }],
     'no-var': [`error`],
     'max-len': [`warn`, {code: 80, ignoreTemplateLiterals: true}],
@@ -19,5 +19,7 @@ module.exports = {
         objects: "always",
     }],
     'eol-last': [`warn`],
+    'camelcase': [`warn`],
+    'semi': [`warn`],
   },
 };

@@ -2,9 +2,10 @@
 
 const path          = require(`path`);
 const gulp          = require(`gulp`);
-const eslint        = require(`gulp-eslint`)
+const eslint        = require(`gulp-eslint`);
 const jasmine       = require(`gulp-jasmine`);
 const doctoc        = require(`gulp-doctoc`);
+const cache         = require(`gulp-cached`);
 
 const svgSymbols    = require(`./index`);
 const svgGlob       = `test/source/*.svg`;
@@ -29,6 +30,7 @@ test.description = `run the tests`;
 
 function lint() {
   return gulp.src(jsGlob)
+    .pipe(cache(`linting`))
     .pipe(eslint({fix: true,}))
     .pipe(eslint.format())
     .pipe(gulp.dest(`./`));

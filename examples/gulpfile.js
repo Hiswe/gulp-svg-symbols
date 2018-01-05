@@ -14,7 +14,7 @@ function svg() {
     .pipe(svgSymbols())
     .pipe(gulp.dest(`ex-default`));
 }
-svg.description = `default use of the plugin`
+svg.description = `default use of the plugin`;
 
 // adding the demo page
 function demoPage() {
@@ -28,7 +28,7 @@ function demoPage() {
     }))
     .pipe(gulp.dest(`ex-demo-page`));
 }
-demoPage.description  = `Generating the demo page along with the default templates`
+demoPage.description  = `Generating the demo page along with the default templates`;
 
 // add a class name to the outputed SVG in case of SVG being included in the DOM
 function svgClassname() {
@@ -38,7 +38,7 @@ function svgClassname() {
     }))
     .pipe(gulp.dest(`ex-svg-classname`));
 }
-svgClassname.description  = `Adding add a class to the generated SVG file`
+svgClassname.description  = `Adding add a class to the generated SVG file`;
 
 const customCSSTemplate = path.join(__dirname, `../test/source/template.json`);
 // custom templates & files in different folders
@@ -58,7 +58,7 @@ function customTemplate() {
     .pipe(gulpif( /[.]json$/, gulp.dest(`ex-custom-template/front`)))
     .pipe(gulpif( /[.]html$/, gulp.dest(`ex-custom-template/tmp`)));
 }
-customTemplate.description  = `Using custom templates`
+customTemplate.description  = `Using custom templates`;
 
 // custom template to test aspect ratio
 function aspectRatio() {
@@ -73,10 +73,10 @@ function aspectRatio() {
     }))
     .pipe(gulp.dest(`ex-aspect-ratio`));
 }
-aspectRatio.description = `A custom template with aspect ratios`
+aspectRatio.description = `A custom template with aspect ratios`;
 
-gulp.task(`svg` ,svg)
-gulp.task(`demo-page`, demoPage)
-gulp.task(`svg-classname` ,svgClassname)
-gulp.task(`custom-template` ,customTemplate)
-gulp.task(`aspect-ratio` ,aspectRatio)
+gulp.task(`svg` ,svg);
+gulp.task(`demo-page`, demoPage);
+gulp.task(`svg-classname` ,svgClassname);
+gulp.task(`custom-template` ,customTemplate);
+gulp.task(`aspect-ratio` ,aspectRatio);

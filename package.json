@@ -6,7 +6,8 @@
   "scripts": {
     "hint": "gulp hint",
     "lint": "gulp lint",
-    "test": "gulp test"
+    "test": "gulp test",
+    "watch": "gulp watch"
   },
   "repository": "https://github.com/Hiswe/gulp-svg-symbols.git",
   "keywords": [
@@ -36,6 +37,7 @@
   "devDependencies": {
     "event-stream": "^3.3.2",
     "gulp": "gulpjs/gulp.git#4.0",
+    "gulp-cached": "^1.1.1",
     "gulp-doctoc": "^0.1.4",
     "gulp-eslint": "^4.0.0",
     "gulp-jasmine": "^3.0.0",
