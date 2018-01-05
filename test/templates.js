@@ -3,7 +3,6 @@
 const gulp            = require(`gulp`);
 const fs              = require(`fs`);
 const path            = require(`path`);
-const BPromise        = require(`bluebird`);
 const es              = require(`event-stream`);
 
 const svgSymbols      = require(`../index.js`);
@@ -173,7 +172,7 @@ describe(`Render custom templates`, function () {
 
   it(`should render an array of templates`, done => {
     const files = templates.renderAll(tmpl, datas);
-    BPromise
+    Promise
       .all(files)
       .then( files => {
         expect(files.length).toEqual(2);
