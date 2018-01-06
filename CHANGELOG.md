@@ -1,3 +1,11 @@
+- **3.0.0**
+  - remove gulp-util. Gulp-svg-symbols now work with the latest gulp4
+  - add an `option.svgAttrs`
+  - replace `option.className` by `options.class`
+  - replace `option.svgClassname` by `options.svgAttrs.class`
+  - update `defaultSvg` template. It now will add `xmlns:xlink="http://www.w3.org/1999/xlink"` if needed
+  - use ES6 functionalities such as: Promise, arrow function & template strings
+  - don't generated files if no SVG has been found
 - **2.0.1**
   - Update dependencies
   - Better *real situation* example folder
