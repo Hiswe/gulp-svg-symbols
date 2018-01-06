@@ -1,4 +1,4 @@
-<% _.forEach( icons, function( icon ){ %><%= icon.className %> {
+<% _.forEach( icons, function( icon ){ %><%= icon.class %> {
   width: <%= icon.width %>;
   height: <%= icon.height %>;
 }

@@ -4,6 +4,8 @@
   "description": "A bunch of gulpfile examples using gulp-svg-symbols",
   "main": "gulpfile.js",
   "scripts": {
+    "list": "gulp -T",
+    "all": "gulp all",
     "svg": "gulp svg",
     "demo-page": "gulp demo-page",
     "svg-classname": "gulp svg-classname",
@@ -13,11 +15,10 @@
   "author": "Hiswe",
   "license": "WTFPL",
   "devDependencies": {
-    "gulp": "^3.9.1",
+    "gulp": "gulpjs/gulp.git#4.0",
     "gulp-if": "^2.0.1",
     "gulp-rename": "^1.2.2",
-    "gulp-svg-symbols": "^2.0.2",
-    "gulp-task-list": "0.0.1"
+    "gulp-svg-symbols": "^2.0.2"
   },
   "dependencies": {}
 }

@@ -1,67 +1,56 @@
 'use strict';
 
-var path          = require('path');
-var gulp          = require('gulp');
-var jshint        = require('gulp-jshint');
-var stylish       = require('jshint-stylish');
-var jscs          = require('gulp-jscs');
-var jsbeautifier  = require('gulp-jsbeautifier');
-var jasmine       = require('gulp-jasmine');
-var doctoc        = require('gulp-doctoc');
+const gulp          = require(`gulp`);
+const eslint        = require(`gulp-eslint`);
+const jasmine       = require(`gulp-jasmine`);
+const doctoc        = require(`gulp-doctoc`);
+const cache         = require(`gulp-cached`);
 
-var svgSymbols    = require('./index');
-var svgGlob       = 'test/source/*.svg';
-var jsGlob        = [
-  'index.js',
-  'gulpfile.js',
-  'lib/*.js',
-  'test/*.js',
-  'examples/gulpfile.js',
+const jsGlob        = [
+  `**/*.js`,
+  `!node_modules`,
+  `!node_modules/**/*`,
+  `!**/node_modules`,
+  `!**/node_modules/**/*`,
 ];
 
-gulp.task('test', function () {
+function test() {
   return gulp.src([
-      'test/plugin.js',
-      'test/templates.js',
-      'test/get-svg-datas.js',
-      'test/transform-raw-data.js',
-    ])
-    .pipe(jasmine({verbose: true}));
-});
+    `test/plugin.js`,
+    `test/templates.js`,
+    `test/get-svg-datas.js`,
+    `test/transform-raw-data.js`,
+  ])
+    .pipe(jasmine({verbose: true, }));
+}
+test.description = `run the tests`;
 
-gulp.task('hint', function () {
+function lint() {
   return gulp.src(jsGlob)
-    .pipe(jshint())
-    .pipe(jshint.reporter('jshint-stylish'))
-    .pipe(jscs());
-});
+    .pipe(cache(`linting`))
+    .pipe(eslint({fix: true, }))
+    .pipe(eslint.format())
+    .pipe(gulp.dest(`./`));
+}
+lint.description = `lint the code using eslint`;
 
-gulp.task('templates', function () {
-  return gulp.src(svgGlob)
-    .pipe(svgSymbols({
-      templates: [
-        path.join(__dirname, './test/source/template.html'),
-        path.join(__dirname, './test/source/template.json')
-      ]
+function toc() {
+  return gulp.src(`./README.md`)
+    .pipe(doctoc({
+      mode: `github.com`,
     }))
-    .pipe(gulp.dest('tmp'));
-});
+    .pipe(gulp.dest(`./`));
+}
+toc.description = `update the readme's table of content`;
 
-gulp.task('toc', function() {
-  return gulp.src('./README.md')
-  .pipe(doctoc({
-    mode: 'github.com',
-  }))
-  .pipe(gulp.dest('./'));
-});
+function watch() {
+  return gulp.watch(jsGlob, lint);
+}
+watch.description = `hint on file change`;
 
-gulp.task('watch', function () {
-  return gulp.watch(jsGlob, ['hint']);
-});
-
-gulp.task('default', function (cb) {
-  console.log('test');
-  console.log('hint');
-  console.log('watch');
-  cb();
-});
+module.exports = {
+  test,
+  lint,
+  toc,
+  watch,
+};
