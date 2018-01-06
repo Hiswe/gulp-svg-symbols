@@ -244,7 +244,7 @@ templates: [
 ```
 - and also 2 helpers functions
   - `attributesToString( object )` render an object as a string of attributes
-  - `svgdataToSymbol` render an object as a string of attributes
+  - `svgdataToSymbol( iconData )` render an icon data object to a stringed symbol
 
 #### transformData
 
