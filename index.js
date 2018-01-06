@@ -32,6 +32,18 @@ function gulpSvgSymbols(opts = {}) {
     return pathName;
   });
 
+  // Handle deprecation warnings for old options and fix the config
+  // `className` option is now just `class`
+  if (typeof options.className !== `undefined`) {
+    utils.logWarn(options, `options.className is deprecated. Please replace it with options.class`);
+    options.class = options.className;
+  }
+  // svgClassname option is now living inside svgAttrs
+  if (typeof options.svgClassname !== `undefined`) {
+    utils.logWarn(options, `options.svgClassname is deprecated. Please replace it with options.svgAttrs.class`);
+    options.svgAttrs.class = options.svgClassname;
+  }
+
   // buffer and transform every files
   return through.obj(function transform(file, encoding, cb) {
 
@@ -73,13 +85,6 @@ function gulpSvgSymbols(opts = {}) {
     // better for templates to check if `false` rather than length…
     defs = defs.length > 0 ? defs.join(`\n`) : false;
 
-    // svgClassname option is now living inside svgAttrs
-    // issue a deprecation warning and copy the value to it's rightful place
-    if (typeof options.svgClassname !== `undefined`) {
-      utils.logWarn(options, `options.svgClassname is deprecated. Please replace it with options.svgAttrs.classname`);
-      options.svgAttrs.classname = options.svgClassname;
-    }
-
     // automatically insert xlink if needed
     // even if it's deprecated in SVG2 most software will still produce SVG 1.1
     // and I can't find find a good website for SVG2 support in browsers…
@@ -95,13 +100,17 @@ function gulpSvgSymbols(opts = {}) {
     });
 
     function outputFiles(files) {
-      files.forEach(function (file) {
-        that.push(file);
-      });
+      files.forEach( file => that.push(file) );
       cb();
     }
 
-    Promise.all(files).then(outputFiles);
+    Promise
+      .all(files)
+      .then(outputFiles)
+      .catch( err => {
+        this.emit(`error`, new PluginError(PLUGIN_NAME, err, {showStack: true, }));
+        cb();
+      });
   });
 }
 

@@ -2,9 +2,12 @@
 
 const path          = require(`path`);
 const gulp          = require(`gulp`);
-const svgSymbols    = require(`../index.js`);
 const gulpif        = require(`gulp-if`);
 const rename        = require(`gulp-rename`);
+// In your own environment it should be:
+//  const svgSymbols    = require(`gulp-svg-symbols`);
+// we require the lib like this have the most recent version of the library
+const svgSymbols    = require(`../index.js`);
 
 const svgGlob       = `../test/source/*.svg`;
 
@@ -34,13 +37,14 @@ demoPage.description  = `Generating the demo page along with the default templat
 function svgClassname() {
   return gulp.src(svgGlob)
     .pipe(svgSymbols({
-      svgAttrs: { classname: `custom-name`, },
+      svgAttrs: { class: `custom-name`, },
     }))
     .pipe(gulp.dest(`ex-svg-classname`));
 }
 svgClassname.description  = `Adding add a class to the generated SVG file`;
 
-const customCSSTemplate = path.join(__dirname, `../test/source/template.json`);
+const customCSSTemplate   = path.join(__dirname, `../test/source/template.json`);
+const customHTMLTemplate  = path.join(__dirname, `../test/source/template.html`);
 // custom templates & files in different folders
 function customTemplate() {
   return gulp.src(svgGlob)
@@ -49,7 +53,7 @@ function customTemplate() {
       className:  `.icon-%f`,
       title:      false,
       fontSize:   16,
-      templates: [`default-svg`, `default-demo`, customCSSTemplate, ],
+      templates: [`default-svg`, `default-demo`, customCSSTemplate, customHTMLTemplate, ],
     }))
     .pipe(rename(function (path) {
       path.basename = `icon-files`;

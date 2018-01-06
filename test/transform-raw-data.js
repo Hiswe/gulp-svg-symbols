@@ -7,7 +7,7 @@ const transformSvgData  = require(`../lib/svg.js`).formatForTemplate;
 const defaultOptions    = require(`../lib/default-config.js`);
 const userOptions       = _.defaults({
   id:         `icon-%f`,
-  className:  `.icon-%f`,
+  class:      `.icon-%f`,
   fontSize:   16,
   title:      `logo of %f`,
 }, defaultOptions);
@@ -32,7 +32,7 @@ const svgRawData    = {
 const resultDefault  = {
   svg:        svgRawData,
   id:         `codepen-square`,
-  className:  `.codepen-square`,
+  class:      `.codepen-square`,
   title:      `codepen square icon`,
   width:      `24px`,
   height:     `24px`,
@@ -40,7 +40,7 @@ const resultDefault  = {
 const resultDefaultOptions  = {
   svg:        svgRawData,
   id:         `icon-codepen-square`,
-  className:  `.icon-codepen-square`,
+  class:      `.icon-codepen-square`,
   title:      `logo of codepen square`,
   width:      `1.5em`,
   height:     `1.5em`,
@@ -66,9 +66,9 @@ describe(`Transform data - default`, function () {
     expect(result.id).toEqual(resultDefault.id);
     done();
   });
-  it(`should have the right className`, done => {
+  it(`should have the right class`, done => {
     const result = transformSvgData(svgRawData, defaultOptions);
-    expect(result.className).toEqual(resultDefault.className);
+    expect(result.class).toEqual(resultDefault.class);
     done();
   });
   it(`should have the right title`, done => {
@@ -104,9 +104,9 @@ describe(`Transform data - default & options`, function () {
     expect(result.id).toEqual(resultDefaultOptions.id);
     done();
   });
-  it(`should have the right className`, done => {
+  it(`should have the right class`, done => {
     const result = transformSvgData(svgRawData, userOptions);
-    expect(result.className).toEqual(resultDefaultOptions.className);
+    expect(result.class).toEqual(resultDefaultOptions.class);
     done();
   });
   it(`should have the right title`, done => {

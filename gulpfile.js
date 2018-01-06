@@ -1,16 +1,11 @@
 'use strict';
 
-const path          = require(`path`);
 const gulp          = require(`gulp`);
 const eslint        = require(`gulp-eslint`);
 const jasmine       = require(`gulp-jasmine`);
 const doctoc        = require(`gulp-doctoc`);
 const cache         = require(`gulp-cached`);
 
-// In your own environment it should be:
-//  const svgSymbols    = require(`gulp-svg-symbols`);
-const svgSymbols    = require(`./index`);
-const svgGlob       = `test/source/*.svg`;
 const jsGlob        = [
   `**/*.js`,
   `!node_modules`,
@@ -39,18 +34,6 @@ function lint() {
 }
 lint.description = `lint the code using eslint`;
 
-function templates() {
-  return gulp.src(svgGlob)
-    .pipe(svgSymbols({
-      templates: [
-        path.join(__dirname, `./test/source/template.html`),
-        path.join(__dirname, `./test/source/template.json`),
-      ],
-    }))
-    .pipe(gulp.dest(`tmp`));
-}
-templates.description = `test some user-defined templates`;
-
 function toc() {
   return gulp.src(`./README.md`)
     .pipe(doctoc({
@@ -68,6 +51,5 @@ watch.description = `hint on file change`;
 module.exports = {
   test,
   lint,
-  templates,
   watch,
 };

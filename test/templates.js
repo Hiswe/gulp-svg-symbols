@@ -37,12 +37,12 @@ describe(`Attributes handling in default-svg`, function () {
       }));
   });
 
-  it(`should add a classname to root SVG when passed as option`, done => {
+  it(`should add a class to root SVG when passed as option`, done => {
     gulp
       .src(`test/source/*.svg`)
       .pipe(svgSymbols({
         warn: false,
-        svgAttrs: {classname: `foobar`, },
+        svgAttrs: {class: `foobar`, },
         templates: [`default-svg`, ],
       }))
       .pipe(es.writeArray( (err, output) => {

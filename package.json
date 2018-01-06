@@ -4,10 +4,10 @@
   "description": "Convert SVG files to symbols with gulp",
   "main": "index.js",
   "scripts": {
-    "hint": "gulp hint",
     "lint": "gulp lint",
     "test": "gulp test",
-    "watch": "gulp watch"
+    "watch": "gulp watch",
+    "toc": "gulp toc"
   },
   "repository": "https://github.com/Hiswe/gulp-svg-symbols.git",
   "keywords": [
@@ -39,8 +39,6 @@
     "gulp-cached": "^1.1.1",
     "gulp-doctoc": "^0.1.4",
     "gulp-eslint": "^4.0.0",
-    "gulp-jasmine": "^3.0.0",
-    "gulp-jscs": "^4.0.0",
-    "jshint": "^2.9.4"
+    "gulp-jasmine": "^3.0.0"
   }
 }
