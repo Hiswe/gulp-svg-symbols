@@ -1,6 +1,6 @@
 # gulp-svg-symbols
 
-[![NPM version](https://badge.fury.io/js/gulp-svg-symbols.svg)](http://badge.fury.io/js/gulp-svg-symbols) [![Build Status](https://travis-ci.org/Hiswe/gulp-svg-symbols.svg?branch=master)](https://travis-ci.org/Hiswe/gulp-svg-symbols)
+[![npm version](https://badge.fury.io/js/gulp-svg-symbols.svg)](https://badge.fury.io/js/gulp-svg-symbols) [![Build Status](https://travis-ci.org/Hiswe/gulp-svg-symbols.svg?branch=master)](https://travis-ci.org/Hiswe/gulp-svg-symbols)
 
 *gulp-svg-symbols* is a minimal plugin for [gulp](http://gulpjs.com).  
 It converts a bunch of svg files to a single svg file containing each one as a symbol.  
