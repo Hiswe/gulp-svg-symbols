@@ -51,5 +51,6 @@ watch.description = `hint on file change`;
 module.exports = {
   test,
   lint,
+  toc,
   watch,
 };

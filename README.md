@@ -14,10 +14,10 @@ See [css-trick](http://css-tricks.com/svg-symbol-good-choice-icons/) for more de
 - [Example](#example)
 - [Options](#options)
   - [Basics](#basics)
-    - [id and className](#id-and-classname)
+    - [id and class](#id-and-class)
     - [fontSize](#fontsize)
     - [title](#title)
-    - [svgClassname](#svgclassname)
+    - [svgAttrs](#svgattrs)
     - [slug](#slug)
     - [templates](#templates)
     - [warn](#warn)
@@ -29,6 +29,7 @@ See [css-trick](http://css-tricks.com/svg-symbol-good-choice-icons/) for more de
   - [Migrating](#migrating)
   - [More examples](#more-examples)
   - [Usefull frontend lib](#usefull-frontend-lib)
+  - [Thanks](#thanks)
   - [Credits](#credits)
   - [Alternatives](#alternatives)
 
@@ -73,11 +74,11 @@ You can override the [default options](https://github.com/Hiswe/gulp-svg-symbols
 
 ### Basics
 
-#### id and className
+#### id and class
 
 **default:** `'%f'` and  `'.%f'`
 
-Text templates for generating icon class & symbols id  
+Text templates for generating symbols id  & icon class  
 `%f` is the [speakingurled](https://www.npmjs.com/package/speakingurl) file name placeholder.  
 See more about the name in the [slug option](#slug)
 
@@ -100,46 +101,39 @@ It takes a text template (like for [id/classname](https://github.com/Hiswe/gulp-
 title: '%f icon'
 ```
 
-#### svgClassname
+#### svgAttrs
 
-**default:** `false`
+**default:** `{class: null, xmlns: 'http://www.w3.org/2000/svg'}`
 
-Specify a `class` for the `<svg>` container tag in the default SVG template.
+Specify attributes for the `<svg>` container tag in the default SVG template.
 
 ```js
-svgClassname: 'svg-icon-lib',
+{
+  class: 'svg-icon-lib',
+  'aria-hidden': 'true',
+  style: 'position: absolute;',
+  'data-enabled': true,
+}
 ```
 
 output:
 
 ```html
-<svg xmlns="http://www.w3.org/2000/svg" class="svg-icon-lib">
+<svg xmlns="http://www.w3.org/2000/svg" class="svg-icon-lib" aria-hidden="true" style="position: absolute;" data-enabled>
 ```
 
-This is usefull when you want to include the SVG symbols directly in the DOM (i.e. no external reference)
+*notes:*
 
-A secure way of hiding the svg is by styling it this way:
-
-```css
-.svg-icon-lib {
-  border: 0 !important;
-  clip: rect(0 0 0 0) !important;
-  height: 1px !important;
-  margin: -1px !important;
-  overflow: hidden !important;
-  padding: 0 !important;
-  position: absolute !important;
-  width: 1px !important;
-}
-```
-
-A simple `display: none` will mess with defs rendering (gradients and so on…)
+- this is how you can add a `class` to the generated SVG
+- any string or numeric attribute will be rendered
+- boolean attributes will just toggle the attribute without any value. If you need to render the boolean as a value just pass it as a string
+- the attribute `xmlns:xlink="http://www.w3.org/1999/xlink"` will be added automatically if any `xlink:` is found in the SVG content
 
 #### slug
 
 **default:** `{}`
 
-In order to have nice ids in the template and to keep the gulp task quite simple, gulp-svg-symbols use [speakingurl](https://www.npmjs.com/package/speakingurl).  
+In order to have nice ids in the template and to keep the gulp task quite simple, gulp-svg-symbols use [speakingurl](https://www.npmjs.com/package/speakingurl).
 
 You can pass a [speakingurl's config](https://www.npmjs.com/package/speakingurl#getsluginput-options) here:
 
@@ -202,7 +196,7 @@ See [templates option](https://github.com/Hiswe/gulp-svg-symbols#templates) for 
 
 **default:** `true`
 
-Disable plugin warn messages (like: missing viewBox).
+Disable plugin warn messages (like: missing viewBox & depreciation warnings).
 
 ### Advanced
 
@@ -222,8 +216,35 @@ templates: [
 ```
 
 - template engine is [lodash](http://lodash.com/docs#template).
-- all svg files info are stored in the `icons` array and passed to every templates.
 - the output files will have the same name & extension as your files.
+- every template will have acces to those datas:
+```js
+{
+  svgAttrs: {/*  the same object you can pass in configuration */ },
+  defs: `string`,
+  icons: [{
+    id: `string`,
+    class: `.string`,
+    width: `a number as a string with a unit`,
+    height: `a number as a string with a unit`,
+    style: `string if exists`,
+    svg: {
+      name: `string (svg filename without extension)`,
+      id: `string`,
+      width: `number`,
+      height: `number`,
+      content: `the svg markup as a string`,
+      viewBox: `string`,
+      originalAttributes: {
+        /* every attributes before processing them */
+      },
+    },
+  }, {/*…*/}, ],
+}
+```
+- and also 2 helpers functions
+  - `attributesToString( object )` render an object as a string of attributes
+  - `svgdataToSymbol` render an object as a string of attributes
 
 #### transformData
 
@@ -232,13 +253,7 @@ With the ability to provide custom templates, you also have the ability to confi
 ```js
 transformData: function(svg, defaultData, options) {
   /******
-  svg is the object containing :
-    content (svg markup)
-    width   (in numeric — no units)
-    height  (in numeric — no units)
-    viewBox (as a string)
-    name    (svg filename without extension)
-    originalAttributes (object of what was gathered from svg tag)
+  svg is same object as the one passed to the templates (see above)
 
   defaultData are the ones needed by default templates
   see /lib/get-default-data.js
@@ -250,7 +265,7 @@ transformData: function(svg, defaultData, options) {
   return {
     // Return every datas you need
     id:         defaultData.id,
-    className:  defaultData.className,
+    class:      defaultData.class,
     width:      svg.width + 'em',
     height:     svg.height + 'em'
   };
@@ -267,7 +282,24 @@ Of course default templates need `defaultData`.
 - If you want to optimize your icons files or the SVG output, use [gulp-svgmin](https://www.npmjs.org/package/gulp-svgmin) (using SVGO)
 - If you want to change the generated files name, again use [gulp-rename](https://www.npmjs.org/package/gulp-rename)
 - If you want different destination for the files, use [gulp-if](https://www.npmjs.org/package/gulp-if)
-- Unlike [gulp-svg-sprites](https://www.npmjs.org/package/gulp-svg-sprites) there is no way to add padding to svg files.
+- Unlike [gulp-svg-sprites](https://www.npmjs.org/package/gulp-svg-sprites) there is no way to add padding to SVG files.
+
+If you want to include the SVG symbols directly in the DOM (i.e. no external reference) and mask it, a secure way of hiding it could be achieved in this way:
+
+```css
+.svg-icon-lib {
+  border: 0 !important;
+  clip: rect(0 0 0 0) !important;
+  height: 1px !important;
+  margin: -1px !important;
+  overflow: hidden !important;
+  padding: 0 !important;
+  position: absolute !important;
+  width: 1px !important;
+}
+```
+
+A simple `display: none` will mess with defs rendering (gradients and so on…)
 
 ## Other stuff
 
@@ -277,12 +309,16 @@ See [MIGRATING.md](https://github.com/Hiswe/gulp-svg-symbols/blob/master/MIGRATI
 
 ### More examples
 
-Go in the [examples folder](https://github.com/Hiswe/gulp-svg-symbols/blob/master/examples), then `npm install && gulp`.  
+Go in the [examples folder](https://github.com/Hiswe/gulp-svg-symbols/blob/master/examples), then `npm install && npm run list`.  
 You will have a list of all task examples there
 
 ### Usefull frontend lib
 
 - [svg4everybody](https://www.npmjs.com/package/svg4everybody) leverage external SVG for browser which doesn't support it
+
+### Thanks
+
+- [Florens Verschelde](https://github.com/fvsch) for the usefull insights and PR
 
 ### Credits
 

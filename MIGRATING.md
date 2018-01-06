@@ -1,3 +1,12 @@
+### from v2.0+ to v3.0
+
+- Configuration deprecated options (still working but will issue a warning):
+  - `option.className` has been replaced by `options.class`. 
+  - `option.svgClassname` has been replaced by `options.svgAttrs.class`
+- Datas in custom has been modified. This can break some templates.
+  - `icon.className` is replaced by `icon.class` in the icons list
+  - `svgClassname` is replaced by `svgAttrs.class`
+
 ### from v1.0+ to v2.0
 
 - Style attribute from the default SVG template has been removed.  
