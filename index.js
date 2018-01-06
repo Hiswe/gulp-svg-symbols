@@ -23,7 +23,7 @@ function gulpSvgSymbols(opts = {}) {
 
   // clone everything as we don't want to mutate anything
   const options = _.defaultsDeep(_.cloneDeep(opts), _.cloneDeep(defaults));
-  // retore templates array as it will be messed up by _.defaultsDeep
+  // restore templates array as it will be messed up by _.defaultsDeep
   options.templates = opts.templates || defaults.templates;
 
   // expand path to default templates
@@ -60,7 +60,7 @@ function gulpSvgSymbols(opts = {}) {
       return cb();
     }
 
-    svg.parseFile(file, options, function (result) {
+    svg.parseFile(file, options, result => {
       buffer.push(result);
       return cb(null);
     });
@@ -74,7 +74,7 @@ function gulpSvgSymbols(opts = {}) {
       return cb();
     }
 
-    const svgData = buffer.map(function (svgRawData) {
+    const svgData = buffer.map( svgRawData => {
       // defs are not at an SVG level
       // they should be handled globally to the new SVG file
       if (svgRawData.defs) defs.push(svgRawData.defs);
@@ -87,7 +87,7 @@ function gulpSvgSymbols(opts = {}) {
 
     // automatically insert xlink if needed
     // even if it's deprecated in SVG2 most software will still produce SVG 1.1
-    // and I can't find find a good website for SVG2 support in browsers…
+    // and I can't find find any good website talking about SVG2 support in browsers…
     const haystack  = svgData.map(templates.svgdataToSymbol).join(``) + (defs || ``);
     if (/\sxlink:[a-z]+=/.test(haystack)) {
       options.svgAttrs[`xmlns:xlink`] = `http://www.w3.org/1999/xlink`;
