@@ -17,6 +17,8 @@
   "license": "WTFPL",
   "devDependencies": {
     "gulp": "^4.0.0",
+    "gulp-cheerio": "^0.6.3",
+    "gulp-html-prettify": "^0.0.1",
     "gulp-if": "^2.0.1",
     "gulp-rename": "^1.2.2",
     "gulp-svg-symbols": "^3.0.2",

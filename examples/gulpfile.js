@@ -5,10 +5,12 @@ const gulp          = require(`gulp`);
 const gulpif        = require(`gulp-if`);
 const rename        = require(`gulp-rename`);
 const svgmin        = require(`gulp-svgmin`);
+const cheerio       = require(`gulp-cheerio`);
+const prettify      = require(`gulp-html-prettify`);
 // need to reference the real module
 // https://github.com/Hiswe/gulp-svg-symbols/issues/35#issuecomment-254494474
 const svgSymbols    = require(`gulp-svg-symbols`);
-// for test purpose
+// // for test purpose
 // const svgSymbols    = require(`../index.js`);
 
 const svgGlob       = `../test/source/*.svg`;
@@ -92,20 +94,57 @@ function svgContainingIdenticalId() {
           pretty: true,
         },
         plugins: [{
-          cleanupIDs: {
-            prefix: `${prefix}-`,
-            // minify: true
-          },
-        }, ],
+          // this prevent duplicated IDs when bundled in the same file
+          cleanupIDs: { prefix: `${prefix}-` },
+        }, {
+        // some cleaning
+          removeDoctype: true,
+        }, {
+          removeXMLProcInst: true,
+        }, {
+          removeTitle: true,
+        }, {
+          removeDesc: { removeAny: true },
+        }, {
+          convertTransform: {},
+        }],
       };
     }))
-    .pipe(gulp.dest(`ex-svg-with-masks`))
+    // We need to move <clipPath> and <Mask> to the defs…
+    // …in order for Firefox to render the SVG correctly
+    .pipe( cheerio({
+      run: ($, file) => {
+        const $clipPath = $(`clipPath`);
+        const $mask     = $(`mask`);
+        let $defs       = $(`defs`);
+        const hasClipPath = $clipPath.length > 0;
+        const hasMask     = $mask.length > 0;
+        const hasDefs     = $defs.length > 0;
+        if (!hasClipPath && !hasMask) return
+        if (!hasDefs) {
+          $defs = $(`<defs></defs>`)
+          $defs.prependTo(`svg`);
+        }
+        function copyToDefs(i, el) {
+          const $el = $(el);
+          const $clone = $el.clone();
+          $clone.appendTo( $defs );
+          $el.remove();
+
+        }
+        if (hasClipPath) $clipPath.each( copyToDefs )
+        if (hasMask) $mask.each( copyToDefs )
+      },
+      parserOptions: {
+        xmlMode: true,
+      },
+    }))
+    // reformat
+    .pipe( prettify({indent_char: ' ', indent_size: 2}) )
+    .pipe( gulp.dest(`ex-svg-with-masks`) )
+    // everything is ready for gulp-svg-symbols!
     .pipe(svgSymbols({
-      templates: [
-        `default-svg`,
-        `default-css`,
-        `default-demo`,
-      ],
+      templates: [`default-demo`],
     }))
     .pipe(gulp.dest(`ex-svg-with-masks`));
 }
