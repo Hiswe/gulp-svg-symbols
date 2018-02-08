@@ -7,7 +7,8 @@
     "lint": "gulp lint",
     "test": "gulp test",
     "watch": "gulp watch",
-    "toc": "gulp toc"
+    "toc": "gulp toc",
+    "publish": "np"
   },
   "repository": "https://github.com/Hiswe/gulp-svg-symbols.git",
   "keywords": [
