@@ -16,10 +16,10 @@
   "author": "Hiswe",
   "license": "WTFPL",
   "devDependencies": {
-    "gulp": "gulpjs/gulp.git#4.0",
+    "gulp": "^4.0.0",
     "gulp-if": "^2.0.1",
     "gulp-rename": "^1.2.2",
-    "gulp-svg-symbols": "^3.0.0",
+    "gulp-svg-symbols": "^3.0.2",
     "gulp-svgmin": "^1.2.4"
   },
   "dependencies": {}
