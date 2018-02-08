@@ -28,6 +28,16 @@
       padding: 0;
       border: none;
     }
+    .symbols-dictionary {
+      border: 0 !important;
+      clip: rect(0 0 0 0) !important;
+      height: 1px !important;
+      margin: -1px !important;
+      overflow: hidden !important;
+      padding: 0 !important;
+      position: absolute !important;
+      width: 1px !important;
+    }
     .gss-toolbar {
       position: absolute;
       z-index: 100;
@@ -375,7 +385,7 @@
   <style class="gss-filter-css"></style>
 </head>
 <body>
-<svg xmlns="http://www.w3.org/2000/svg" style="width:0; height:0; visibility:hidden; position: absolute;">
+<svg xmlns="http://www.w3.org/2000/svg" class="symbols-dictionary">
   <defs>
     <%= defs %>
   </defs>
