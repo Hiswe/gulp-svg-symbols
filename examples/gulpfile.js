@@ -4,10 +4,12 @@ const path          = require(`path`);
 const gulp          = require(`gulp`);
 const gulpif        = require(`gulp-if`);
 const rename        = require(`gulp-rename`);
-// In your own environment it should be:
-//  const svgSymbols    = require(`gulp-svg-symbols`);
-// we require the lib like this have the most recent version of the library
-const svgSymbols    = require(`../index.js`);
+const svgmin        = require(`gulp-svgmin`);
+// need to reference the real module
+// https://github.com/Hiswe/gulp-svg-symbols/issues/35#issuecomment-254494474
+const svgSymbols    = require(`gulp-svg-symbols`);
+// for test purpose
+// const svgSymbols    = require(`../index.js`);
 
 const svgGlob       = `../test/source/*.svg`;
 
@@ -33,7 +35,7 @@ function demoPage() {
 }
 demoPage.description  = `Generating the demo page along with the default templates`;
 
-// add a class name to the outputed SVG in case of SVG being included in the DOM
+// add a class name to the outputted SVG in case of SVG being included in the DOM
 function svgClassname() {
   return gulp.src(svgGlob)
     .pipe(svgSymbols({
@@ -79,9 +81,40 @@ function aspectRatio() {
 }
 aspectRatio.description = `A custom template with aspect ratios`;
 
+// Test output with SVG including same mask ids
+function svgContainingIdenticalId() {
+  return gulp.src( `./svg-with-masks-sources/*.svg` )
+    .pipe(svgmin( file => {
+      const { relative, } = file;
+      const prefix = path.basename(relative, path.extname(relative));
+      return {
+        js2svg: {
+          pretty: true,
+        },
+        plugins: [{
+          cleanupIDs: {
+            prefix: `${prefix}-`,
+            // minify: true
+          },
+        }, ],
+      };
+    }))
+    .pipe(gulp.dest(`ex-svg-with-masks`))
+    .pipe(svgSymbols({
+      templates: [
+        `default-svg`,
+        `default-css`,
+        `default-demo`,
+      ],
+    }))
+    .pipe(gulp.dest(`ex-svg-with-masks`));
+}
+svgContainingIdenticalId.description = `How to handle SVGs with masks IDs`;
+
 gulp.task(`svg`, svg);
 gulp.task(`demo-page`, demoPage);
 gulp.task(`svg-classname`, svgClassname);
 gulp.task(`custom-template`, customTemplate);
 gulp.task(`aspect-ratio`, aspectRatio);
+gulp.task(`svg-containing-identical-id`, svgContainingIdenticalId);
 gulp.task(`all`, gulp.parallel(svg, demoPage, svgClassname, customTemplate, aspectRatio));
