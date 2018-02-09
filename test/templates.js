@@ -1,185 +1,196 @@
-'use strict';
+import gulp from 'gulp';
+import fs from 'fs';
+import path from 'path';
+import es from 'event-stream';
+import test from 'ava';
+import intercept from 'intercept-stdout';
 
-const gulp            = require(`gulp`);
-const fs              = require(`fs`);
-const path            = require(`path`);
-const es              = require(`event-stream`);
+import svgSymbols from '../index.js';
+import templates from '../lib/templates.js';
 
-const svgSymbols      = require(`../index.js`);
-const templates       = require(`../lib/templates.js`);
-const htmlOutput      = fs.readFileSync(`test/output/template.html`).toString();
-const jsonOutput      = fs.readFileSync(`test/output/template.json`).toString();
+test.beforeEach( t => {
+  t.context.stdout = [];
+  t.context.unhookIntercept = intercept( txt => {
+    t.context.stdout.push(txt);
+  });
+});
 
-const datas           = {
+test.afterEach(t => {
+  t.context.unhookIntercept();
+});
+
+////////
+// DEFAULT SVG TEMPLATE
+////////
+
+const defaultSvgTitle = `Attributes handling in default-svg`;
+
+test.cb( `${defaultSvgTitle} - should add xmlns attribute`, t => {
+  gulp
+    .src(`test/source/*.svg`)
+    .pipe(svgSymbols({
+      warn: false,
+      templates: [`default-svg`, ],
+    }))
+    .pipe(es.writeArray( (err, output) => {
+      const svg = output[0].contents.toString();
+      t.regex( svg, /xmlns="http:\/\/www.w3.org\/2000\/svg"/g );
+      t.end();
+    }));
+});
+
+test.cb( `${defaultSvgTitle} - add a class to root SVG when wanted`, t => {
+  gulp
+    .src(`test/source/*.svg`)
+    .pipe(svgSymbols({
+      warn: false,
+      svgAttrs: {class: `foobar`, },
+      templates: [`default-svg`, ],
+    }))
+    .pipe(es.writeArray( (err, output) => {
+      const svg = output[0].contents.toString();
+      t.regex( svg,  /class="foobar"/g );
+      t.end();
+    }));
+});
+
+test.serial.cb( `${defaultSvgTitle} - handle deprecated svgClassname`, t => {
+  gulp
+    .src(`test/source/*.svg`)
+    .pipe(svgSymbols({
+      svgClassname: `foobar`,
+      templates: [`default-svg`, ],
+    }))
+    .pipe(es.writeArray( (err, output) => {
+      const svg = output[0].contents.toString();
+      t.regex( svg, /class="foobar"/g );
+      const messageRegex = /options\.svgClassname\sis\sdeprecated/;
+      const warnMessage = t.context.stdout.find( e => messageRegex.test(e) );
+      t.truthy( warnMessage, `has the svgClassname deprecaiton warning` );
+      t.end();
+    }));
+});
+
+test.cb( `${defaultSvgTitle} - should add any string attributes`, t => {
+  gulp
+    .src(`test/source/*.svg`)
+    .pipe(svgSymbols({
+      warn: false,
+      svgAttrs: {foo: `bar`, pouic: `clapou`, },
+      templates: [`default-svg`, ],
+    }))
+    .pipe(es.writeArray( (err, output) => {
+      const svg = output[0].contents.toString();
+      t.regex( svg, /foo="bar"/g );
+      t.regex( svg, /pouic="clapou"/g );
+      t.end();
+    }));
+});
+
+test.cb( `${defaultSvgTitle} - add any string attributes with double quotes`, t => {
+  gulp
+    .src(`test/source/*.svg`)
+    .pipe(svgSymbols({
+      warn: false,
+      svgAttrs: {foo: `"bar"`, },
+      templates: [`default-svg`, ],
+    }))
+    .pipe(es.writeArray( (err, output) => {
+      const svg = output[0].contents.toString();
+      t.regex( svg, /foo="&quot;bar&quot;"/g );
+      t.end();
+    }));
+});
+
+test.cb( `${defaultSvgTitle} - handle any boolean attributes`, t => {
+  gulp
+    .src(`test/source/*.svg`)
+    .pipe(svgSymbols({
+      warn: false,
+      svgAttrs: {foo: true, bar: false, },
+      templates: [`default-svg`, ],
+    }))
+    .pipe(es.writeArray( (err, output) => {
+      const svg = output[0].contents.toString();
+      t.regex( svg, /\sfoo/g );
+      t.notRegex( svg, /\sbar/g );
+      t.end();
+    }));
+});
+
+test.cb( `${defaultSvgTitle} - remove xmlns attribute if setted to false`, t => {
+  gulp
+    .src(`test/source/*.svg`)
+    .pipe(svgSymbols({
+      warn: false,
+      svgAttrs: {xmlns: false, },
+      templates: [`default-svg`, ],
+    }))
+    .pipe(es.writeArray( (err, output) => {
+      const svg = output[0].contents.toString();
+      t.notRegex( svg, /xmlns="http:\/\/www.w3.org\/2000\/svg"/g );
+      t.end();
+    }));
+});
+
+test.cb( `${defaultSvgTitle} - should handle any number attributes`, t => {
+  gulp
+    .src(`test/source/*.svg`)
+    .pipe(svgSymbols({
+      warn: false,
+      svgAttrs: {foo: 300, },
+      templates: [`default-svg`, ],
+    }))
+    .pipe(es.writeArray( (err, output) => {
+      const svg = output[0].contents.toString();
+      t.regex( svg, /\sfoo="300"/g );
+      t.end();
+    }));
+});
+
+test.cb( `${defaultSvgTitle} - add the xlink namespace if found inside the file`, t => {
+  gulp
+    .src(`test/source/xlink-href.svg`)
+    .pipe(svgSymbols({
+      warn: false,
+      svgAttrs: {foo: 300, },
+      templates: [`default-svg`, ],
+    }))
+    .pipe(es.writeArray( (err, output) => {
+      const svg = output[0].contents.toString();
+      t.regex( svg, /\sxmlns:xlink="http:\/\/www.w3.org\/1999\/xlink"/g );
+      t.end();
+    }));
+});
+
+////////
+// CUSTOM TEMPLATE
+////////
+
+const htmlOutput = fs.readFileSync(`test/output/template.html`).toString();
+const jsonOutput = fs.readFileSync(`test/output/template.json`).toString();
+
+const datas = {
   icons: [
     {id: `pouic`, },
     {id: `clapou`, },
   ],
 };
-const tmpl            = [
+const tmpl = [
   path.join(__dirname, `./source/template.html`),
   path.join(__dirname, `./source/template.json`),
 ];
 
-describe(`Attributes handling in default-svg`, function () {
+const customTmplTitle = `Render custom templates`;
 
-  it(`should add xmlns attribute`, done => {
-    gulp
-      .src(`test/source/*.svg`)
-      .pipe(svgSymbols({
-        warn: false,
-        templates: [`default-svg`, ],
-      }))
-      .pipe(es.writeArray( (err, output) => {
-        const svg = output[0].contents.toString();
-        expect(svg).toMatch(/xmlns="http:\/\/www.w3.org\/2000\/svg"/g);
-        done();
-      }));
-  });
-
-  it(`should add a class to root SVG when passed as option`, done => {
-    gulp
-      .src(`test/source/*.svg`)
-      .pipe(svgSymbols({
-        warn: false,
-        svgAttrs: {class: `foobar`, },
-        templates: [`default-svg`, ],
-      }))
-      .pipe(es.writeArray( (err, output) => {
-        const svg = output[0].contents.toString();
-        expect(svg).toMatch(/class="foobar"/g);
-        done();
-      }));
-  });
-
-  it(`should handle the old svgClassname attribute as well`, done => {
-    gulp
-      .src(`test/source/*.svg`)
-      .pipe(svgSymbols({
-        warn: false,
-        svgClassname: `foobar`,
-        templates: [`default-svg`, ],
-      }))
-      .pipe(es.writeArray( (err, output) => {
-        const svg = output[0].contents.toString();
-        expect(svg).toMatch(/class="foobar"/g);
-        done();
-      }));
-  });
-
-  it(`should add any string attributes`, done => {
-    gulp
-      .src(`test/source/*.svg`)
-      .pipe(svgSymbols({
-        warn: false,
-        svgAttrs: {foo: `bar`, pouic: `clapou`, },
-        templates: [`default-svg`, ],
-      }))
-      .pipe(es.writeArray( (err, output) => {
-        const svg = output[0].contents.toString();
-        expect(svg).toMatch(/foo="bar"/g);
-        expect(svg).toMatch(/pouic="clapou"/g);
-        done();
-      }));
-  });
-
-  it(`should add any string attributes with double quotes`, done => {
-    gulp
-      .src(`test/source/*.svg`)
-      .pipe(svgSymbols({
-        warn: false,
-        svgAttrs: {foo: `"bar"`, },
-        templates: [`default-svg`, ],
-      }))
-      .pipe(es.writeArray( (err, output) => {
-        const svg = output[0].contents.toString();
-        expect(svg).toMatch(/foo="&quot;bar&quot;"/g);
-        done();
-      }));
-  });
-
-  it(`should handle any boolean attributes`, done => {
-    gulp
-      .src(`test/source/*.svg`)
-      .pipe(svgSymbols({
-        warn: false,
-        svgAttrs: {foo: true, bar: false, },
-        templates: [`default-svg`, ],
-      }))
-      .pipe(es.writeArray( (err, output) => {
-        const svg = output[0].contents.toString();
-        expect(svg).toMatch(/\sfoo/g);
-        expect(svg).not.toMatch(/\sbar/g);
-        done();
-      }));
-  });
-
-  it(`should remove xmlns attribute if setted to false`, done => {
-    gulp
-      .src(`test/source/*.svg`)
-      .pipe(svgSymbols({
-        warn: false,
-        svgAttrs: {xmlns: false, },
-        templates: [`default-svg`, ],
-      }))
-      .pipe(es.writeArray( (err, output) => {
-        const svg = output[0].contents.toString();
-        expect(svg).not.toMatch(/xmlns="http:\/\/www.w3.org\/2000\/svg"/g);
-        done();
-      }));
-  });
-
-  it(`should handle any number attributes`, done => {
-    gulp
-      .src(`test/source/*.svg`)
-      .pipe(svgSymbols({
-        warn: false,
-        svgAttrs: {foo: 300, },
-        templates: [`default-svg`, ],
-      }))
-      .pipe(es.writeArray( (err, output) => {
-        const svg = output[0].contents.toString();
-        expect(svg).toMatch(/\sfoo="300"/g);
-        done();
-      }));
-  });
-
-  it(`should add the xlink namespace if founded on the file`, done => {
-    gulp
-      .src(`test/source/xlink-href.svg`)
-      .pipe(svgSymbols({
-        warn: false,
-        templates: [`default-svg`, ],
-      }))
-      .pipe(es.writeArray( (err, output) => {
-        const svg = output[0].contents.toString();
-        expect(svg).toMatch(/\sxmlns:xlink="http:\/\/www.w3.org\/1999\/xlink"/g);
-        done();
-      }));
-  });
+test( `${customTmplTitle} - render a custom template`, async t => {
+  const file = await templates.render(tmpl[0], datas);
+  t.is( file.contents.toString(), htmlOutput );
 });
 
-describe(`Render custom templates`, function () {
-
-  it(`should render a random template with random infos`, done => {
-    templates.render(tmpl[0], datas)
-      .then( file => {
-        expect(file.contents.toString()).toEqual(htmlOutput);
-        done();
-      })
-      .catch(done.fail);
-  });
-
-  it(`should render an array of templates`, done => {
-    const files = templates.renderAll(tmpl, datas);
-    Promise
-      .all(files)
-      .then( files => {
-        expect(files.length).toEqual(2);
-        expect(files[0].contents.toString()).toEqual(htmlOutput);
-        expect(files[1].contents.toString()).toEqual(jsonOutput);
-        done();
-      })
-      .catch(done.fail);
-  });
+test( `${customTmplTitle} - render an array of templates`, async t => {
+  const files = await Promise.all( templates.renderAll(tmpl, datas) );
+  t.is( files.length, 2 );
+  t.is( files[0].contents.toString(), htmlOutput );
+  t.is( files[1].contents.toString(), jsonOutput );
 });

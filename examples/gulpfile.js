@@ -95,7 +95,7 @@ function svgContainingIdenticalId() {
         },
         plugins: [{
           // this prevent duplicated IDs when bundled in the same file
-          cleanupIDs: { prefix: `${prefix}-` },
+          cleanupIDs: { prefix: `${prefix}-`, },
         }, {
         // some cleaning
           removeDoctype: true,
@@ -104,10 +104,10 @@ function svgContainingIdenticalId() {
         }, {
           removeTitle: true,
         }, {
-          removeDesc: { removeAny: true },
+          removeDesc: { removeAny: true, },
         }, {
           convertTransform: {},
-        }],
+        }, ],
       };
     }))
     // We need to move <clipPath> and <Mask> to the defs…
@@ -120,9 +120,9 @@ function svgContainingIdenticalId() {
         const hasClipPath = $clipPath.length > 0;
         const hasMask     = $mask.length > 0;
         const hasDefs     = $defs.length > 0;
-        if (!hasClipPath && !hasMask) return
+        if (!hasClipPath && !hasMask) return;
         if (!hasDefs) {
-          $defs = $(`<defs></defs>`)
+          $defs = $(`<defs></defs>`);
           $defs.prependTo(`svg`);
         }
         function copyToDefs(i, el) {
@@ -132,19 +132,21 @@ function svgContainingIdenticalId() {
           $el.remove();
 
         }
-        if (hasClipPath) $clipPath.each( copyToDefs )
-        if (hasMask) $mask.each( copyToDefs )
+        if (hasClipPath) $clipPath.each( copyToDefs );
+        if (hasMask) $mask.each( copyToDefs );
       },
       parserOptions: {
         xmlMode: true,
       },
     }))
     // reformat
-    .pipe( prettify({indent_char: ' ', indent_size: 2}) )
+    /* eslint-disable camelcase */
+    .pipe( prettify({indent_char: ` `, indent_size: 2, }) )
+    /* eslint-enable camelcase */
     .pipe( gulp.dest(`ex-svg-with-masks`) )
     // everything is ready for gulp-svg-symbols!
     .pipe(svgSymbols({
-      templates: [`default-demo`],
+      templates: [`default-demo`, ],
     }))
     .pipe(gulp.dest(`ex-svg-with-masks`));
 }
