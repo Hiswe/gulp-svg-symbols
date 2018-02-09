@@ -61,11 +61,11 @@ function gulpSvgSymbols(opts = {}) {
     }
 
     svg
-    .parseFile(file, options)
-    .then( result => {
-      buffer.push(result);
-      return cb(null);
-    });
+      .parseFile(file, options)
+      .then( result => {
+        buffer.push(result);
+        return cb(null);
+      });
 
   // put all generated files back in the stream
   }, function flush(cb) {

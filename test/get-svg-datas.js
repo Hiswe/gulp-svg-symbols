@@ -3,7 +3,7 @@ import fs from 'fs';
 import Vinyl from 'vinyl';
 import test from 'ava';
 
-import { parseFile as formatSvgData} from '../lib/svg.js'
+import { parseFile as formatSvgData} from '../lib/svg.js';
 
 ////////
 // BASIC
@@ -35,7 +35,7 @@ const expectedInfo = {
   viewBox:  `-50 0 150 150`,
 };
 
-const basicTitle = `get SVG datas - Gather basic info from SVG`
+const basicTitle = `get SVG datas - Gather basic info from SVG`;
 
 test( `${basicTitle} - should be an object`, async t => {
   const result = await formatSvgData(svgFile);

@@ -142,13 +142,11 @@ test( `${customOptionsTitle} - should have only user keys`, t => {
 
 test( `${customOptionsTitle} - raw datas aren't overwritten`, t => {
   const result = transformSvgData(svgRawData, customOptions);
-  const keys = Object.keys(result).sort();
   t.is( result.svg, resultCustomOptions.svg);
 });
 
 test( `${customOptionsTitle} - should have the right id`, t => {
   const result = transformSvgData(svgRawData, customOptions);
-  const keys = Object.keys(result).sort();
   t.is( result.id, resultCustomOptions.id);
 });
 
