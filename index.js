@@ -60,7 +60,9 @@ function gulpSvgSymbols(opts = {}) {
       return cb();
     }
 
-    svg.parseFile(file, options, result => {
+    svg
+    .parseFile(file, options)
+    .then( result => {
       buffer.push(result);
       return cb(null);
     });
