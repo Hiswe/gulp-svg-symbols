@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "lint": "gulp lint",
-    "test": "gulp test",
+    "test": "ava test/*.js",
     "watch": "gulp watch",
     "toc": "gulp toc",
     "publish": "npx np"
@@ -41,7 +41,6 @@
     "gulp-cached": "^1.1.1",
     "gulp-doctoc": "^0.1.4",
     "gulp-eslint": "^4.0.0",
-    "gulp-jasmine": "^3.0.0",
     "intercept-stdout": "^0.1.2"
   }
 }

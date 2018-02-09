@@ -2,7 +2,6 @@
 
 const gulp          = require(`gulp`);
 const eslint        = require(`gulp-eslint`);
-const jasmine       = require(`gulp-jasmine`);
 const doctoc        = require(`gulp-doctoc`);
 const cache         = require(`gulp-cached`);
 
@@ -13,17 +12,6 @@ const jsGlob        = [
   `!**/node_modules`,
   `!**/node_modules/**/*`,
 ];
-
-function test() {
-  return gulp.src([
-    `test/plugin.js`,
-    `test/templates.js`,
-    `test/get-svg-datas.js`,
-    `test/transform-raw-data.js`,
-  ])
-    .pipe(jasmine({verbose: true, }));
-}
-test.description = `run the tests`;
 
 function lint() {
   return gulp.src(jsGlob)
@@ -49,7 +37,6 @@ function watch() {
 watch.description = `hint on file change`;
 
 module.exports = {
-  test,
   lint,
   toc,
   watch,

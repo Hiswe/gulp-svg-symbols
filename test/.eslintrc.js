@@ -1,12 +1,9 @@
 module.exports = {
-  "parserOptions": {
+  parserOptions: {
     ecmaVersion: 2017,
     sourceType: "module",
     ecmaFeatures: {
       jsx: true,
     },
-  },
-  env: {
-    jasmine: true,
-  },
+  }
 };
