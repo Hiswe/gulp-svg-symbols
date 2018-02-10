@@ -1,0 +1,16 @@
+<svg viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg" fill-rule="evenodd" clip-rule="evenodd" stroke-linejoin="round" stroke-miterlimit="1.414">
+  <path fill="none" d="M0 0h48v48H0z" />
+
+  <g clip-path="url(#shape-clip)">
+    <path fill="url(#gradient-background)" d="M0 0h48v48H0z" />
+  </g>
+  <defs>
+    <linearGradient id="gradient-background" x2="1" gradientUnits="userSpaceOnUse" gradientTransform="matrix(0 48 -48 0 24 0)">
+      <stop offset="0" stop-color="#e40df2" />
+      <stop offset="1" stop-color="#e61a1a" />
+    </linearGradient>
+    <clipPath id="shape-clip">
+      <path d="M24 13.597c3.708-7.045 11.124-7.045 14.832-3.522 3.708 3.522 3.708 10.567 0 17.612-2.596 5.284-9.27 10.568-14.832 14.091-5.562-3.523-12.236-8.807-14.832-14.091-3.708-7.045-3.708-14.09 0-17.612C12.876 6.552 20.292 6.552 24 13.597z" />
+    </clipPath>
+  </defs>
+</svg>

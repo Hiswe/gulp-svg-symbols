@@ -3,21 +3,9 @@ import fs from 'fs';
 import path from 'path';
 import es from 'event-stream';
 import test from 'ava';
-import intercept from 'intercept-stdout';
 
 import svgSymbols from '../index.js';
 import templates from '../lib/templates.js';
-
-test.beforeEach( t => {
-  t.context.stdout = [];
-  t.context.unhookIntercept = intercept( txt => {
-    t.context.stdout.push(txt);
-  });
-});
-
-test.afterEach(t => {
-  t.context.unhookIntercept();
-});
 
 ////////
 // DEFAULT SVG TEMPLATE
@@ -54,19 +42,17 @@ test.cb( `${defaultSvgTitle} - add a class to root SVG when wanted`, t => {
     }));
 });
 
-test.serial.cb( `${defaultSvgTitle} - handle deprecated svgClassname`, t => {
+test.cb( `${defaultSvgTitle} - handle deprecated svgClassname`, t => {
   gulp
     .src(`test/source/*.svg`)
     .pipe(svgSymbols({
+      warn: false,
       svgClassname: `foobar`,
       templates: [`default-svg`, ],
     }))
     .pipe(es.writeArray( (err, output) => {
       const svg = output[0].contents.toString();
       t.regex( svg, /class="foobar"/g );
-      const messageRegex = /options\.svgClassname\sis\sdeprecated/;
-      const warnMessage = t.context.stdout.find( e => messageRegex.test(e) );
-      t.truthy( warnMessage, `has the svgClassname deprecaiton warning` );
       t.end();
     }));
 });

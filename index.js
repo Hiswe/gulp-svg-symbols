@@ -76,13 +76,36 @@ function gulpSvgSymbols(opts = {}) {
       return cb();
     }
 
+    const defsIdList = {};
     const svgData = buffer.map( svgRawData => {
       // defs are not at an SVG level
       // they should be handled globally to the new SVG file
       if (svgRawData.defs) defs.push(svgRawData.defs);
-      //
+      // control IDs laying in defs
+      if (svgRawData.__gatheredIds__) {
+        Object
+          .entries( svgRawData.__gatheredIds__ )
+          .forEach( ([key, value, ]) => {
+            if ( !defsIdList[key] ) return defsIdList[key] = [value, ];
+            defsIdList[ key ].push( value );
+          });
+      }
       return svg.formatForTemplate(svgRawData, options);
     });
+
+    // make a warn about duplicated IDs inside defs
+    const defsIdWarn = [];
+    Object
+      .entries( defsIdList )
+      .forEach( ([key, value, ]) => {
+        if (value.length < 2) return;
+        const warn = `id “${key}” found in different files (${value.join(`, `)})`;
+        defsIdWarn.push(`           • ${warn}`);
+      });
+    if (defsIdWarn.length) {
+      utils.logWarn(options, `<defs> has some duplicated ids:\n${defsIdWarn.join(`\n`)}`);
+    }
+
     // force defs to have a value.
     // better for templates to check if `false` rather than length…
     defs = defs.length > 0 ? defs.join(`\n`) : false;
