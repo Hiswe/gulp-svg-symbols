@@ -26,6 +26,7 @@ See [css-trick](http://css-tricks.com/svg-symbol-good-choice-icons/) for more de
     - [transformData](#transformdata)
   - [Other observations](#other-observations)
 - [Other stuff](#other-stuff)
+  - [Rendering caveats](#rendering-caveats)
   - [Migrating](#migrating)
   - [More examples](#more-examples)
   - [Usefull frontend lib](#usefull-frontend-lib)
@@ -302,6 +303,19 @@ If you want to include the SVG symbols directly in the DOM (i.e. no external ref
 A simple `display: none` will mess with defs rendering (gradients and so on…)
 
 ## Other stuff
+
+### Rendering caveats
+
+SVG can have rendering issues if:
+
+- multiple `<defs>` have the same ids.  
+  Use [gulp-svgmin](https://github.com/ben-eb/gulp-svgmin#per-file-options) to fix that.
+- `<clipPath>` and `<mask>` aren't staying inside `<defs>` tags.  
+  Move those tags **inside** the `<defs>` tags. Manually or programmatically (easy to do with [gulp-cheerio](https://www.npmjs.com/package/gulp-cheerio))
+
+An example has been made to show all those issues resolved inside the [svgContainingIdenticalId](https://github.com/Hiswe/gulp-svg-symbols/blob/master/examples/gulpfile.js#L86-L153).
+
+`npm run svg-containing-identical-id` to test.
 
 ### Migrating
 
