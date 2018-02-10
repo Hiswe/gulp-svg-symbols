@@ -103,7 +103,7 @@ function gulpSvgSymbols(opts = {}) {
         defsIdWarn.push(`           • ${warn}`);
       });
     if (defsIdWarn.length) {
-      utils.logWarn(options, `<defs> has some duplicated ids:\n${defsIdWarn.join(`\n`)}`);
+      utils.logWarn(options, `<defs> has some duplicated ids:\n${defsIdWarn.join(`\n`)}\nsee https://github.com/Hiswe/gulp-svg-symbols#rendering-caveats`);
     }
 
     // force defs to have a value.
