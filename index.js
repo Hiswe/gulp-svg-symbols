@@ -83,8 +83,7 @@ function gulpSvgSymbols(opts = {}) {
       if (svgRawData.defs) defs.push(svgRawData.defs);
       // control IDs laying in defs
       if (svgRawData.__gatheredIds__) {
-        Object
-          .entries( svgRawData.__gatheredIds__ )
+        _.toPairs( svgRawData.__gatheredIds__ )
           .forEach( ([key, value, ]) => {
             if ( !defsIdList[key] ) return defsIdList[key] = [value, ];
             defsIdList[ key ].push( value );
@@ -95,8 +94,7 @@ function gulpSvgSymbols(opts = {}) {
 
     // make a warn about duplicated IDs inside defs
     const defsIdWarn = [];
-    Object
-      .entries( defsIdList )
+    _.toPairs( defsIdList )
       .forEach( ([key, value, ]) => {
         if (value.length < 2) return;
         const warn = `id “${key}” found in different files (${value.join(`, `)})`;
