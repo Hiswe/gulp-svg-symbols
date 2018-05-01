@@ -51,6 +51,17 @@ function sass() {
 }
 sass.description  = `Generating scss file`;
 
+function cssVar() {
+  return gulp.src(svgGlob)
+    .pipe(svgSymbols({
+      templates: [
+        `default-css-var`,
+      ],
+    }))
+    .pipe(gulp.dest(`ex-css-var`));
+}
+cssVar.description  = `Generating css file with custom properties`;
+
 // add a class name to the outputted SVG in case of SVG being included in the DOM
 function svgClassname() {
   return gulp.src(svgGlob)
@@ -168,6 +179,7 @@ svgContainingIdenticalId.description = `How to handle SVGs with masks IDs`;
 
 gulp.task(`svg`, svg);
 gulp.task(`sass`, sass);
+gulp.task(`css-var`, cssVar);
 gulp.task(`demo-page`, demoPage);
 gulp.task(`svg-classname`, svgClassname);
 gulp.task(`custom-template`, customTemplate);

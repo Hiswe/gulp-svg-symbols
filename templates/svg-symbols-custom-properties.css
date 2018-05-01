@@ -1,0 +1,11 @@
+:root {<% _.forEach( icons, function( icon ){ %>
+  --icon-<%= icon.id %>-width: <%= icon.width %>;
+  --icon-<%= icon.id %>-height: <%= icon.height %>;<% }); %>
+}
+
+<% _.forEach( icons, function( icon ){ %><%= icon.class %> {
+  width: var(--icon-<%= icon.id %>-width);
+  height: var(--icon-<%= icon.id %>-height);
+}
+<%= icon.style %>
+<% }); %>

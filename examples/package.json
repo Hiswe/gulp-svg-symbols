@@ -8,6 +8,7 @@
     "all": "gulp all",
     "svg": "gulp svg",
     "sass": "gulp sass",
+    "css-var": "gulp css-var",
     "demo-page": "gulp demo-page",
     "svg-classname": "gulp svg-classname",
     "custom-template": "gulp custom-template",

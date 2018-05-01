@@ -12,10 +12,11 @@ const utils         = require(`./lib/utils.js`);
 
 const PLUGIN_NAME   = utils.name;
 const templatesPath = {
-  'default-svg':  path.join(__dirname, `./templates/svg-symbols.svg`),
-  'default-css':  path.join(__dirname, `./templates/svg-symbols.css`),
-  'default-sass': path.join(__dirname, `./templates/svg-symbols.scss`),
-  'default-demo': path.join(__dirname, `./templates/svg-symbols-demo-page.html`),
+  'default-svg':      path.join(__dirname, `./templates/svg-symbols.svg`),
+  'default-css':      path.join(__dirname, `./templates/svg-symbols.css`),
+  'default-css-var':  path.join(__dirname, `./templates/svg-symbols-custom-properties.css`),
+  'default-sass':     path.join(__dirname, `./templates/svg-symbols.scss`),
+  'default-demo':     path.join(__dirname, `./templates/svg-symbols-demo-page.html`),
 };
 
 function gulpSvgSymbols(opts = {}) {
