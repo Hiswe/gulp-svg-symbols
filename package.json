@@ -8,7 +8,7 @@
     "test": "ava test/*.js",
     "watch": "gulp watch",
     "toc": "gulp toc",
-    "publish": "npx np"
+    "release": "np"
   },
   "repository": "https://github.com/Hiswe/gulp-svg-symbols.git",
   "keywords": [

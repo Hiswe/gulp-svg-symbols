@@ -7,6 +7,7 @@
     "list": "gulp -T",
     "all": "gulp all",
     "svg": "gulp svg",
+    "sass": "gulp sass",
     "demo-page": "gulp demo-page",
     "svg-classname": "gulp svg-classname",
     "custom-template": "gulp custom-template",
@@ -21,6 +22,7 @@
     "gulp-html-prettify": "^0.0.1",
     "gulp-if": "^2.0.1",
     "gulp-rename": "^1.2.2",
+    "gulp-sass": "^4.0.1",
     "gulp-svg-symbols": "^3.0.2",
     "gulp-svgmin": "^1.2.4"
   },
