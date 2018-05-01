@@ -16,6 +16,7 @@ const templatesPath = {
   'default-css':      path.join(__dirname, `./templates/svg-symbols.css`),
   'default-css-var':  path.join(__dirname, `./templates/svg-symbols-custom-properties.css`),
   'default-sass':     path.join(__dirname, `./templates/svg-symbols.scss`),
+  'default-stylus':   path.join(__dirname, `./templates/svg-symbols.styl`),
   'default-demo':     path.join(__dirname, `./templates/svg-symbols-demo-page.html`),
 };
 

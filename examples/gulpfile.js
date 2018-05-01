@@ -8,6 +8,7 @@ const svgmin        = require(`gulp-svgmin`);
 const cheerio       = require(`gulp-cheerio`);
 const prettify      = require(`gulp-html-prettify`);
 const gulpSass      = require(`gulp-sass`);
+const gulpStylus    = require(`gulp-stylus`);
 // need to reference the real module
 // https://github.com/Hiswe/gulp-svg-symbols/issues/35#issuecomment-254494474
 const svgSymbols    = require(`gulp-svg-symbols`);
@@ -50,6 +51,19 @@ function sass() {
     .pipe(gulp.dest(`ex-sass`));
 }
 sass.description  = `Generating scss file`;
+
+function stylus() {
+  return gulp.src(svgGlob)
+    .pipe(svgSymbols({
+      templates: [
+        `default-stylus`,
+      ],
+    }))
+    .pipe(gulp.dest(`ex-stylus`))
+    .pipe(gulpStylus())
+    .pipe(gulp.dest(`ex-stylus`));
+}
+stylus.description  = `Generating styl file`;
 
 function cssVar() {
   return gulp.src(svgGlob)
@@ -179,6 +193,7 @@ svgContainingIdenticalId.description = `How to handle SVGs with masks IDs`;
 
 gulp.task(`svg`, svg);
 gulp.task(`sass`, sass);
+gulp.task(`stylus`, stylus);
 gulp.task(`css-var`, cssVar);
 gulp.task(`demo-page`, demoPage);
 gulp.task(`svg-classname`, svgClassname);

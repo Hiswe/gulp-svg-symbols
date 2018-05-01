@@ -8,6 +8,7 @@
     "all": "gulp all",
     "svg": "gulp svg",
     "sass": "gulp sass",
+    "stylus": "gulp stylus",
     "css-var": "gulp css-var",
     "demo-page": "gulp demo-page",
     "svg-classname": "gulp svg-classname",
@@ -24,6 +25,7 @@
     "gulp-if": "^2.0.1",
     "gulp-rename": "^1.2.2",
     "gulp-sass": "^4.0.1",
+    "gulp-stylus": "^2.7.0",
     "gulp-svg-symbols": "^3.0.2",
     "gulp-svgmin": "^1.2.4"
   },

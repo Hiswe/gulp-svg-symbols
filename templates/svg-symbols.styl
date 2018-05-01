@@ -1,0 +1,10 @@
+<% _.forEach( icons, function( icon ){ %>
+$icon-<%= icon.id %>-width = <%= icon.width %>;
+$icon-<%= icon.id %>-height = <%= icon.height %>;<% }); %>
+
+<% _.forEach( icons, function( icon ){ %><%= icon.class %> {
+  width: $icon-<%= icon.id %>-width;
+  height: $icon-<%= icon.id %>-height;
+}
+<%= icon.style %>
+<% }); %>
