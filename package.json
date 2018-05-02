@@ -17,7 +17,7 @@
     "symbols"
   ],
   "author": "Yannick Aïvayan <yannick.aivayan@hiswe.net> (http://hiswe.net)",
-  "license": "WTFPL",
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/Hiswe/gulp-svg-symbols/issues"
   },
