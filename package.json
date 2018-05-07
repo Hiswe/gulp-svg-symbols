@@ -35,7 +35,7 @@
     "vinyl": "^2.1.0"
   },
   "devDependencies": {
-    "ava": "^1.0.0-beta.1",
+    "ava": "^1.0.0-beta.4",
     "event-stream": "^3.3.2",
     "gulp": "^4.0.0",
     "gulp-cached": "^1.1.1",
