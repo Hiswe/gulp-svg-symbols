@@ -6,6 +6,7 @@
   "scripts": {
     "list": "gulp -T",
     "all": "gulp all",
+    "all-build-in": "gulp all-build-in-templates",
     "svg": "gulp svg",
     "sass": "gulp sass",
     "stylus": "gulp stylus",

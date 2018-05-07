@@ -39,6 +39,22 @@ function demoPage() {
 }
 demoPage.description  = `Generating the demo page along with the default templates`;
 
+function allBuildInTemplates() {
+  return gulp.src(`../test/source/github.svg`)
+    .pipe(svgSymbols({
+        templates: [
+          `default-svg`,
+          `default-css`,
+          `default-css-var`,
+          `default-sass`,
+          `default-stylus`,
+          `default-demo`,
+        ],
+      }))
+    .pipe(gulp.dest(`ex-build-in-templates`));
+}
+demoPage.description  = `Generating all default templates`;
+
 function sass() {
   return gulp.src(svgGlob)
     .pipe(svgSymbols({
@@ -193,6 +209,7 @@ svgContainingIdenticalId.description = `How to handle SVGs with masks IDs`;
 
 gulp.task(`svg`, svg);
 gulp.task(`sass`, sass);
+gulp.task(`all-build-in-templates`, allBuildInTemplates);
 gulp.task(`stylus`, stylus);
 gulp.task(`css-var`, cssVar);
 gulp.task(`demo-page`, demoPage);

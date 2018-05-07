@@ -23,7 +23,10 @@ function lint() {
 lint.description = `lint the code using eslint`;
 
 function toc() {
-  return gulp.src(`./README.md`)
+  return gulp.src([
+      `./README.md`,
+      `./TEMPLATES.md`
+    ])
     .pipe(doctoc({
       mode: `github.com`,
     }))
