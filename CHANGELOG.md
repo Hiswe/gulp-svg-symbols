@@ -1,3 +1,7 @@
+- **3.1.0**
+  - improve warning messages
+- **3.0.0**
+  - fix demo page not showing gradients
 - **3.0.0**
   - remove gulp-util. Gulp-svg-symbols now work with the latest gulp4
   - add an `option.svgAttrs`
