@@ -1,3 +1,5 @@
+- **3.1.1**
+  - add build-in templates for sass, stylus, and CSS custom properties
 - **3.1.0**
   - improve warning messages
 - **3.0.0**
