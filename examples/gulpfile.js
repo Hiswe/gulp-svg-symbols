@@ -127,11 +127,13 @@ customTemplate.description  = `Using custom templates`;
 function aspectRatio() {
   return gulp.src([
     `../test/source/aspect-ratio.svg`,
+    `../test/source/chinese letter with styles.svg`,
     `../test/source/github.svg`,
   ])
     .pipe(svgSymbols({
       templates: [
         path.join(__dirname, `/aspect-ratio-test.html`),
+        `default-svg`,
       ],
     }))
     .pipe(gulp.dest(`ex-aspect-ratio`));
