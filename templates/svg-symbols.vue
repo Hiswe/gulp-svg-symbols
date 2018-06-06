@@ -1,15 +1,12 @@
 <template>
-<div
-  :class="['svg-icon', iconName]"
-  :style="{'--svg-icon-scale': safeScale}"
->
+<div <%= attributesToString(svgAttrs) %>>
   <%= icons.map(function(icon){
     const symbolAttrs = attributesToString({
-      class: icon.id,
+      class: `svg-icon svg-icon--${icon.id}`,
       viewBox: icon.svg.viewBox,
       preserveAspectRatio: icon.svg.originalAttributes.preserveAspectRatio,
     })
-    return `<svg${ symbolAttrs } v-if="name === '${icon.id}'">${ icon.svg.content }</svg>`
+    return `<svg${ symbolAttrs } :style="{'--svg-icon-scale': safeScale}" v-if="name === '${icon.id}'">${ icon.svg.content }</svg>`
   }).join('\n') %>
 </div>
 </template>
@@ -20,7 +17,7 @@
 }
 </style>
 <style scoped>
-<% _.forEach( icons, function( icon ){ %><%= icon.class %> {
+<% _.forEach( icons, function( icon ){ %>.svg-icon--<%= icon.id %> {
   width: calc(<%= icon.width %> * var(--svg-icon-scale));
   height: calc(<%= icon.height %> * var(--svg-icon-scale));
 }<% if (icon.style) { %>
@@ -30,7 +27,7 @@
 
 <script>
 export default {
-  name: `svg-symbol`,
+  name: `svg-icon`,
   props: {
     name: {
       default: ``,
