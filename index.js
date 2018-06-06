@@ -18,6 +18,7 @@ const templatesPath = {
   'default-sass':     path.join(__dirname, `./templates/svg-symbols.scss`),
   'default-stylus':   path.join(__dirname, `./templates/svg-symbols.styl`),
   'default-demo':     path.join(__dirname, `./templates/svg-symbols-demo-page.html`),
+  'default-vue':      path.join(__dirname, `./templates/svg-symbols.vue`),
 };
 
 function gulpSvgSymbols(opts = {}) {
