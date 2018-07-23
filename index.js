@@ -99,7 +99,7 @@ function gulpSvgSymbols(opts = {}) {
             defsIdList[key].push(value)
           })
         }
-        return svg.formatForTemplate(svgRawData, options)
+        return svg.formatDataForTemplate(svgRawData, options)
       })
 
       // make a warn about duplicated IDs inside defs

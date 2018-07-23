@@ -2,7 +2,7 @@ import _ from 'lodash'
 import fs from 'fs'
 import test from 'ava'
 
-import { formatForTemplate as transformSvgData } from '../lib/svg.js'
+import { formatDataForTemplate as transformSvgData } from '../lib/svg.js'
 import defaultOptions from '../lib/default-config.js'
 
 const svgRawData = {
