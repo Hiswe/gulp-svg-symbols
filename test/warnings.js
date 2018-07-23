@@ -32,7 +32,7 @@ test.serial.cb(`${title} - className deprecation notice`, t => {
         const warnMessage = t.context.stdout.find(e => messageRegex.test(e))
         t.truthy(warnMessage, `has the className deprecation warning`)
         t.end()
-      }),
+      })
     )
 })
 
@@ -46,7 +46,7 @@ test.serial.cb(`${title} - svgClassname deprecation notice`, t => {
         const warnMessage = t.context.stdout.find(e => messageRegex.test(e))
         t.truthy(warnMessage, `has the svgClassname deprecation warning`)
         t.end()
-      }),
+      })
     )
 })
 
@@ -64,7 +64,7 @@ test.serial.cb(`${title} - Missing viewbox warning`, t => {
         t.truthy(reasonMessage, `has the missing viewbox warning`)
         t.truthy(filenameMessage, `has the right filename`)
         t.end()
-      }),
+      })
     )
 })
 
@@ -82,7 +82,7 @@ test.serial.cb(`${title} - <mask> outside defs`, t => {
         t.truthy(reasonMessage, `has the mask warning`)
         t.truthy(filenameMessage, `has the right filename`)
         t.end()
-      }),
+      })
     )
 })
 
@@ -102,7 +102,7 @@ test.serial.cb(`${title} - <clipPath> outside defs`, t => {
         t.truthy(reasonMessage, `has the mask warning`)
         t.truthy(filenameMessage, `has the right filename`)
         t.end()
-      }),
+      })
     )
 })
 
@@ -119,16 +119,16 @@ test.serial.cb(`${title} - duplicated ids`, t => {
         const secondDuplicatedRegex = /id\s“shape-clip”\sfound\sin\sdifferent\sfiles\s\(duplicated-defs-ids-1,\sduplicated-defs-ids-2\)/
         const reasonMessage = stdout.find(e => reasonRegex.test(e))
         const firstDuplicatedMessage = stdout.find(e =>
-          firstDuplicatedRegex.test(e),
+          firstDuplicatedRegex.test(e)
         )
         const secondDuplicatedMessage = stdout.find(e =>
-          secondDuplicatedRegex.test(e),
+          secondDuplicatedRegex.test(e)
         )
         /* eslint-enable max-len */
         t.truthy(reasonMessage, `has the mask warning`)
         t.truthy(firstDuplicatedMessage, `has the right filename`)
         t.truthy(secondDuplicatedMessage, `has the right filename`)
         t.end()
-      }),
+      })
     )
 })

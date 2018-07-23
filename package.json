@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "ava test/*.js",
-    "lint": "prettier --write \"{{lib,test}/*,index}.js\"",
+    "lint": "prettier --write \"{{lib,test}/*,index,examples/gulpfile}.js\"",
     "toc": "doctoc README.md TEMPLATES.md --github",
     "release": "np"
   },

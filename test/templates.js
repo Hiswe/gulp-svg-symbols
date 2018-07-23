@@ -20,14 +20,14 @@ test.cb(`${defaultSvgTitle} - should add xmlns attribute`, t => {
       svgSymbols({
         warn: false,
         templates: [`default-svg`],
-      }),
+      })
     )
     .pipe(
       es.writeArray((err, output) => {
         const svg = output[0].contents.toString()
         t.regex(svg, /xmlns="http:\/\/www.w3.org\/2000\/svg"/g)
         t.end()
-      }),
+      })
     )
 })
 
@@ -39,14 +39,14 @@ test.cb(`${defaultSvgTitle} - add a class to root SVG when wanted`, t => {
         warn: false,
         svgAttrs: { class: `foobar` },
         templates: [`default-svg`],
-      }),
+      })
     )
     .pipe(
       es.writeArray((err, output) => {
         const svg = output[0].contents.toString()
         t.regex(svg, /class="foobar"/g)
         t.end()
-      }),
+      })
     )
 })
 
@@ -58,14 +58,14 @@ test.cb(`${defaultSvgTitle} - handle deprecated svgClassname`, t => {
         warn: false,
         svgClassname: `foobar`,
         templates: [`default-svg`],
-      }),
+      })
     )
     .pipe(
       es.writeArray((err, output) => {
         const svg = output[0].contents.toString()
         t.regex(svg, /class="foobar"/g)
         t.end()
-      }),
+      })
     )
 })
 
@@ -77,7 +77,7 @@ test.cb(`${defaultSvgTitle} - should add any string attributes`, t => {
         warn: false,
         svgAttrs: { foo: `bar`, pouic: `clapou` },
         templates: [`default-svg`],
-      }),
+      })
     )
     .pipe(
       es.writeArray((err, output) => {
@@ -85,7 +85,7 @@ test.cb(`${defaultSvgTitle} - should add any string attributes`, t => {
         t.regex(svg, /foo="bar"/g)
         t.regex(svg, /pouic="clapou"/g)
         t.end()
-      }),
+      })
     )
 })
 
@@ -99,16 +99,16 @@ test.cb(
           warn: false,
           svgAttrs: { foo: `"bar"` },
           templates: [`default-svg`],
-        }),
+        })
       )
       .pipe(
         es.writeArray((err, output) => {
           const svg = output[0].contents.toString()
           t.regex(svg, /foo="&quot;bar&quot;"/g)
           t.end()
-        }),
+        })
       )
-  },
+  }
 )
 
 test.cb(`${defaultSvgTitle} - handle any boolean attributes`, t => {
@@ -119,7 +119,7 @@ test.cb(`${defaultSvgTitle} - handle any boolean attributes`, t => {
         warn: false,
         svgAttrs: { foo: true, bar: false },
         templates: [`default-svg`],
-      }),
+      })
     )
     .pipe(
       es.writeArray((err, output) => {
@@ -127,7 +127,7 @@ test.cb(`${defaultSvgTitle} - handle any boolean attributes`, t => {
         t.regex(svg, /\sfoo/g)
         t.notRegex(svg, /\sbar/g)
         t.end()
-      }),
+      })
     )
 })
 
@@ -139,14 +139,14 @@ test.cb(`${defaultSvgTitle} - remove xmlns attribute if setted to false`, t => {
         warn: false,
         svgAttrs: { xmlns: false },
         templates: [`default-svg`],
-      }),
+      })
     )
     .pipe(
       es.writeArray((err, output) => {
         const svg = output[0].contents.toString()
         t.notRegex(svg, /xmlns="http:\/\/www.w3.org\/2000\/svg"/g)
         t.end()
-      }),
+      })
     )
 })
 
@@ -158,14 +158,14 @@ test.cb(`${defaultSvgTitle} - should handle any number attributes`, t => {
         warn: false,
         svgAttrs: { foo: 300 },
         templates: [`default-svg`],
-      }),
+      })
     )
     .pipe(
       es.writeArray((err, output) => {
         const svg = output[0].contents.toString()
         t.regex(svg, /\sfoo="300"/g)
         t.end()
-      }),
+      })
     )
 })
 
@@ -179,16 +179,16 @@ test.cb(
           warn: false,
           svgAttrs: { foo: 300 },
           templates: [`default-svg`],
-        }),
+        })
       )
       .pipe(
         es.writeArray((err, output) => {
           const svg = output[0].contents.toString()
           t.regex(svg, /\sxmlns:xlink="http:\/\/www.w3.org\/1999\/xlink"/g)
           t.end()
-        }),
+        })
       )
-  },
+  }
 )
 
 test.cb(`${defaultSvgTitle} - keep the options`, t => {
@@ -199,14 +199,14 @@ test.cb(`${defaultSvgTitle} - keep the options`, t => {
         warn: false,
         svgAttrs: { foo: 300 },
         templates: [`default-svg`],
-      }),
+      })
     )
     .pipe(
       es.writeArray((err, output) => {
         const svg = output[0].contents.toString()
         t.regex(svg, /\sxmlns:xlink="http:\/\/www.w3.org\/1999\/xlink"/g)
         t.end()
-      }),
+      })
     )
 })
 

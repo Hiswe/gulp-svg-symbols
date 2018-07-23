@@ -66,7 +66,7 @@ const userOptions = _.defaults(
     fontSize: 16,
     title: `logo of %f`,
   },
-  defaultOptions,
+  defaultOptions
 )
 
 const resultDefaultOptions = {
@@ -125,7 +125,7 @@ const customOptions = _.defaults(
       }
     },
   },
-  defaultOptions,
+  defaultOptions
 )
 
 const resultCustomOptions = {

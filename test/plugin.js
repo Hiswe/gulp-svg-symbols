@@ -24,7 +24,7 @@ test.cb(`${basicTitle} - should produce two files`, t => {
         t.is(output[0].path, `svg-symbols.svg`)
         t.is(output[1].path, `svg-symbols.css`)
         t.end()
-      }),
+      })
     )
 })
 
@@ -48,9 +48,9 @@ test.cb(`${basicTitle} - have the right output if called many times`, t => {
               t.regex(svg, /<symbol/g)
               t.regex(css, /github/g)
               t.end()
-            }),
+            })
           )
-      }),
+      })
     )
 })
 
@@ -61,14 +61,14 @@ test.cb(`${basicTitle} - can generate a demo page`, t => {
       svgSymbols({
         templates: [`default-demo`],
         warn: false,
-      }),
+      })
     )
     .pipe(
       es.writeArray((err, output) => {
         t.is(output.length, 1)
         t.is(output[0].path, `svg-symbols-demo-page.html`)
         t.end()
-      }),
+      })
     )
 })
 
@@ -82,9 +82,9 @@ test.cb(
         es.writeArray((err, output) => {
           t.is(output.length, 0)
           t.end()
-        }),
+        })
       )
-  },
+  }
 )
 
 ////////
@@ -102,7 +102,7 @@ test.cb(`${defsTitle} - should handle svg with defs`, t => {
         const svgContent = output[0].contents.toString()
         t.regex(svgContent, /<defs>/g)
         t.end()
-      }),
+      })
     )
 })
 
@@ -115,7 +115,7 @@ test.cb(`${defsTitle} - should handle svg withouts defs`, t => {
         const svgContent = output[0].contents.toString()
         t.notRegex(svgContent, /<defs>/g)
         t.end()
-      }),
+      })
     )
 })
 
@@ -128,7 +128,7 @@ test.cb(`${defsTitle} - should handle svg with empty defs`, t => {
         const svgContent = output[0].contents.toString()
         t.notRegex(svgContent, /<defs>/g)
         t.end()
-      }),
+      })
     )
 })
 
@@ -149,9 +149,9 @@ test.cb(
           t.notRegex(svgContent, /<style/g)
           t.regex(cssContent, /\.alert{fill:#C40000;}/g)
           t.end()
-        }),
+        })
       )
-  },
+  }
 )
 
 ////////
@@ -167,7 +167,7 @@ test.cb(`Plugin - empty groups - should remove empty groups`, t => {
         const svgContent = output[0].contents.toString()
         t.is((svgContent.match(/<g>/g) || []).length, 1)
         t.end()
-      }),
+      })
     )
 })
 
@@ -185,14 +185,14 @@ test.cb(`${titleHandlingTitle} - should handle title`, t => {
       svgSymbols({
         warn: false,
         title: `pouic`,
-      }),
+      })
     )
     .pipe(
       es.writeArray((err, output) => {
         const svgContent = output[0].contents.toString()
         t.regex(svgContent, /<title>pouic<\/title>/g)
         t.end()
-      }),
+      })
     )
 })
 
@@ -205,16 +205,16 @@ test.cb(
         svgSymbols({
           warn: false,
           title: false,
-        }),
+        })
       )
       .pipe(
         es.writeArray((err, output) => {
           const svgContent = output[0].contents.toString()
           t.notRegex(svgContent, /<title>/g)
           t.end()
-        }),
+        })
       )
-  },
+  }
 )
 
 test.cb(
@@ -226,16 +226,16 @@ test.cb(
         svgSymbols({
           warn: false,
           title: ``,
-        }),
+        })
       )
       .pipe(
         es.writeArray((err, output) => {
           const svgContent = output[0].contents.toString()
           t.notRegex(svgContent, /<title>/g)
           t.end()
-        }),
+        })
       )
-  },
+  }
 )
 
 test.cb(
@@ -247,16 +247,16 @@ test.cb(
         svgSymbols({
           warn: false,
           title: `clapou`,
-        }),
+        })
       )
       .pipe(
         es.writeArray((err, output) => {
           const svgContent = output[0].contents.toString()
           t.regex(svgContent, /<title>instagram-black<\/title>/g)
           t.end()
-        }),
+        })
       )
-  },
+  }
 )
 
 ////////
@@ -275,7 +275,7 @@ test.cb(`${idHandlingTitle} - should slug ids`, t => {
         const svgContent = output[0].contents.toString()
         t.regex(svgContent, /id="crane-noir"/g)
         t.end()
-      }),
+      })
     )
 })
 
@@ -291,14 +291,14 @@ test.cb(`${idHandlingTitle} - should handle speakingurl options`, t => {
             c: `k`,
           },
         },
-      }),
+      })
     )
     .pipe(
       es.writeArray((err, output) => {
         const svgContent = output[0].contents.toString()
         t.regex(svgContent, /id="krane_noir"/g)
         t.end()
-      }),
+      })
     )
 })
 
@@ -312,14 +312,14 @@ test.cb(`${idHandlingTitle} - should handle custom slug function`, t => {
           const result = name.split(` `)
           return `test-name-${result[1]}`
         },
-      }),
+      })
     )
     .pipe(
       es.writeArray((err, output) => {
         const svgContent = output[0].contents.toString()
         t.regex(svgContent, /id="test-name-noir"/g)
         t.end()
-      }),
+      })
     )
 })
 
@@ -340,9 +340,9 @@ test.cb(
           const svgContent = output[0].contents.toString()
           t.notRegex(svgContent, /preserveAspectRatio/g)
           t.end()
-        }),
+        })
       )
-  },
+  }
 )
 
 test.cb(
@@ -356,9 +356,9 @@ test.cb(
           const svgContent = output[0].contents.toString()
           t.regex(svgContent, /preserveAspectRatio="none"/g)
           t.end()
-        }),
+        })
       )
-  },
+  }
 )
 
 test.cb(
@@ -372,7 +372,7 @@ test.cb(
           const svgContent = output[0].contents.toString()
           t.regex(svgContent, /preserveAspectRatio="xMidYMid"/g)
           t.end()
-        }),
+        })
       )
-  },
+  }
 )

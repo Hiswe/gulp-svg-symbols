@@ -43,7 +43,7 @@ function gulpSvgSymbols(opts = {}) {
   if (typeof options.className !== `undefined`) {
     utils.logWarn(
       options,
-      `options.className is deprecated. Please replace it with options.class`,
+      `options.className is deprecated. Please replace it with options.class`
     )
     options.class = options.className
   }
@@ -51,7 +51,7 @@ function gulpSvgSymbols(opts = {}) {
   if (typeof options.svgClassname !== `undefined`) {
     utils.logWarn(
       options,
-      `options.svgClassname is deprecated. Please replace it with options.svgAttrs.class`,
+      `options.svgClassname is deprecated. Please replace it with options.svgAttrs.class`
     )
     options.svgAttrs.class = options.svgClassname
   }
@@ -107,7 +107,7 @@ function gulpSvgSymbols(opts = {}) {
       _.toPairs(defsIdList).forEach(([key, value]) => {
         if (value.length < 2) return
         const warn = `id “${key}” found in different files (${value.join(
-          `, `,
+          `, `
         )})`
         defsIdWarn.push(`           • ${warn}`)
       })
@@ -115,8 +115,8 @@ function gulpSvgSymbols(opts = {}) {
         utils.logWarn(
           options,
           `<defs> has some duplicated ids:\n${defsIdWarn.join(
-            `\n`,
-          )}\nsee https://github.com/Hiswe/gulp-svg-symbols#rendering-caveats`,
+            `\n`
+          )}\nsee https://github.com/Hiswe/gulp-svg-symbols#rendering-caveats`
         )
       }
 
@@ -149,11 +149,11 @@ function gulpSvgSymbols(opts = {}) {
         .catch(err => {
           this.emit(
             `error`,
-            new PluginError(PLUGIN_NAME, err, { showStack: true }),
+            new PluginError(PLUGIN_NAME, err, { showStack: true })
           )
           cb()
         })
-    },
+    }
   )
 }
 
