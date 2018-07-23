@@ -1,5 +1,5 @@
 - **3.1.1**
-  - add build-in templates for sass, stylus, and CSS custom properties
+  - add build-in templates for scss, stylus, and CSS custom properties
 - **3.1.0**
   - improve warning messages
 - **3.0.0**
@@ -14,7 +14,7 @@
   - don't generated files if no SVG has been found
 - **2.0.1**
   - Update dependencies
-  - Better *real situation* example folder
+  - Better _real situation_ example folder
 - **2.0.0**
   - Change default SVG template
   - Change id handling (moving from [slug](https://www.npmjs.com/package/slug) to [speakingurl](https://www.npmjs.com/package/speakingurl))
@@ -30,5 +30,5 @@
 - **0.1.2** — Config for optional CSS output
 - **0.1.1** — Add travis build
 - **0.1.0** — Publish to NPM and fix [watch issue](https://github.com/Hiswe/gulp-svg-symbols/issues/2)
-- **0.0.2** — Css can be generated with *em* size
+- **0.0.2** — Css can be generated with _em_ size
 - **0.0.1** — First release
