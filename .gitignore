@@ -3,3 +3,5 @@ node_modules
 tmp
 npm-debug.log
 examples/ex-*
+examples/dist
+examples/.cache

@@ -15,11 +15,14 @@
     "svg-classname": "gulp svg-classname",
     "custom-template": "gulp custom-template",
     "aspect-ratio": "gulp aspect-ratio",
-    "svg-containing-identical-id": "gulp svg-containing-identical-id"
+    "svg-containing-identical-id": "gulp svg-containing-identical-id",
+    "vue": "gulp vue && parcel vue/index.html"
   },
   "author": "Hiswe",
   "license": "WTFPL",
   "devDependencies": {
+    "@vue/component-compiler-utils": "^2.1.0",
+    "babel-plugin-transform-object-rest-spread": "^6.26.0",
     "gulp": "^4.0.0",
     "gulp-cheerio": "^0.6.3",
     "gulp-html-prettify": "^0.0.1",
@@ -28,7 +31,12 @@
     "gulp-sass": "^4.0.1",
     "gulp-stylus": "^2.7.0",
     "gulp-svg-symbols": "^3.0.2",
-    "gulp-svgmin": "^1.2.4"
+    "gulp-svgmin": "^1.2.4",
+    "parcel-bundler": "^1.9.7",
+    "vue": "^2.5.16",
+    "vue-template-compiler": "^2.5.16"
   },
-  "dependencies": {}
+  "dependencies": {
+    "vue-hot-reload-api": "^2.3.0"
+  }
 }

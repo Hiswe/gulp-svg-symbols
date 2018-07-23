@@ -17,7 +17,10 @@ const svgSymbols = require(`../index.js`)
 
 const svgGlob = `../test/source/*.svg`
 
-// default options output
+////////
+// DEFAULT OPTIONS OUTPUT
+////////
+
 function svg() {
   return gulp
     .src(svgGlob)
@@ -26,7 +29,10 @@ function svg() {
 }
 svg.description = `default use of the plugin`
 
-// adding the demo page
+////////
+// ADDING THE DEMO PAGE
+////////
+
 function demoPage() {
   return gulp
     .src(svgGlob)
@@ -38,6 +44,10 @@ function demoPage() {
     .pipe(gulp.dest(`ex-demo-page`))
 }
 demoPage.description = `Generating the demo page along with the default templates`
+
+////////
+// ALL TEMPLATES
+////////
 
 function allBuildInTemplates() {
   return gulp
@@ -58,6 +68,10 @@ function allBuildInTemplates() {
 }
 demoPage.description = `Generating all default templates`
 
+////////
+// SCSS
+////////
+
 function sass() {
   return gulp
     .src(svgGlob)
@@ -71,6 +85,10 @@ function sass() {
     .pipe(gulp.dest(`ex-sass`))
 }
 sass.description = `Generating scss file`
+
+////////
+// STYLUS
+////////
 
 function stylus() {
   return gulp
@@ -86,6 +104,10 @@ function stylus() {
 }
 stylus.description = `Generating styl file`
 
+////////
+// CSS VAR
+////////
+
 function cssVar() {
   return gulp
     .src(svgGlob)
@@ -97,6 +119,10 @@ function cssVar() {
     .pipe(gulp.dest(`ex-css-var`))
 }
 cssVar.description = `Generating css file with custom properties`
+
+////////
+// SVG GLOBAL CLASS NAME
+////////
 
 // add a class name to the outputted SVG in case of SVG being included in the DOM
 function svgClassname() {
@@ -111,9 +137,13 @@ function svgClassname() {
 }
 svgClassname.description = `Adding add a class to the generated SVG file`
 
+////////
+// CUSTOM TEMPLATES
+////////
+
 const customCSSTemplate = path.join(__dirname, `../test/source/template.json`)
 const customHTMLTemplate = path.join(__dirname, `../test/source/template.html`)
-// custom templates & files in different folders
+
 function customTemplate() {
   return gulp
     .src(svgGlob)
@@ -142,7 +172,10 @@ function customTemplate() {
 }
 customTemplate.description = `Using custom templates`
 
-// custom template to test aspect ratio
+////////
+// CUSTOM TEMPLATES with ASPECT RATIO
+////////
+
 function aspectRatio() {
   return gulp
     .src([
@@ -162,7 +195,10 @@ function aspectRatio() {
 }
 aspectRatio.description = `A custom template with aspect ratios`
 
-// Test output with SVG including same mask ids
+////////
+// OUTPUT WITH SVG INCLUDING SAME MASK IDS
+////////
+
 function svgContainingIdenticalId() {
   return (
     gulp
@@ -231,9 +267,7 @@ function svgContainingIdenticalId() {
         })
       )
       // reformat
-      /* eslint-disable camelcase */
       .pipe(prettify({ indent_char: ` `, indent_size: 2 }))
-      /* eslint-enable camelcase */
       .pipe(gulp.dest(`ex-svg-with-masks`))
       // everything is ready for gulp-svg-symbols!
       .pipe(
@@ -246,6 +280,29 @@ function svgContainingIdenticalId() {
 }
 svgContainingIdenticalId.description = `How to handle SVGs with masks IDs`
 
+////////
+// VUE
+////////
+
+function vue() {
+  return gulp
+    .src([
+      `../test/source/chinese letter with styles.svg`,
+      `../test/source/gradient.svg`,
+    ])
+    .pipe(
+      svgSymbols({
+        templates: [`default-vue`],
+      })
+    )
+    .pipe(gulp.dest(`ex-vue`))
+}
+vue.description = `vue template`
+
+////////
+// EXPORTING TASKS
+////////
+
 gulp.task(`svg`, svg)
 gulp.task(`sass`, sass)
 gulp.task(`all-build-in-templates`, allBuildInTemplates)
@@ -256,7 +313,8 @@ gulp.task(`svg-classname`, svgClassname)
 gulp.task(`custom-template`, customTemplate)
 gulp.task(`aspect-ratio`, aspectRatio)
 gulp.task(`svg-containing-identical-id`, svgContainingIdenticalId)
+gulp.task(`vue`, vue)
 gulp.task(
   `all`,
-  gulp.parallel(svg, demoPage, svgClassname, customTemplate, aspectRatio)
+  gulp.parallel(svg, demoPage, svgClassname, customTemplate, aspectRatio, vue)
 )
