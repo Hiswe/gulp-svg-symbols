@@ -22,7 +22,6 @@
   "license": "WTFPL",
   "devDependencies": {
     "@vue/component-compiler-utils": "^2.1.0",
-    "babel-plugin-transform-object-rest-spread": "^6.26.0",
     "gulp": "^4.0.0",
     "gulp-cheerio": "^0.6.3",
     "gulp-html-prettify": "^0.0.1",

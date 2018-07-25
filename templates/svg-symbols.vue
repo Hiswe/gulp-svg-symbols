@@ -9,6 +9,7 @@ const SVG_LIB = { <%
     const content = `${defs }${icon.svg.content}`
     const width = /(\d+)(\w+)/.exec(icon.width)
     const height = /(\d+)(\w+)/.exec(icon.height)
+    const preserveAspectRatio = icon.svg.originalAttributes.preserveAspectRatio || ``
     const sizes = {
       width: {
         size: parseFloat(width[1], 10),
@@ -26,6 +27,7 @@ const SVG_LIB = { <%
       `<%= svgAttrs.class %>`,
       `<%= icon.class.replace(/^\./, '') %>`,
     ],
+    preserveAspectRatio: `<%= preserveAspectRatio %>`,
     width: {size: <%= sizes.width.size %>, unit: `<%= sizes.width.unit %>`},
     height: {size: <%= sizes.height.size %>, unit: `<%= sizes.height.unit %>`},
     'viewBox': `<%= icon.svg.viewBox %>`,
@@ -55,6 +57,7 @@ export default {
       // don't use spread operator for easier babel configuration %>
       return Object.assign({
         viewBox: this.icon.viewBox,
+        preserveAspectRatio: this.icon.preserveAspectRatio ? this.icon.preserveAspectRatio : false,
         width,
         height,
       }, SVG_ATTRS)

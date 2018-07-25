@@ -20,10 +20,15 @@
 
 <style>
 .red-github {
-  fill: red;
+  fill: DodgerBlue;
 }
 .resized-with-css {
   width: 100%;
+  height: 20px;
+}
+.resized-with-css path {
+  /* in case of a style attribute we can still override the rule */
+  fill: RebeccaPurple !important;
 }
 /* layout styles */
 html,
