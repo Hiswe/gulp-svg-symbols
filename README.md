@@ -196,13 +196,13 @@ will output **only** the SVG file.
 
 Here is the list of all provided templates:
 
-- **default-svg**: the bundle of SVG
-- **default-css**: a CSS file gathering all sizes and additional styles
-- **default-demo**: a demo page which provide an overview of every symbols + a way to copy/paste easily the symbol SVG code
-- **default-vue**: a vue component
-- **default-css-var**: same as the CSS, but all sizes will be also declared as CSS Custom Properties
-- **default-scss**: same as the CSS, but sizes will be declared as SCSS variables
-- **default-stylus**: same as the CSS, but sizes will be declared as Stylus variables
+- [**default-svg**](https://github.com/Hiswe/gulp-svg-symbols/blob/master/TEMPLATES.md#default-svg): the bundle of SVG
+- [**default-css**](https://github.com/Hiswe/gulp-svg-symbols/blob/master/TEMPLATES.md#default-css): a CSS file gathering all sizes and additional styles
+- [**default-demo**](https://github.com/Hiswe/gulp-svg-symbols/blob/master/TEMPLATES.md#default-demo): a demo page which provide an overview of every symbols + a way to copy/paste easily the symbol SVG code
+- [**default-vue**](https://github.com/Hiswe/gulp-svg-symbols/blob/master/TEMPLATES.md#default-vue): a vue component
+- [**default-css-var**](https://github.com/Hiswe/gulp-svg-symbols/blob/master/TEMPLATES.md#default-css-var): same as the CSS, but all sizes will be also declared as CSS Custom Properties
+- [**default-scss**](https://github.com/Hiswe/gulp-svg-symbols/blob/master/TEMPLATES.md#default-scss): same as the CSS, but sizes will be declared as SCSS variables
+- [**default-stylus**](https://github.com/Hiswe/gulp-svg-symbols/blob/master/TEMPLATES.md#default-stylus): same as the CSS, but sizes will be declared as Stylus variables
 
 More details about the build-in templates can be found in the [TEMPLATES.md](https://github.com/Hiswe/gulp-svg-symbols/blob/master/TEMPLATES.md) file
 
