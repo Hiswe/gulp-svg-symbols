@@ -5,6 +5,7 @@ Here are all the templates provided by the plugin and the result you can expect 
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 
+
 - [default-svg](#default-svg)
 - [default-css](#default-css)
 - [default-demo](#default-demo)
@@ -12,7 +13,7 @@ Here are all the templates provided by the plugin and the result you can expect 
   - [usage](#usage)
   - [props](#props)
 - [default-css-var](#default-css-var)
-- [default-sass](#default-sass)
+- [default-scss](#default-scss)
 - [default-stylus](#default-stylus)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->

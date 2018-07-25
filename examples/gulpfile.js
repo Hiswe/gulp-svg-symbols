@@ -58,9 +58,10 @@ function allBuildInTemplates() {
           `default-svg`,
           `default-css`,
           `default-css-var`,
-          `default-sass`,
+          `default-scss`,
           `default-stylus`,
           `default-demo`,
+          `default-vue`,
         ],
       })
     )

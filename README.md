@@ -9,6 +9,7 @@ See [css-trick](http://css-tricks.com/svg-symbol-good-choice-icons/) for more de
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 
+
 - [Install](#install)
 - [Example](#example)
 - [Options](#options)
@@ -50,11 +51,11 @@ In your gulpfile.js:
 const gulp = require('gulp')
 const svgSymbols = require('gulp-svg-symbols')
 
-gulp.task('sprites', function() {
+gulp.task(`sprites`, function() {
   return gulp
-    .src('assets/svg/*.svg')
+    .src(`assets/svg/*.svg`)
     .pipe(svgSymbols())
-    .pipe(gulp.dest('assets'))
+    .pipe(gulp.dest(`assets`))
 })
 ```
 
@@ -332,7 +333,7 @@ SVG can have rendering issues if:
 - `<clipPath>` and `<mask>` aren't staying inside `<defs>` tags.  
   Move those tags **inside** the `<defs>` tags. Manually or programmatically (easy to do with [gulp-cheerio](https://www.npmjs.com/package/gulp-cheerio))
 
-An example has been made to show all those issues resolved inside the [svgContainingIdenticalId](https://github.com/Hiswe/gulp-svg-symbols/blob/master/examples/gulpfile.js#L86-L153).
+An example has been made to show all those issues resolved inside the [svgContainingIdenticalId](https://github.com/Hiswe/gulp-svg-symbols/blob/master/examples/gulpfile.js#L198-L282).
 
 `npm run svg-containing-identical-id` to test.
 
