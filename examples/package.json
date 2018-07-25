@@ -8,7 +8,7 @@
     "all": "gulp all",
     "all-build-in": "gulp all-build-in-templates",
     "svg": "gulp svg",
-    "sass": "gulp sass",
+    "scss": "gulp scss",
     "stylus": "gulp stylus",
     "css-var": "gulp css-var",
     "demo-page": "gulp demo-page",

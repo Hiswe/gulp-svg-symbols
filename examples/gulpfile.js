@@ -11,9 +11,9 @@ const gulpSass = require(`gulp-sass`)
 const gulpStylus = require(`gulp-stylus`)
 // need to reference the real module
 // https://github.com/Hiswe/gulp-svg-symbols/issues/35#issuecomment-254494474
-// const svgSymbols    = require(`gulp-svg-symbols`);
-// for test purpose
-const svgSymbols = require(`../index.js`)
+const svgSymbols = require(`gulp-svg-symbols`)
+// // for test purpose
+// const svgSymbols = require(`../index.js`)
 
 const svgGlob = `../test/source/*.svg`
 
@@ -72,19 +72,19 @@ demoPage.description = `Generating all default templates`
 // SCSS
 ////////
 
-function sass() {
+function scss() {
   return gulp
     .src(svgGlob)
     .pipe(
       svgSymbols({
-        templates: [`default-sass`],
+        templates: [`default-scss`],
       })
     )
-    .pipe(gulp.dest(`ex-sass`))
+    .pipe(gulp.dest(`ex-scss`))
     .pipe(gulpSass())
-    .pipe(gulp.dest(`ex-sass`))
+    .pipe(gulp.dest(`ex-scss`))
 }
-sass.description = `Generating scss file`
+scss.description = `Generating scss file`
 
 ////////
 // STYLUS
@@ -310,7 +310,7 @@ vue.description = `vue template`
 ////////
 
 gulp.task(`svg`, svg)
-gulp.task(`sass`, sass)
+gulp.task(`scss`, scss)
 gulp.task(`all-build-in-templates`, allBuildInTemplates)
 gulp.task(`stylus`, stylus)
 gulp.task(`css-var`, cssVar)

@@ -1,3 +1,6 @@
+- **3.2.0**
+  - rename `default-sass` template to `default-scss`
+  - add a `default-vue` template
 - **3.1.1**
   - add build-in templates for scss, stylus, and CSS custom properties
 - **3.1.0**
