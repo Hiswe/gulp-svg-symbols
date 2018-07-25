@@ -1,18 +1,24 @@
-<style>
-:root {
-  --svg-icon-scale: 1;
-}
-</style>
-
 <script>
-const SVG_LIB = {
-  <% _.forEach( icons, ( icon ) => {
+const SVG_LIB = { <%
+  _.forEach( icons, ( icon ) => {
     const hasStyle = icon.svg.style != null
     const hasDef = icon.svg.defs != null
     const needDef = hasDef || hasStyle
     const style = !hasStyle ? `` : `<style>${icon.svg.style}</style>`
     const defs = !needDef ? `` : `<defs>${hasDef ? icon.svg.defs : `` }${style}</defs>`
     const content = `${defs }${icon.svg.content}`
+    const width = /(\d+)(\w+)/.exec(icon.width)
+    const height = /(\d+)(\w+)/.exec(icon.height)
+    const sizes = {
+      width: {
+        size: parseFloat(width[1], 10),
+        unit: width[2],
+      },
+      height: {
+        size: parseFloat(height[1], 10),
+        unit: height[2],
+      },
+    }
   %>
   "<%= icon.id %>": {
     id: `<%= icon.id %>`,
@@ -20,12 +26,8 @@ const SVG_LIB = {
       `<%= svgAttrs.class %>`,
       `<%= icon.class.replace(/^\./, '') %>`,
     ],
-    width: `<%= icon.width %>`,
-    height: `<%= icon.height %>`,
-    style: {
-      width: `calc(<%= icon.width %> * var(--svg-icon-scale))`,
-      height: `calc(<%= icon.height %> * var(--svg-icon-scale))`,
-    },
+    width: {size: <%= sizes.width.size %>, unit: `<%= sizes.width.unit %>`},
+    height: {size: <%= sizes.height.size %>, unit: `<%= sizes.height.unit %>`},
     'viewBox': `<%= icon.svg.viewBox %>`,
     content: `<%= content %>`,
   },<% }); %>
@@ -39,20 +41,23 @@ export default {
       type: String,
       required: true,
     },
+    scale: {
+      type: Number,
+      default: 1,
+    },
   },
   computed: {
-    style() {
-      if (!SVG_LIB[this.name]) return {}
-      return SVG_LIB[this.name].style
-    },
     attrs() {
-      if (!SVG_LIB[this.name]) return {}
-      return {
+      if (!SVG_LIB[this.name]) return {} <%
+      // don't use string interpolation. It somehow break lodash template compilation %>
+      const width = this.icon.width.size * this.scale + this.icon.width.unit
+      const height = this.icon.height.size * this.scale + this.icon.height.unit <%
+      // don't use spread operator for easier babel configuration %>
+      return Object.assign({
         viewBox: this.icon.viewBox,
-        width: this.icon.width,
-        height: this.icon.height,
-        ...SVG_ATTRS,
-      }
+        width,
+        height,
+      }, SVG_ATTRS)
     },
     icon() {
       if (!SVG_LIB[this.name]) return {}
@@ -65,7 +70,6 @@ export default {
       `svg`,
       {
         class: this.icon.class,
-        style: this.style,
         attrs: this.attrs,
         domProps: {
           innerHTML: this.icon.content

@@ -289,10 +289,16 @@ function vue() {
     .src([
       `../test/source/chinese letter with styles.svg`,
       `../test/source/gradient.svg`,
+      `../test/source/xlink-href.svg`,
+      `../test/source/aspect-ratio.svg`,
+      `../test/source/crâne noir.svg`,
+      `../test/source/github.svg`,
     ])
     .pipe(
       svgSymbols({
-        templates: [`default-vue`],
+        svgAttrs: { class: `svg-symbol` },
+        class: `.svg-symbol--%f`,
+        templates: [`default-vue`, `default-demo`],
       })
     )
     .pipe(gulp.dest(`ex-vue`))
