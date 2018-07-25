@@ -66,7 +66,7 @@ A single HTML file with all the right styles and a nice presentations 😀
 
 ## default-vue
 
-> generate a vue file
+> generate a vue component
 
 file name:
 
