@@ -1,13 +1,13 @@
 {
   "name": "gulp-svg-symbols",
-  "version": "3.2.0",
+  "version": "3.2.1",
   "description": "Convert SVG files to symbols with gulp",
   "main": "index.js",
   "scripts": {
     "test": "ava test/*.js",
     "lint": "prettier --write \"{{lib,test}/*,index,examples/gulpfile}.js\"",
     "toc": "doctoc README.md TEMPLATES.md --github",
-    "release": "np"
+    "release": "np --no-yarn"
   },
   "repository": "https://github.com/Hiswe/gulp-svg-symbols.git",
   "keywords": [
