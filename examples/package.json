@@ -19,18 +19,18 @@
     "vue": "gulp vue && parcel vue/index.html"
   },
   "author": "Hiswe",
-  "license": "WTFPL",
+  "license": "MIT",
   "devDependencies": {
-    "@vue/component-compiler-utils": "^2.1.0",
+    "@vue/component-compiler-utils": "^3.0.0",
     "gulp": "^4.0.0",
+    "gulp-beautify": "^3.0.0",
     "gulp-cheerio": "^0.6.3",
-    "gulp-html-prettify": "^0.0.1",
     "gulp-if": "^2.0.1",
     "gulp-rename": "^1.2.2",
     "gulp-sass": "^4.0.1",
     "gulp-stylus": "^2.7.0",
     "gulp-svg-symbols": "^3.0.2",
-    "gulp-svgmin": "^1.2.4",
+    "gulp-svgmin": "^2.2.0",
     "parcel-bundler": "^1.9.7",
     "vue": "^2.5.16",
     "vue-template-compiler": "^2.5.16"

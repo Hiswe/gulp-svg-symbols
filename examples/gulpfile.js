@@ -6,9 +6,9 @@ const gulpif = require(`gulp-if`)
 const rename = require(`gulp-rename`)
 const svgmin = require(`gulp-svgmin`)
 const cheerio = require(`gulp-cheerio`)
-const prettify = require(`gulp-html-prettify`)
 const gulpSass = require(`gulp-sass`)
 const gulpStylus = require(`gulp-stylus`)
+const beautify = require('gulp-beautify')
 // need to reference the real module
 // https://github.com/Hiswe/gulp-svg-symbols/issues/35#issuecomment-254494474
 const svgSymbols = require(`gulp-svg-symbols`)
@@ -268,7 +268,7 @@ function svgContainingIdenticalId() {
         })
       )
       // reformat
-      .pipe(prettify({ indent_char: ` `, indent_size: 2 }))
+      .pipe(beautify.html({ indent_char: ` `, indent_size: 2 }))
       .pipe(gulp.dest(`ex-svg-with-masks`))
       // everything is ready for gulp-svg-symbols!
       .pipe(
